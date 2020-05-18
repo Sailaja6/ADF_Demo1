@@ -5,6 +5,9 @@
 		"factoryName": {
 			"value": "ADF-DEV-TESTGITNEW"
 		},
+		"AzureSqlDatabase1_connectionString": {
+			"value": ""
+		},
 		"AzureBlobStorage1_properties_typeProperties_connectionString_secretName": {
 			"value": "secretdev"
 		},
