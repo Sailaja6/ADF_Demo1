@@ -15,34 +15,11 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"source": {
-						"type": "BinarySource",
-						"storeSettings": {
-							"type": "AzureBlobStorageReadSettings",
-							"recursive": true,
-							"wildcardFileName": {
-								"value": "@pipeline().parameters.fileName",
-								"type": "Expression"
-							}
-						}
-					},
 					"sink": {
 						"type": "AzureSqlSink"
 					},
 					"enableStaging": false
 				},
-				"inputs": [
-					{
-						"referenceName": "Binary1",
-						"type": "DatasetReference",
-						"parameters": {
-							"fileName": {
-								"value": "@pipeline().parameters.fileName",
-								"type": "Expression"
-							}
-						}
-					}
-				],
 				"outputs": [
 					{
 						"referenceName": "AzureSqlTable1",
