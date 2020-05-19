@@ -56,6 +56,13 @@
 					},
 					"enableStaging": false,
 					"enableSkipIncompatibleRow": true,
+					"logStorageSettings": {
+						"linkedServiceName": {
+							"referenceName": "linkedService1",
+							"type": "LinkedServiceReference"
+						},
+						"path": "storage/output"
+					},
 					"translator": {
 						"type": "TabularTranslator",
 						"mappings": [
