@@ -21,21 +21,27 @@
 		},
 		"schema": [
 			{
+				"name": "Project ID",
 				"type": "String"
 			},
 			{
+				"name": "Context",
 				"type": "String"
 			},
 			{
+				"name": "Type of event",
 				"type": "String"
 			},
 			{
+				"name": "Type of Participant",
 				"type": "String"
 			},
 			{
+				"name": "Status",
 				"type": "String"
 			},
 			{
+				"name": "Registration Date",
 				"type": "String"
 			}
 		]
