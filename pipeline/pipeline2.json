@@ -55,14 +55,7 @@
 						"type": "AzureSqlSink"
 					},
 					"enableStaging": false,
-					"enableSkipIncompatibleRow": true,
-					"logStorageSettings": {
-						"linkedServiceName": {
-							"referenceName": "linkedService1",
-							"type": "LinkedServiceReference"
-						},
-						"path": "storage/output"
-					},
+					"enableSkipIncompatibleRow": false,
 					"translator": {
 						"type": "TabularTranslator",
 						"mappings": [
