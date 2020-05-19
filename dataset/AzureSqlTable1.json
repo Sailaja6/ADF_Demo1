@@ -37,6 +37,326 @@
 				"type": "datetime",
 				"precision": 23,
 				"scale": 3
+			},
+			{
+				"name": "Account Activated",
+				"type": "varchar"
+			},
+			{
+				"name": "Submission Date",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "Last Name",
+				"type": "varchar"
+			},
+			{
+				"name": "Middle Name",
+				"type": "varchar"
+			},
+			{
+				"name": "Name",
+				"type": "varchar"
+			},
+			{
+				"name": "Gender",
+				"type": "varchar"
+			},
+			{
+				"name": "Date of Birth",
+				"type": "date"
+			},
+			{
+				"name": "Country of Residence",
+				"type": "varchar"
+			},
+			{
+				"name": "Nationality",
+				"type": "varchar"
+			},
+			{
+				"name": "Passport No",
+				"type": "varchar"
+			},
+			{
+				"name": "Expiration date",
+				"type": "date"
+			},
+			{
+				"name": "Visa Required",
+				"type": "varchar"
+			},
+			{
+				"name": "Do you have visa?",
+				"type": "varchar"
+			},
+			{
+				"name": "Ill be applying for my visa in? (Country)",
+				"type": "varchar"
+			},
+			{
+				"name": "Ill be applying for my visa in? (City)",
+				"type": "varchar"
+			},
+			{
+				"name": "Do you have any appointment yet?",
+				"type": "varchar"
+			},
+			{
+				"name": "Visa",
+				"type": "varchar"
+			},
+			{
+				"name": "Copy of Passport/UNLP",
+				"type": "varchar"
+			},
+			{
+				"name": "Division/Section",
+				"type": "varchar"
+			},
+			{
+				"name": "Organization / Company name",
+				"type": "varchar"
+			},
+			{
+				"name": "Job Title",
+				"type": "varchar"
+			},
+			{
+				"name": "Type Of Employee",
+				"type": "varchar"
+			},
+			{
+				"name": "Type of Organization",
+				"type": "varchar"
+			},
+			{
+				"name": "Sub-type of organization",
+				"type": "varchar"
+			},
+			{
+				"name": "Size",
+				"type": "varchar"
+			},
+			{
+				"name": "BSO ownership",
+				"type": "varchar"
+			},
+			{
+				"name": "Company Address",
+				"type": "varchar"
+			},
+			{
+				"name": "City",
+				"type": "varchar"
+			},
+			{
+				"name": "Post Code",
+				"type": "varchar"
+			},
+			{
+				"name": "Country",
+				"type": "varchar"
+			},
+			{
+				"name": "Region",
+				"type": "varchar"
+			},
+			{
+				"name": "Company visit Water Treatment Plant",
+				"type": "varchar"
+			},
+			{
+				"name": "Company visit Garden Ltd",
+				"type": "varchar"
+			},
+			{
+				"name": "Tourism package",
+				"type": "varchar"
+			},
+			{
+				"name": "Primary Contact Person",
+				"type": "varchar"
+			},
+			{
+				"name": "Primary Phone No",
+				"type": "varchar"
+			},
+			{
+				"name": "Primary E-mail",
+				"type": "varchar"
+			},
+			{
+				"name": "Secondary Contact Person",
+				"type": "varchar"
+			},
+			{
+				"name": "Secondary Phone No",
+				"type": "varchar"
+			},
+			{
+				"name": "Secondary E-mail",
+				"type": "varchar"
+			},
+			{
+				"name": "Picture",
+				"type": "varchar"
+			},
+			{
+				"name": "Biography",
+				"type": "varchar"
+			},
+			{
+				"name": "Website",
+				"type": "varchar"
+			},
+			{
+				"name": "Twitter",
+				"type": "varchar"
+			},
+			{
+				"name": "LinkedIn",
+				"type": "varchar"
+			},
+			{
+				"name": "Departure City",
+				"type": "varchar"
+			},
+			{
+				"name": "Preferred Date of Arrival",
+				"type": "date"
+			},
+			{
+				"name": "Preferred Date of Departure",
+				"type": "date"
+			},
+			{
+				"name": "Arrival Flight Date",
+				"type": "date"
+			},
+			{
+				"name": "Arrival Flight Time",
+				"type": "time",
+				"scale": 7
+			},
+			{
+				"name": "Inbound Flight No",
+				"type": "varchar"
+			},
+			{
+				"name": "Return Flight Date",
+				"type": "date"
+			},
+			{
+				"name": "Return Flight Time",
+				"type": "time",
+				"scale": 7
+			},
+			{
+				"name": "Return Flight No",
+				"type": "varchar"
+			},
+			{
+				"name": "Hotel",
+				"type": "varchar"
+			},
+			{
+				"name": "Total Cost in US$",
+				"type": "varchar"
+			},
+			{
+				"name": "Travel Request No",
+				"type": "varchar"
+			},
+			{
+				"name": "World Export Development Forum",
+				"type": "varchar"
+			},
+			{
+				"name": "SheTrades Global",
+				"type": "varchar"
+			},
+			{
+				"name": "YES Forum",
+				"type": "varchar"
+			},
+			{
+				"name": "Do you want to Participate in B2Bs",
+				"type": "varchar"
+			},
+			{
+				"name": "Do you want to Participate in Company Visits / Tourism Packages",
+				"type": "varchar"
+			},
+			{
+				"name": "Ticket Upload",
+				"type": "varchar"
+			},
+			{
+				"name": "Confirmed Registration",
+				"type": "varchar"
+			},
+			{
+				"name": "Approved Date",
+				"type": "date"
+			},
+			{
+				"name": "Badge Tag",
+				"type": "varchar"
+			},
+			{
+				"name": "Pre-Print",
+				"type": "varchar"
+			},
+			{
+				"name": "Badge Printed",
+				"type": "varchar"
+			},
+			{
+				"name": "Badge Printed on",
+				"type": "date"
+			},
+			{
+				"name": "Printed By (name)",
+				"type": "varchar"
+			},
+			{
+				"name": "Badge Activated",
+				"type": "varchar"
+			},
+			{
+				"name": "Badge Activated on",
+				"type": "date"
+			},
+			{
+				"name": "Activated By",
+				"type": "varchar"
+			},
+			{
+				"name": "Activation Version",
+				"type": "varchar"
+			},
+			{
+				"name": "T&C",
+				"type": "varchar"
+			},
+			{
+				"name": "Val",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "Age",
+				"type": "decimal",
+				"precision": 10,
+				"scale": 5
+			},
+			{
+				"name": "Age Rounded",
+				"type": "int",
+				"precision": 10
 			}
 		],
 		"typeProperties": {
