@@ -35,7 +35,7 @@
 		],
 		"typeProperties": {
 			"schema": "dbo",
-			"table": "temp_copy_source_target"
+			"table": "temp"
 		}
 	}
 }
