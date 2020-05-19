@@ -21,6 +21,10 @@
 				"type": "varchar"
 			},
 			{
+				"name": "Type of Participant",
+				"type": "varchar"
+			},
+			{
 				"name": "Status",
 				"type": "varchar"
 			},
@@ -30,7 +34,9 @@
 			},
 			{
 				"name": "Registration Date",
-				"type": "date"
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
 			}
 		],
 		"typeProperties": {
