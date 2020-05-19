@@ -10,8 +10,8 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "emp_5-12-2020.txt",
-				"folderPath": "input",
+				"fileName": "msngc.csv",
+				"folderPath": "input/test",
 				"container": "storage"
 			}
 		}
