@@ -49,7 +49,299 @@
 				"type": "String"
 			},
 			{
+				"name": "Email",
+				"type": "String"
+			},
+			{
 				"name": "Registration Date",
+				"type": "String"
+			},
+			{
+				"name": "Account Activated",
+				"type": "String"
+			},
+			{
+				"name": "Submission Date",
+				"type": "String"
+			},
+			{
+				"name": "Last Name",
+				"type": "String"
+			},
+			{
+				"name": "Middle Name",
+				"type": "String"
+			},
+			{
+				"name": "Name",
+				"type": "String"
+			},
+			{
+				"name": "Gender",
+				"type": "String"
+			},
+			{
+				"name": "Date of Birth",
+				"type": "String"
+			},
+			{
+				"name": "Country of Residence",
+				"type": "String"
+			},
+			{
+				"name": "Nationality",
+				"type": "String"
+			},
+			{
+				"name": "Passport No",
+				"type": "String"
+			},
+			{
+				"name": "Expiration date",
+				"type": "String"
+			},
+			{
+				"name": "Visa Required",
+				"type": "String"
+			},
+			{
+				"name": "Do you have visa?",
+				"type": "String"
+			},
+			{
+				"name": "Ill be applying for my visa in? (Country)",
+				"type": "String"
+			},
+			{
+				"name": "Ill be applying for my visa in? (City)",
+				"type": "String"
+			},
+			{
+				"name": "Do you have any appointment yet?",
+				"type": "String"
+			},
+			{
+				"name": "Visa",
+				"type": "String"
+			},
+			{
+				"name": "Copy of Passport/UNLP",
+				"type": "String"
+			},
+			{
+				"name": "Division/Section",
+				"type": "String"
+			},
+			{
+				"name": "Organization / Company name",
+				"type": "String"
+			},
+			{
+				"name": "Professional status",
+				"type": "String"
+			},
+			{
+				"name": "Job Title",
+				"type": "String"
+			},
+			{
+				"name": "Type of Organization",
+				"type": "String"
+			},
+			{
+				"name": "Sub-type",
+				"type": "String"
+			},
+			{
+				"name": "Address",
+				"type": "String"
+			},
+			{
+				"name": "City",
+				"type": "String"
+			},
+			{
+				"name": "Post Code",
+				"type": "String"
+			},
+			{
+				"name": "Country",
+				"type": "String"
+			},
+			{
+				"name": "Region",
+				"type": "String"
+			},
+			{
+				"name": "Company visit Water Treatment Plant",
+				"type": "String"
+			},
+			{
+				"name": "Company visit Garden Ltd",
+				"type": "String"
+			},
+			{
+				"name": "Tourism package",
+				"type": "String"
+			},
+			{
+				"name": "Primary Contact Person",
+				"type": "String"
+			},
+			{
+				"name": "Primary Phone No",
+				"type": "String"
+			},
+			{
+				"name": "Primary E-mail",
+				"type": "String"
+			},
+			{
+				"name": "Secondary Contact Person",
+				"type": "String"
+			},
+			{
+				"name": "Secondary Phone No",
+				"type": "String"
+			},
+			{
+				"name": "Secondary E-mail",
+				"type": "String"
+			},
+			{
+				"name": "Picture",
+				"type": "String"
+			},
+			{
+				"name": "Biography",
+				"type": "String"
+			},
+			{
+				"name": "Website",
+				"type": "String"
+			},
+			{
+				"name": "Twitter",
+				"type": "String"
+			},
+			{
+				"name": "LinkedIn",
+				"type": "String"
+			},
+			{
+				"name": "Departure City",
+				"type": "String"
+			},
+			{
+				"name": "Preferred Date of Arrival",
+				"type": "String"
+			},
+			{
+				"name": "Preferred Date of Departure",
+				"type": "String"
+			},
+			{
+				"name": "Arrival Flight Date",
+				"type": "String"
+			},
+			{
+				"name": "Arrival Flight Time",
+				"type": "String"
+			},
+			{
+				"name": "Inbound Flight No",
+				"type": "String"
+			},
+			{
+				"name": "Return Flight  Date",
+				"type": "String"
+			},
+			{
+				"name": "Return Flight Time",
+				"type": "String"
+			},
+			{
+				"name": "Return Flight No",
+				"type": "String"
+			},
+			{
+				"name": "Hotel",
+				"type": "String"
+			},
+			{
+				"name": " Total Cost in US$ ",
+				"type": "String"
+			},
+			{
+				"name": "Travel Request No",
+				"type": "String"
+			},
+			{
+				"name": "Do you want to Participate in B2Bs",
+				"type": "String"
+			},
+			{
+				"name": "Do you want to Participate in Company Visits / Tourism Packages",
+				"type": "String"
+			},
+			{
+				"name": "Ticket Upload",
+				"type": "String"
+			},
+			{
+				"name": "Confirmed Registration",
+				"type": "String"
+			},
+			{
+				"name": "Approved On",
+				"type": "String"
+			},
+			{
+				"name": "Badge Tag",
+				"type": "String"
+			},
+			{
+				"name": "Pre-Print",
+				"type": "String"
+			},
+			{
+				"name": "Badge Printed",
+				"type": "String"
+			},
+			{
+				"name": "Badge Printed on",
+				"type": "String"
+			},
+			{
+				"name": "Printed By (name)",
+				"type": "String"
+			},
+			{
+				"name": "Badge Activated",
+				"type": "String"
+			},
+			{
+				"name": "Badge Activated on",
+				"type": "String"
+			},
+			{
+				"name": "Activated By",
+				"type": "String"
+			},
+			{
+				"name": "Activation Version",
+				"type": "String"
+			},
+			{
+				"name": "Val",
+				"type": "String"
+			},
+			{
+				"name": "Age",
+				"type": "String"
+			},
+			{
+				"name": "Age Rounded",
 				"type": "String"
 			}
 		]
