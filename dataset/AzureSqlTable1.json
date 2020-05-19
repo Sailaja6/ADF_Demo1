@@ -7,10 +7,35 @@
 		},
 		"annotations": [],
 		"type": "AzureSqlTable",
-		"schema": [],
+		"schema": [
+			{
+				"name": "Project ID",
+				"type": "varchar"
+			},
+			{
+				"name": "Context",
+				"type": "varchar"
+			},
+			{
+				"name": "Type of event",
+				"type": "varchar"
+			},
+			{
+				"name": "Status",
+				"type": "varchar"
+			},
+			{
+				"name": "Email",
+				"type": "varchar"
+			},
+			{
+				"name": "Registration Date",
+				"type": "date"
+			}
+		],
 		"typeProperties": {
 			"schema": "dbo",
-			"table": "temp1"
+			"table": "temp2"
 		}
 	}
 }
