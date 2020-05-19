@@ -1,0 +1,942 @@
+{
+	"name": "pipeline2",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"additionalColumns": [
+							{
+								"name": "Size",
+								"value": "NULL"
+							},
+							{
+								"name": "BSO ownership",
+								"value": "NULL"
+							},
+							{
+								"name": "World Export Development Forum",
+								"value": "NULL"
+							},
+							{
+								"name": "SheTrades Global",
+								"value": "NULL"
+							},
+							{
+								"name": "YES Forum",
+								"value": "NULL"
+							},
+							{
+								"name": "T&C",
+								"value": "NULL"
+							}
+						],
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink"
+					},
+					"enableStaging": false,
+					"enableSkipIncompatibleRow": true,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "Project ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Project ID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Context",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Context",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Type of event",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Type of event",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Type of Participant",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Type of Participant",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Status",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Status",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Email",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Email",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Registration Date",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Registration Date",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "Account Activated",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Account Activated",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Submission Date",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Submission Date",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "Last Name",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Last Name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Middle Name",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Middle Name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Name",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Gender",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Gender",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Date of Birth",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Date of Birth",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "Country of Residence",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Country of Residence",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Nationality",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Nationality",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Passport No",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Passport No",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Expiration date",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Expiration date",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "Visa Required",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Visa Required",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Do you have visa?",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Do you have visa?",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Ill be applying for my visa in? (Country)",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Ill be applying for my visa in? (Country)",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Ill be applying for my visa in? (City)",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Ill be applying for my visa in? (City)",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Do you have any appointment yet?",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Do you have any appointment yet?",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Visa",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Visa",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Copy of Passport/UNLP",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Copy of Passport/UNLP",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Division/Section",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Division/Section",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Organization / Company name",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Organization / Company name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Job Title",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Job Title",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Professional status",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Type Of Employee",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Type of Organization",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Type of Organization",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Sub-type",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Sub-type of organization",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Size",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Size",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "BSO ownership",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BSO ownership",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Address",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Company Address",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "City",
+									"type": "String"
+								},
+								"sink": {
+									"name": "City",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Post Code",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Post Code",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Country",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Country",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Region",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Region",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Company visit Water Treatment Plant",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Company visit Water Treatment Plant",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Company visit Garden Ltd",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Company visit Garden Ltd",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Tourism package",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Tourism package",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Primary Contact Person",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Primary Contact Person",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Primary Phone No",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Primary Phone No",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Primary E-mail",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Primary E-mail",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Secondary Contact Person",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Secondary Contact Person",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Secondary Phone No",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Secondary Phone No",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Secondary E-mail",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Secondary E-mail",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Picture",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Picture",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Biography",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Biography",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Website",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Website",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Twitter",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Twitter",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LinkedIn",
+									"type": "String"
+								},
+								"sink": {
+									"name": "LinkedIn",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Departure City",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Departure City",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Preferred Date of Arrival",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Preferred Date of Arrival",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "Preferred Date of Departure",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Preferred Date of Departure",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "Arrival Flight Date",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Arrival Flight Date",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "Arrival Flight Time",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Arrival Flight Time",
+									"type": "TimeSpan"
+								}
+							},
+							{
+								"source": {
+									"name": "Inbound Flight No",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Inbound Flight No",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Return Flight  Date",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Return Flight Date",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "Return Flight Time",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Return Flight Time",
+									"type": "TimeSpan"
+								}
+							},
+							{
+								"source": {
+									"name": "Return Flight No",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Return Flight No",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Hotel",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Hotel",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": " Total Cost in US$ ",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Total Cost in US$",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Travel Request No",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Travel Request No",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "World Export Development Forum",
+									"type": "String"
+								},
+								"sink": {
+									"name": "World Export Development Forum",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SheTrades Global",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SheTrades Global",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "YES Forum",
+									"type": "String"
+								},
+								"sink": {
+									"name": "YES Forum",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Do you want to Participate in B2Bs",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Do you want to Participate in B2Bs",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Do you want to Participate in Company Visits / Tourism Packages",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Do you want to Participate in Company Visits / Tourism Packages",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Ticket Upload",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Ticket Upload",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Confirmed Registration",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Confirmed Registration",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Approved On",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Approved Date",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "Badge Tag",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Badge Tag",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Pre-Print",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Pre-Print",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Badge Printed",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Badge Printed",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Badge Printed on",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Badge Printed on",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "Printed By (name)",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Printed By (name)",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Badge Activated",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Badge Activated",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Badge Activated on",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Badge Activated on",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "Activated By",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Activated By",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Activation Version",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Activation Version",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "T&C",
+									"type": "String"
+								},
+								"sink": {
+									"name": "T&C",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Val",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Val",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "Age",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Age",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "Age Rounded",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Age Rounded",
+									"type": "Int32"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "DelimitedText1",
+						"type": "DatasetReference",
+						"parameters": {
+							"fileName": {
+								"value": "@pipeline().parameters.fileName",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "AzureSqlTable1",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"parameters": {
+			"fileName": {
+				"type": "string"
+			}
+		},
+		"annotations": []
+	}
+}
