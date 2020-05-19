@@ -1,0 +1,32 @@
+{
+	"name": "dataflow1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DelimitedText1",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTable1",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "DerivedColumn1"
+				}
+			],
+			"script": "source(output(\n\t\t{Project ID} as string,\n\t\tContext as string,\n\t\t{Type of event} as string,\n\t\t{Type of Participant} as string,\n\t\tStatus as string,\n\t\t{Registration Date} as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinferDriftedColumnTypes: true,\n\tdateFormats: ['dd-MM-yyyy'],\n\tpreferredIntegralType: 'integer') ~> source1\nsource1 derive(Email = 'NULL',\n\t\t{Registration Date} = toDate('Registration Date','dd-mm-yyyy')) ~> DerivedColumn1\nDerivedColumn1 sink(input(\n\t\t{Project ID} as string,\n\t\tContext as string,\n\t\t{Type of event} as string,\n\t\tStatus as string,\n\t\tEmail as string,\n\t\t{Registration Date} as date\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tmapColumn(\n\t\t{Project ID},\n\t\tContext,\n\t\t{Type of event},\n\t\tStatus,\n\t\tEmail,\n\t\t{Registration Date}\n\t),\n\tdateFormat:'dd-MM-yyyy',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> sink1"
+		}
+	}
+}
