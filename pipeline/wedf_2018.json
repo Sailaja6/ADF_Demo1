@@ -1,5 +1,5 @@
 {
-	"name": "pipeline2",
+	"name": "wedf_2018",
 	"properties": {
 		"activities": [
 			{
@@ -816,7 +816,7 @@
 								},
 								"sink": {
 									"name": "Badge Printed on",
-									"type": "DateTime"
+									"type": "String"
 								}
 							},
 							{
@@ -846,7 +846,7 @@
 								},
 								"sink": {
 									"name": "Badge Activated on",
-									"type": "DateTime"
+									"type": "String"
 								}
 							},
 							{
