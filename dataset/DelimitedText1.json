@@ -29,7 +29,7 @@
 		},
 		"schema": [
 			{
-				"name": "Project ID",
+				"name": "ProjectID",
 				"type": "String"
 			},
 			{
@@ -41,14 +41,6 @@
 				"type": "String"
 			},
 			{
-				"name": "Type of Participant",
-				"type": "String"
-			},
-			{
-				"name": "Status",
-				"type": "String"
-			},
-			{
 				"name": "Email",
 				"type": "String"
 			},
@@ -57,23 +49,15 @@
 				"type": "String"
 			},
 			{
-				"name": "Account Activated",
+				"name": "Last name",
 				"type": "String"
 			},
 			{
-				"name": "Submission Date",
+				"name": "Middle name",
 				"type": "String"
 			},
 			{
-				"name": "Last Name",
-				"type": "String"
-			},
-			{
-				"name": "Middle Name",
-				"type": "String"
-			},
-			{
-				"name": "Name",
+				"name": "First name",
 				"type": "String"
 			},
 			{
@@ -81,7 +65,11 @@
 				"type": "String"
 			},
 			{
-				"name": "Date of Birth",
+				"name": "Year of birth",
+				"type": "String"
+			},
+			{
+				"name": "Date of birth2",
 				"type": "String"
 			},
 			{
@@ -93,79 +81,31 @@
 				"type": "String"
 			},
 			{
-				"name": "Passport No",
+				"name": "Organization/ Company name",
 				"type": "String"
 			},
 			{
-				"name": "Expiration date",
+				"name": "Professional status",
 				"type": "String"
 			},
 			{
-				"name": "Visa Required",
+				"name": "Job title",
 				"type": "String"
 			},
 			{
-				"name": "Do you have visa?",
+				"name": "Type of entity",
 				"type": "String"
 			},
 			{
-				"name": "Ill be applying for my visa in? (Country)",
+				"name": "Sub-type of entity",
 				"type": "String"
 			},
 			{
-				"name": "Ill be applying for my visa in? (City)",
+				"name": "Address",
 				"type": "String"
 			},
 			{
-				"name": "Do you have any appointment yet?",
-				"type": "String"
-			},
-			{
-				"name": "Visa",
-				"type": "String"
-			},
-			{
-				"name": "Copy of Passport/UNLP",
-				"type": "String"
-			},
-			{
-				"name": "Division/Section",
-				"type": "String"
-			},
-			{
-				"name": "Organization / Company name",
-				"type": "String"
-			},
-			{
-				"name": "Job Title",
-				"type": "String"
-			},
-			{
-				"name": "Type Of Employee",
-				"type": "String"
-			},
-			{
-				"name": "Type of Organization",
-				"type": "String"
-			},
-			{
-				"name": "Sub-type of organization",
-				"type": "String"
-			},
-			{
-				"name": "Size",
-				"type": "String"
-			},
-			{
-				"name": "BSO ownership",
-				"type": "String"
-			},
-			{
-				"name": "Company Address",
-				"type": "String"
-			},
-			{
-				"name": "City",
+				"name": "Cityname",
 				"type": "String"
 			},
 			{
@@ -181,47 +121,7 @@
 				"type": "String"
 			},
 			{
-				"name": "Company visit Water Treatment Plant",
-				"type": "String"
-			},
-			{
-				"name": "Company visit Garden Ltd",
-				"type": "String"
-			},
-			{
-				"name": "Tourism package",
-				"type": "String"
-			},
-			{
-				"name": "Primary Contact Person",
-				"type": "String"
-			},
-			{
-				"name": "Primary Phone No",
-				"type": "String"
-			},
-			{
-				"name": "Primary E-mail",
-				"type": "String"
-			},
-			{
-				"name": "Secondary Contact Person",
-				"type": "String"
-			},
-			{
-				"name": "Secondary Phone No",
-				"type": "String"
-			},
-			{
-				"name": "Secondary E-mail",
-				"type": "String"
-			},
-			{
-				"name": "Picture",
-				"type": "String"
-			},
-			{
-				"name": "Biography",
+				"name": "Phone number",
 				"type": "String"
 			},
 			{
@@ -234,126 +134,6 @@
 			},
 			{
 				"name": "LinkedIn",
-				"type": "String"
-			},
-			{
-				"name": "Departure City",
-				"type": "String"
-			},
-			{
-				"name": "Preferred Date of Arrival",
-				"type": "String"
-			},
-			{
-				"name": "Preferred Date of Departure",
-				"type": "String"
-			},
-			{
-				"name": "Arrival Flight Date",
-				"type": "String"
-			},
-			{
-				"name": "Arrival Flight Time",
-				"type": "String"
-			},
-			{
-				"name": "Inbound Flight No",
-				"type": "String"
-			},
-			{
-				"name": "Return Flight Date",
-				"type": "String"
-			},
-			{
-				"name": "Return Flight Time",
-				"type": "String"
-			},
-			{
-				"name": "Return Flight No",
-				"type": "String"
-			},
-			{
-				"name": "Hotel",
-				"type": "String"
-			},
-			{
-				"name": "Total Cost in US$",
-				"type": "String"
-			},
-			{
-				"name": "Travel Request No",
-				"type": "String"
-			},
-			{
-				"name": "World Export Development Forum",
-				"type": "String"
-			},
-			{
-				"name": "SheTrades Global",
-				"type": "String"
-			},
-			{
-				"name": "YES Forum",
-				"type": "String"
-			},
-			{
-				"name": "Do you want to Participate in B2Bs",
-				"type": "String"
-			},
-			{
-				"name": "Do you want to Participate in Company Visits / Tourism Packages",
-				"type": "String"
-			},
-			{
-				"name": "Ticket Upload",
-				"type": "String"
-			},
-			{
-				"name": "Confirmed Registration",
-				"type": "String"
-			},
-			{
-				"name": "Approved Date",
-				"type": "String"
-			},
-			{
-				"name": "Badge Tag",
-				"type": "String"
-			},
-			{
-				"name": "Pre-Print",
-				"type": "String"
-			},
-			{
-				"name": "Badge Printed",
-				"type": "String"
-			},
-			{
-				"name": "Badge Printed on",
-				"type": "String"
-			},
-			{
-				"name": "Printed By (name)",
-				"type": "String"
-			},
-			{
-				"name": "Badge Activated",
-				"type": "String"
-			},
-			{
-				"name": "Badge Activated on",
-				"type": "String"
-			},
-			{
-				"name": "Activated By",
-				"type": "String"
-			},
-			{
-				"name": "Activation Version",
-				"type": "String"
-			},
-			{
-				"name": "T&C",
 				"type": "String"
 			}
 		]
