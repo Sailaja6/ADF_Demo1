@@ -22,7 +22,7 @@
 				"folderPath": "input/test",
 				"container": "storage"
 			},
-			"columnDelimiter": ",",
+			"columnDelimiter": "|",
 			"escapeChar": "\\",
 			"firstRowAsHeader": true,
 			"quoteChar": "\""
