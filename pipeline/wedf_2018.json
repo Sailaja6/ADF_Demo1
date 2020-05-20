@@ -43,6 +43,14 @@
 						"type": "AzureSqlSink"
 					},
 					"enableStaging": false,
+					"enableSkipIncompatibleRow": true,
+					"logStorageSettings": {
+						"linkedServiceName": {
+							"referenceName": "linkedService2",
+							"type": "LinkedServiceReference"
+						},
+						"path": "storage/output"
+					},
 					"translator": {
 						"type": "TabularTranslator",
 						"mappings": [
@@ -99,7 +107,7 @@
 							{
 								"source": {
 									"name": "Registration Date",
-									"type": "DateTime"
+									"type": "String"
 								},
 								"sink": {
 									"name": "Registration Date",

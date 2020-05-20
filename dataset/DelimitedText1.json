@@ -45,15 +45,7 @@
 				"type": "String"
 			},
 			{
-				"name": "Phone number",
-				"type": "String"
-			},
-			{
 				"name": "Registration Date",
-				"type": "String"
-			},
-			{
-				"name": "Submission Date",
 				"type": "String"
 			},
 			{
@@ -77,11 +69,15 @@
 				"type": "String"
 			},
 			{
-				"name": "Date of birth",
+				"name": "Date of birth2",
 				"type": "String"
 			},
 			{
-				"name": "Country",
+				"name": "Country of Residence",
+				"type": "String"
+			},
+			{
+				"name": "Nationality",
 				"type": "String"
 			},
 			{
@@ -89,11 +85,11 @@
 				"type": "String"
 			},
 			{
-				"name": "Job title",
+				"name": "Professional status",
 				"type": "String"
 			},
 			{
-				"name": "Professional status",
+				"name": "Job title",
 				"type": "String"
 			},
 			{
@@ -105,23 +101,27 @@
 				"type": "String"
 			},
 			{
-				"name": "Size",
+				"name": "Address",
 				"type": "String"
 			},
 			{
-				"name": "BSO ownership",
-				"type": "String"
-			},
-			{
-				"name": "Office Address",
-				"type": "String"
-			},
-			{
-				"name": "City",
+				"name": "Cityname",
 				"type": "String"
 			},
 			{
 				"name": "Post Code",
+				"type": "String"
+			},
+			{
+				"name": "Country",
+				"type": "String"
+			},
+			{
+				"name": "Region",
+				"type": "String"
+			},
+			{
+				"name": "Phone number",
 				"type": "String"
 			},
 			{
