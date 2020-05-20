@@ -316,7 +316,7 @@
 			},
 			{
 				"name": "Badge Printed on",
-				"type": "date"
+				"type": "varchar"
 			},
 			{
 				"name": "Printed By (name)",
@@ -328,7 +328,7 @@
 			},
 			{
 				"name": "Badge Activated on",
-				"type": "date"
+				"type": "varchar"
 			},
 			{
 				"name": "Activated By",
