@@ -82,7 +82,7 @@
 			},
 			{
 				"name": "Expiration date",
-				"type": "date"
+				"type": "varchar"
 			},
 			{
 				"name": "Visa Required",
@@ -226,20 +226,19 @@
 			},
 			{
 				"name": "Preferred Date of Arrival",
-				"type": "date"
+				"type": "varchar"
 			},
 			{
 				"name": "Preferred Date of Departure",
-				"type": "date"
+				"type": "varchar"
 			},
 			{
 				"name": "Arrival Flight Date",
-				"type": "date"
+				"type": "varchar"
 			},
 			{
 				"name": "Arrival Flight Time",
-				"type": "time",
-				"scale": 7
+				"type": "varchar"
 			},
 			{
 				"name": "Inbound Flight No",
@@ -247,12 +246,11 @@
 			},
 			{
 				"name": "Return Flight Date",
-				"type": "date"
+				"type": "varchar"
 			},
 			{
 				"name": "Return Flight Time",
-				"type": "time",
-				"scale": 7
+				"type": "varchar"
 			},
 			{
 				"name": "Return Flight No",
@@ -300,7 +298,7 @@
 			},
 			{
 				"name": "Approved Date",
-				"type": "date"
+				"type": "varchar"
 			},
 			{
 				"name": "Badge Tag",
