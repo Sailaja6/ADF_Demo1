@@ -9,7 +9,7 @@
 		"type": "AzureSqlTable",
 		"schema": [
 			{
-				"name": "Project ID",
+				"name": "ProjectID",
 				"type": "varchar"
 			},
 			{
@@ -21,15 +21,11 @@
 				"type": "varchar"
 			},
 			{
-				"name": "Type of Participant",
-				"type": "varchar"
-			},
-			{
-				"name": "Status",
-				"type": "varchar"
-			},
-			{
 				"name": "Email",
+				"type": "varchar"
+			},
+			{
+				"name": "Phone number",
 				"type": "varchar"
 			},
 			{
@@ -39,25 +35,21 @@
 				"scale": 3
 			},
 			{
-				"name": "Account Activated",
-				"type": "varchar"
-			},
-			{
 				"name": "Submission Date",
 				"type": "datetime",
 				"precision": 23,
 				"scale": 3
 			},
 			{
-				"name": "Last Name",
+				"name": "Last name",
 				"type": "varchar"
 			},
 			{
-				"name": "Middle Name",
+				"name": "Middle name",
 				"type": "varchar"
 			},
 			{
-				"name": "Name",
+				"name": "First name",
 				"type": "varchar"
 			},
 			{
@@ -65,11 +57,16 @@
 				"type": "varchar"
 			},
 			{
-				"name": "Date of Birth",
+				"name": "Year of birth",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "Date of birth",
 				"type": "date"
 			},
 			{
-				"name": "Country of Residence",
+				"name": "Country",
 				"type": "varchar"
 			},
 			{
@@ -77,63 +74,23 @@
 				"type": "varchar"
 			},
 			{
-				"name": "Passport No",
+				"name": "Organization/ Company name",
 				"type": "varchar"
 			},
 			{
-				"name": "Expiration date",
+				"name": "Job title",
 				"type": "varchar"
 			},
 			{
-				"name": "Visa Required",
+				"name": "Professional status",
 				"type": "varchar"
 			},
 			{
-				"name": "Do you have visa?",
+				"name": "Type of entity",
 				"type": "varchar"
 			},
 			{
-				"name": "Ill be applying for my visa in? (Country)",
-				"type": "varchar"
-			},
-			{
-				"name": "Ill be applying for my visa in? (City)",
-				"type": "varchar"
-			},
-			{
-				"name": "Do you have any appointment yet?",
-				"type": "varchar"
-			},
-			{
-				"name": "Visa",
-				"type": "varchar"
-			},
-			{
-				"name": "Copy of Passport/UNLP",
-				"type": "varchar"
-			},
-			{
-				"name": "Division/Section",
-				"type": "varchar"
-			},
-			{
-				"name": "Organization / Company name",
-				"type": "varchar"
-			},
-			{
-				"name": "Job Title",
-				"type": "varchar"
-			},
-			{
-				"name": "Type Of Employee",
-				"type": "varchar"
-			},
-			{
-				"name": "Type of Organization",
-				"type": "varchar"
-			},
-			{
-				"name": "Sub-type of organization",
+				"name": "Sub-type of entity",
 				"type": "varchar"
 			},
 			{
@@ -145,7 +102,7 @@
 				"type": "varchar"
 			},
 			{
-				"name": "Company Address",
+				"name": "Office Address",
 				"type": "varchar"
 			},
 			{
@@ -153,59 +110,11 @@
 				"type": "varchar"
 			},
 			{
-				"name": "Post Code",
-				"type": "varchar"
-			},
-			{
-				"name": "Country",
-				"type": "varchar"
-			},
-			{
 				"name": "Region",
 				"type": "varchar"
 			},
 			{
-				"name": "Company visit Water Treatment Plant",
-				"type": "varchar"
-			},
-			{
-				"name": "Company visit Garden Ltd",
-				"type": "varchar"
-			},
-			{
-				"name": "Tourism package",
-				"type": "varchar"
-			},
-			{
-				"name": "Primary Contact Person",
-				"type": "varchar"
-			},
-			{
-				"name": "Primary Phone No",
-				"type": "varchar"
-			},
-			{
-				"name": "Primary E-mail",
-				"type": "varchar"
-			},
-			{
-				"name": "Secondary Contact Person",
-				"type": "varchar"
-			},
-			{
-				"name": "Secondary Phone No",
-				"type": "varchar"
-			},
-			{
-				"name": "Secondary E-mail",
-				"type": "varchar"
-			},
-			{
-				"name": "Picture",
-				"type": "varchar"
-			},
-			{
-				"name": "Biography",
+				"name": "Post Code",
 				"type": "varchar"
 			},
 			{
@@ -218,138 +127,6 @@
 			},
 			{
 				"name": "LinkedIn",
-				"type": "varchar"
-			},
-			{
-				"name": "Departure City",
-				"type": "varchar"
-			},
-			{
-				"name": "Preferred Date of Arrival",
-				"type": "varchar"
-			},
-			{
-				"name": "Preferred Date of Departure",
-				"type": "varchar"
-			},
-			{
-				"name": "Arrival Flight Date",
-				"type": "varchar"
-			},
-			{
-				"name": "Arrival Flight Time",
-				"type": "varchar"
-			},
-			{
-				"name": "Inbound Flight No",
-				"type": "varchar"
-			},
-			{
-				"name": "Return Flight Date",
-				"type": "varchar"
-			},
-			{
-				"name": "Return Flight Time",
-				"type": "varchar"
-			},
-			{
-				"name": "Return Flight No",
-				"type": "varchar"
-			},
-			{
-				"name": "Hotel",
-				"type": "varchar"
-			},
-			{
-				"name": "Total Cost in US$",
-				"type": "varchar"
-			},
-			{
-				"name": "Travel Request No",
-				"type": "varchar"
-			},
-			{
-				"name": "World Export Development Forum",
-				"type": "varchar"
-			},
-			{
-				"name": "SheTrades Global",
-				"type": "varchar"
-			},
-			{
-				"name": "YES Forum",
-				"type": "varchar"
-			},
-			{
-				"name": "Do you want to Participate in B2Bs",
-				"type": "varchar"
-			},
-			{
-				"name": "Do you want to Participate in Company Visits / Tourism Packages",
-				"type": "varchar"
-			},
-			{
-				"name": "Ticket Upload",
-				"type": "varchar"
-			},
-			{
-				"name": "Confirmed Registration",
-				"type": "varchar"
-			},
-			{
-				"name": "Approved Date",
-				"type": "varchar"
-			},
-			{
-				"name": "Badge Tag",
-				"type": "varchar"
-			},
-			{
-				"name": "Pre-Print",
-				"type": "varchar"
-			},
-			{
-				"name": "Badge Printed",
-				"type": "varchar"
-			},
-			{
-				"name": "Badge Printed on",
-				"type": "varchar"
-			},
-			{
-				"name": "Printed By (name)",
-				"type": "varchar"
-			},
-			{
-				"name": "Badge Activated",
-				"type": "varchar"
-			},
-			{
-				"name": "Badge Activated on",
-				"type": "varchar"
-			},
-			{
-				"name": "Activated By",
-				"type": "varchar"
-			},
-			{
-				"name": "Activation Version",
-				"type": "varchar"
-			},
-			{
-				"name": "T&C",
-				"type": "varchar"
-			},
-			{
-				"name": "Val",
-				"type": "varchar"
-			},
-			{
-				"name": "Age",
-				"type": "varchar"
-			},
-			{
-				"name": "Age Rounded",
 				"type": "varchar"
 			}
 		],
