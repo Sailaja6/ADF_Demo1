@@ -344,19 +344,15 @@
 			},
 			{
 				"name": "Val",
-				"type": "int",
-				"precision": 10
+				"type": "varchar"
 			},
 			{
 				"name": "Age",
-				"type": "decimal",
-				"precision": 10,
-				"scale": 5
+				"type": "varchar"
 			},
 			{
 				"name": "Age Rounded",
-				"type": "int",
-				"precision": 10
+				"type": "varchar"
 			}
 		],
 		"typeProperties": {
