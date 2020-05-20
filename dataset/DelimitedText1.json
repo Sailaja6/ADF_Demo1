@@ -137,11 +137,11 @@
 				"type": "String"
 			},
 			{
-				"name": "Professional status",
+				"name": "Job Title",
 				"type": "String"
 			},
 			{
-				"name": "Job Title",
+				"name": "Type Of Employee",
 				"type": "String"
 			},
 			{
@@ -149,11 +149,19 @@
 				"type": "String"
 			},
 			{
-				"name": "Sub-type",
+				"name": "Sub-type of organization",
 				"type": "String"
 			},
 			{
-				"name": "Address",
+				"name": "Size",
+				"type": "String"
+			},
+			{
+				"name": "BSO ownership",
+				"type": "String"
+			},
+			{
+				"name": "Company Address",
 				"type": "String"
 			},
 			{
@@ -253,7 +261,7 @@
 				"type": "String"
 			},
 			{
-				"name": "Return Flight  Date",
+				"name": "Return Flight Date",
 				"type": "String"
 			},
 			{
@@ -269,11 +277,23 @@
 				"type": "String"
 			},
 			{
-				"name": " Total Cost in US$ ",
+				"name": "Total Cost in US$",
 				"type": "String"
 			},
 			{
 				"name": "Travel Request No",
+				"type": "String"
+			},
+			{
+				"name": "World Export Development Forum",
+				"type": "String"
+			},
+			{
+				"name": "SheTrades Global",
+				"type": "String"
+			},
+			{
+				"name": "YES Forum",
 				"type": "String"
 			},
 			{
@@ -293,7 +313,7 @@
 				"type": "String"
 			},
 			{
-				"name": "Approved On",
+				"name": "Approved Date",
 				"type": "String"
 			},
 			{
@@ -333,15 +353,7 @@
 				"type": "String"
 			},
 			{
-				"name": "Val",
-				"type": "String"
-			},
-			{
-				"name": "Age",
-				"type": "String"
-			},
-			{
-				"name": "Age Rounded",
+				"name": "T&C",
 				"type": "String"
 			}
 		]
