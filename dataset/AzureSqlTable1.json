@@ -32,8 +32,7 @@
 			},
 			{
 				"name": "Date of data collection",
-				"type": "int",
-				"precision": 10
+				"type": "varchar"
 			},
 			{
 				"name": "First name",

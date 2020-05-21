@@ -79,7 +79,7 @@
 								},
 								"sink": {
 									"name": "Date of data collection",
-									"type": "Int32"
+									"type": "String"
 								}
 							},
 							{
