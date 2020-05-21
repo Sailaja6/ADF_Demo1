@@ -32,7 +32,8 @@
 			},
 			{
 				"name": "Date of data collection",
-				"type": "date"
+				"type": "int",
+				"precision": 10
 			},
 			{
 				"name": "First name",
