@@ -22,16 +22,31 @@
 				"type": "varchar"
 			},
 			{
-				"name": "Type of platform",
-				"type": "int",
-				"precision": 10
+				"name": "Type of training",
+				"type": "varchar"
 			},
 			{
-				"name": "SheTrades Project",
+				"name": "Course_name",
+				"type": "varchar"
+			},
+			{
+				"name": "Area of change",
+				"type": "varchar"
+			},
+			{
+				"name": "Service theme 1",
+				"type": "varchar"
+			},
+			{
+				"name": "Service theme 2",
 				"type": "varchar"
 			},
 			{
 				"name": "Date of data collection",
+				"type": "varchar"
+			},
+			{
+				"name": "Location",
 				"type": "varchar"
 			},
 			{
@@ -52,23 +67,11 @@
 				"precision": 10
 			},
 			{
-				"name": "Participant Country",
-				"type": "varchar"
-			},
-			{
-				"name": "Email",
-				"type": "varchar"
-			},
-			{
-				"name": "Job title",
-				"type": "varchar"
-			},
-			{
 				"name": "Professional status",
 				"type": "varchar"
 			},
 			{
-				"name": "Organization/ Company name",
+				"name": "Name of the entity",
 				"type": "varchar"
 			},
 			{
@@ -76,11 +79,11 @@
 				"type": "varchar"
 			},
 			{
-				"name": "Organization Country",
+				"name": "Sub-type of entity",
 				"type": "varchar"
 			},
 			{
-				"name": "City",
+				"name": "Country",
 				"type": "varchar"
 			},
 			{
@@ -88,24 +91,13 @@
 				"type": "varchar"
 			},
 			{
-				"name": "ISIC",
+				"name": "ISIC code division",
 				"type": "varchar"
 			},
 			{
-				"name": "Please select the area of your activity",
-				"type": "varchar"
-			},
-			{
-				"name": "HS",
-				"type": "varchar"
-			},
-			{
-				"name": "Owner/ top manager gender",
-				"type": "varchar"
-			},
-			{
-				"name": "Owner/ top manager age",
-				"type": "varchar"
+				"name": "HS 6 digit code (if available)",
+				"type": "int",
+				"precision": 10
 			}
 		],
 		"typeProperties": {

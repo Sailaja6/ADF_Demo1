@@ -37,15 +37,31 @@
 				"type": "String"
 			},
 			{
-				"name": "Type of platform",
+				"name": "Type of training",
 				"type": "String"
 			},
 			{
-				"name": "SheTrades Project ",
+				"name": "Course_name",
+				"type": "String"
+			},
+			{
+				"name": "Area of change",
+				"type": "String"
+			},
+			{
+				"name": "Service theme 1",
+				"type": "String"
+			},
+			{
+				"name": "Service theme 2",
 				"type": "String"
 			},
 			{
 				"name": "Date of data collection",
+				"type": "String"
+			},
+			{
+				"name": "Location",
 				"type": "String"
 			},
 			{
@@ -65,23 +81,11 @@
 				"type": "String"
 			},
 			{
-				"name": "Participant Country",
-				"type": "String"
-			},
-			{
-				"name": "Email",
-				"type": "String"
-			},
-			{
-				"name": "Job title",
-				"type": "String"
-			},
-			{
 				"name": "Professional status",
 				"type": "String"
 			},
 			{
-				"name": "Organization/ Company name",
+				"name": "Name of the entity",
 				"type": "String"
 			},
 			{
@@ -89,11 +93,11 @@
 				"type": "String"
 			},
 			{
-				"name": "Organization Country",
+				"name": "Sub-type of entity",
 				"type": "String"
 			},
 			{
-				"name": "City ",
+				"name": "Country",
 				"type": "String"
 			},
 			{
@@ -101,23 +105,11 @@
 				"type": "String"
 			},
 			{
-				"name": "ISIC",
+				"name": "ISIC code division",
 				"type": "String"
 			},
 			{
-				"name": "Please select the area of your activity",
-				"type": "String"
-			},
-			{
-				"name": "HS",
-				"type": "String"
-			},
-			{
-				"name": "Owner/ top manager gender",
-				"type": "String"
-			},
-			{
-				"name": "Owner/ top manager age",
+				"name": "HS 6 digit code (if available)",
 				"type": "String"
 			}
 		]

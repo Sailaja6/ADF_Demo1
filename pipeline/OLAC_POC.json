@@ -17,12 +17,6 @@
 				"typeProperties": {
 					"source": {
 						"type": "DelimitedTextSource",
-						"additionalColumns": [
-							{
-								"name": "",
-								"value": "$$FILEPATH"
-							}
-						],
 						"storeSettings": {
 							"type": "AzureBlobStorageReadSettings",
 							"recursive": true
@@ -31,16 +25,260 @@
 							"type": "DelimitedTextReadSettings"
 						}
 					},
-					"enableStaging": false
+					"sink": {
+						"type": "AzureSqlSink"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "ProjectID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ProjectID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Context",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Context",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Type of training",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Type of training",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Course_name",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Course_name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Area of change",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Area of change",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Service theme 1",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Service theme 1",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Service theme 2",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Service theme 2",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Date of data collection",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Date of data collection",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Location",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Location",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "First name",
+									"type": "String"
+								},
+								"sink": {
+									"name": "First name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Last name",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Last name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Gender",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Gender",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Year of birth",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Year of birth",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "Professional status",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Professional status",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Name of the entity",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Name of the entity",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Type of entity",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Type of entity",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Sub-type of entity",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Sub-type of entity",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Country",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Country",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Size",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Size",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ISIC code division",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ISIC code division",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "HS 6 digit code (if available)",
+									"type": "String"
+								},
+								"sink": {
+									"name": "HS 6 digit code (if available)",
+									"type": "Int32"
+								}
+							}
+						]
+					}
 				},
 				"inputs": [
 					{
 						"referenceName": "DelimitedText1",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"fileName": {
+								"value": "@pipeline().parameters.fileName",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "AzureSqlTable1",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": {
+								"value": "@pipeline().parameters.TableName",
+								"type": "Expression"
+							}
+						}
 					}
 				]
 			}
 		],
+		"parameters": {
+			"fileName": {
+				"type": "string"
+			},
+			"TableName": {
+				"type": "string"
+			}
+		},
 		"annotations": []
 	}
 }
