@@ -22,39 +22,24 @@
 				"type": "varchar"
 			},
 			{
-				"name": "Type of event",
+				"name": "Type of platform",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "SheTrades Project",
 				"type": "varchar"
 			},
 			{
-				"name": "Email",
-				"type": "varchar"
-			},
-			{
-				"name": "Phone number",
-				"type": "varchar"
-			},
-			{
-				"name": "Registration Date",
-				"type": "datetime",
-				"precision": 23,
-				"scale": 3
-			},
-			{
-				"name": "Submission Date",
-				"type": "datetime",
-				"precision": 23,
-				"scale": 3
-			},
-			{
-				"name": "Last name",
-				"type": "varchar"
-			},
-			{
-				"name": "Middle name",
-				"type": "varchar"
+				"name": "Date of data collection",
+				"type": "date"
 			},
 			{
 				"name": "First name",
+				"type": "varchar"
+			},
+			{
+				"name": "Last name",
 				"type": "varchar"
 			},
 			{
@@ -67,15 +52,11 @@
 				"precision": 10
 			},
 			{
-				"name": "Date of birth",
-				"type": "date"
-			},
-			{
-				"name": "Country",
+				"name": "Participant Country",
 				"type": "varchar"
 			},
 			{
-				"name": "Organization/ Company name",
+				"name": "Email",
 				"type": "varchar"
 			},
 			{
@@ -87,23 +68,15 @@
 				"type": "varchar"
 			},
 			{
+				"name": "Organization/ Company name",
+				"type": "varchar"
+			},
+			{
 				"name": "Type of entity",
 				"type": "varchar"
 			},
 			{
-				"name": "Sub-type of entity",
-				"type": "varchar"
-			},
-			{
-				"name": "Size",
-				"type": "varchar"
-			},
-			{
-				"name": "BSO ownership",
-				"type": "varchar"
-			},
-			{
-				"name": "Office Address",
+				"name": "Organization Country",
 				"type": "varchar"
 			},
 			{
@@ -111,19 +84,27 @@
 				"type": "varchar"
 			},
 			{
-				"name": "Post Code",
+				"name": "Size",
 				"type": "varchar"
 			},
 			{
-				"name": "Website",
+				"name": "ISIC",
 				"type": "varchar"
 			},
 			{
-				"name": "Twitter",
+				"name": "Please select the area of your activity",
 				"type": "varchar"
 			},
 			{
-				"name": "LinkedIn",
+				"name": "HS",
+				"type": "varchar"
+			},
+			{
+				"name": "Owner/ top manager gender",
+				"type": "varchar"
+			},
+			{
+				"name": "Owner/ top manager age",
 				"type": "varchar"
 			}
 		],

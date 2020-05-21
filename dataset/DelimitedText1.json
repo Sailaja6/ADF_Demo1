@@ -37,35 +37,23 @@
 				"type": "String"
 			},
 			{
-				"name": "Type of event",
+				"name": "Type of platform",
 				"type": "String"
 			},
 			{
-				"name": "Email",
+				"name": "SheTrades Project ",
 				"type": "String"
 			},
 			{
-				"name": "Phone number",
-				"type": "String"
-			},
-			{
-				"name": "Registration Date",
-				"type": "String"
-			},
-			{
-				"name": "Submission Date",
-				"type": "String"
-			},
-			{
-				"name": "Last name",
-				"type": "String"
-			},
-			{
-				"name": "Middle name",
+				"name": "Date of data collection",
 				"type": "String"
 			},
 			{
 				"name": "First name",
+				"type": "String"
+			},
+			{
+				"name": "Last name",
 				"type": "String"
 			},
 			{
@@ -77,15 +65,11 @@
 				"type": "String"
 			},
 			{
-				"name": "Date of birth",
+				"name": "Participant Country",
 				"type": "String"
 			},
 			{
-				"name": "Country",
-				"type": "String"
-			},
-			{
-				"name": "Organization/ Company name",
+				"name": "Email",
 				"type": "String"
 			},
 			{
@@ -97,11 +81,19 @@
 				"type": "String"
 			},
 			{
+				"name": "Organization/ Company name",
+				"type": "String"
+			},
+			{
 				"name": "Type of entity",
 				"type": "String"
 			},
 			{
-				"name": "Sub-type of entity",
+				"name": "Organization Country",
+				"type": "String"
+			},
+			{
+				"name": "City ",
 				"type": "String"
 			},
 			{
@@ -109,31 +101,23 @@
 				"type": "String"
 			},
 			{
-				"name": "BSO ownership",
+				"name": "ISIC",
 				"type": "String"
 			},
 			{
-				"name": "Office Address",
+				"name": "Please select the area of your activity",
 				"type": "String"
 			},
 			{
-				"name": "City",
+				"name": "HS",
 				"type": "String"
 			},
 			{
-				"name": "Post Code",
+				"name": "Owner/ top manager gender",
 				"type": "String"
 			},
 			{
-				"name": "Website",
-				"type": "String"
-			},
-			{
-				"name": "Twitter",
-				"type": "String"
-			},
-			{
-				"name": "LinkedIn",
+				"name": "Owner/ top manager age",
 				"type": "String"
 			}
 		]
