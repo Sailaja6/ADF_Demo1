@@ -28,7 +28,92 @@
 					"sink": {
 						"type": "AzureSqlSink"
 					},
-					"enableStaging": false
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "Project ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Project ID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ContextCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ContextCode",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "EventCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "EventCode",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "A04",
+									"type": "String"
+								},
+								"sink": {
+									"name": "A04",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Date",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Date",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "Country",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Country",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "A12",
+									"type": "String"
+								},
+								"sink": {
+									"name": "A12",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SalesUSD",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SalesUSD",
+									"type": "Int32"
+								}
+							}
+						]
+					}
 				},
 				"inputs": [
 					{
