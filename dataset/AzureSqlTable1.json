@@ -14,39 +14,14 @@
 		"type": "AzureSqlTable",
 		"schema": [
 			{
-				"name": "Project ID",
+				"name": "Email",
 				"type": "varchar"
 			},
 			{
-				"name": "ContextCode",
-				"type": "int",
-				"precision": 10
-			},
-			{
-				"name": "EventCode",
-				"type": "int",
-				"precision": 10
-			},
-			{
-				"name": "A04",
-				"type": "varchar"
-			},
-			{
-				"name": "Date",
-				"type": "date"
-			},
-			{
-				"name": "Country",
-				"type": "varchar"
-			},
-			{
-				"name": "A12",
-				"type": "varchar"
-			},
-			{
-				"name": "SalesUSD",
-				"type": "int",
-				"precision": 10
+				"name": "SubmissionDate",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
 			}
 		],
 		"typeProperties": {

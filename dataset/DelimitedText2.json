@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "msngc.csv",
+				"fileName": "sfgc.csv",
 				"folderPath": "input/test",
 				"container": "storage"
 			},
@@ -21,27 +21,7 @@
 		},
 		"schema": [
 			{
-				"name": "Project ID",
-				"type": "String"
-			},
-			{
-				"name": "Context",
-				"type": "String"
-			},
-			{
-				"name": "Type of event",
-				"type": "String"
-			},
-			{
-				"name": "Type of Participant",
-				"type": "String"
-			},
-			{
-				"name": "Status",
-				"type": "String"
-			},
-			{
-				"name": "Registration Date",
+				"name": "Email",
 				"type": "String"
 			}
 		]
