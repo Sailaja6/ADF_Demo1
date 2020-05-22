@@ -29,71 +29,23 @@
 		},
 		"schema": [
 			{
-				"name": "ProjectID",
+				"name": "Project ID",
 				"type": "String"
 			},
 			{
-				"name": "Context",
+				"name": "ContextCode",
 				"type": "String"
 			},
 			{
-				"name": "Type of training",
+				"name": "EventCode",
 				"type": "String"
 			},
 			{
-				"name": "Course_name",
+				"name": "A04",
 				"type": "String"
 			},
 			{
-				"name": "Area of change",
-				"type": "String"
-			},
-			{
-				"name": "Service theme 1",
-				"type": "String"
-			},
-			{
-				"name": "Service theme 2",
-				"type": "String"
-			},
-			{
-				"name": "Date of data collection",
-				"type": "String"
-			},
-			{
-				"name": "Location",
-				"type": "String"
-			},
-			{
-				"name": "First name",
-				"type": "String"
-			},
-			{
-				"name": "Last name",
-				"type": "String"
-			},
-			{
-				"name": "Gender",
-				"type": "String"
-			},
-			{
-				"name": "Year of birth",
-				"type": "String"
-			},
-			{
-				"name": "Professional status",
-				"type": "String"
-			},
-			{
-				"name": "Name of the entity",
-				"type": "String"
-			},
-			{
-				"name": "Type of entity",
-				"type": "String"
-			},
-			{
-				"name": "Sub-type of entity",
+				"name": "Date",
 				"type": "String"
 			},
 			{
@@ -101,15 +53,11 @@
 				"type": "String"
 			},
 			{
-				"name": "Size",
+				"name": "A12",
 				"type": "String"
 			},
 			{
-				"name": "ISIC code division",
-				"type": "String"
-			},
-			{
-				"name": "HS 6 digit code (if available)",
+				"name": "SalesUSD",
 				"type": "String"
 			}
 		]
