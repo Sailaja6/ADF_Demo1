@@ -29,23 +29,111 @@
 		},
 		"schema": [
 			{
-				"name": "Project ID",
+				"name": "ProjectID",
 				"type": "String"
 			},
 			{
-				"name": "ContextCode",
+				"name": "Context",
 				"type": "String"
 			},
 			{
-				"name": "EventCode",
+				"name": "Type of tool",
 				"type": "String"
 			},
 			{
-				"name": "A04",
+				"name": "Area of change",
 				"type": "String"
 			},
 			{
-				"name": "Date",
+				"name": "Service theme",
+				"type": "String"
+			},
+			{
+				"name": "Date of data collection",
+				"type": "String"
+			},
+			{
+				"name": "id",
+				"type": "String"
+			},
+			{
+				"name": "Course_name",
+				"type": "String"
+			},
+			{
+				"name": "Username",
+				"type": "String"
+			},
+			{
+				"name": "Email",
+				"type": "String"
+			},
+			{
+				"name": "Phone number",
+				"type": "String"
+			},
+			{
+				"name": "Title",
+				"type": "String"
+			},
+			{
+				"name": "First name",
+				"type": "String"
+			},
+			{
+				"name": "Middle name",
+				"type": "String"
+			},
+			{
+				"name": "Last name",
+				"type": "String"
+			},
+			{
+				"name": "idnumber",
+				"type": "String"
+			},
+			{
+				"name": "Gender",
+				"type": "String"
+			},
+			{
+				"name": "Year of birth",
+				"type": "String"
+			},
+			{
+				"name": "Organization/ Company name",
+				"type": "String"
+			},
+			{
+				"name": "Type of entity",
+				"type": "String"
+			},
+			{
+				"name": "Sub-type of entity",
+				"type": "String"
+			},
+			{
+				"name": "Professional status",
+				"type": "String"
+			},
+			{
+				"name": "Functional_title",
+				"type": "String"
+			},
+			{
+				"name": "Howlong",
+				"type": "String"
+			},
+			{
+				"name": "Priorexperience",
+				"type": "String"
+			},
+			{
+				"name": "Address",
+				"type": "String"
+			},
+			{
+				"name": "Organizations Cityname",
 				"type": "String"
 			},
 			{
@@ -53,11 +141,39 @@
 				"type": "String"
 			},
 			{
-				"name": "A12",
+				"name": "Country code",
 				"type": "String"
 			},
 			{
-				"name": "SalesUSD",
+				"name": "Pobox",
+				"type": "String"
+			},
+			{
+				"name": "Postalcode",
+				"type": "String"
+			},
+			{
+				"name": "Nationality",
+				"type": "String"
+			},
+			{
+				"name": "Skype",
+				"type": "String"
+			},
+			{
+				"name": "Aim",
+				"type": "String"
+			},
+			{
+				"name": "Yahoo",
+				"type": "String"
+			},
+			{
+				"name": "Msn",
+				"type": "String"
+			},
+			{
+				"name": "Profile_field_Supervisor",
 				"type": "String"
 			}
 		]

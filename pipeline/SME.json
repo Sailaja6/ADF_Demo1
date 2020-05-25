@@ -1,0 +1,442 @@
+{
+	"name": "SME",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "ProjectID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ProjectID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Context",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Context",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Type of tool",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Type of tool",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Area of change",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Area of change",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Service themes",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Service theme",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Date of data collection",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Date of data collection",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "id",
+									"type": "String"
+								},
+								"sink": {
+									"name": "id",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Username",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Username",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Title",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Title",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "First name",
+									"type": "String"
+								},
+								"sink": {
+									"name": "First name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Middle name",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Middle name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Last name",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Last name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Email",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Email",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Gender",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Gender",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Year of birth",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Year of birth",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "Country",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Country",
+									"type": "String"
+								}
+							},
+							{
+								"sink": {
+									"name": "Participants Cityname",
+									"type": "String"
+								}
+							},
+							{
+								"sink": {
+									"name": "Cityregion",
+									"type": "String"
+								}
+							},
+							{
+								"sink": {
+									"name": "Job title",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Professional status",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Professional status",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Organization/ Company name",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Organization/ Company name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Type of entity",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Type of entity",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Sub-type of entity",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Sub-type of entity",
+									"type": "String"
+								}
+							},
+							{
+								"sink": {
+									"name": "Size",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Course_name",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Course_name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Howlong",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Howlong",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Priorexperience",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Priorexperience",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Address",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Address",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Organizations Cityname",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Organizations Cityname",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Pobox",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Pobox",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Postalcode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Postalcode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Nationality",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Nationality",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Skype",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Skype",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Aim",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Aim",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Yahoo",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Yahoo",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Msn",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Msn",
+									"type": "String"
+								}
+							},
+							{
+								"sink": {
+									"name": "Certification_date",
+									"type": "DateTime"
+								}
+							},
+							{
+								"sink": {
+									"name": "Certified",
+									"type": "String"
+								}
+							},
+							{
+								"sink": {
+									"name": "Cohort",
+									"type": "String"
+								}
+							},
+							{
+								"sink": {
+									"name": "Enrol_time",
+									"type": "DateTime"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "DelimitedText1",
+						"type": "DatasetReference",
+						"parameters": {
+							"fileName": {
+								"value": "@pipeline().parameters.fileName",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "AzureSqlTable1",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": {
+								"value": "@pipeline().parameters.TableName",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			}
+		],
+		"parameters": {
+			"fileName": {
+				"type": "string"
+			},
+			"TableName": {
+				"type": "string"
+			}
+		},
+		"annotations": []
+	}
+}
