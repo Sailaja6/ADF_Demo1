@@ -66,6 +66,10 @@
 				"type": "varchar"
 			},
 			{
+				"name": "Phone number",
+				"type": "varchar"
+			},
+			{
 				"name": "Gender",
 				"type": "varchar"
 			},
