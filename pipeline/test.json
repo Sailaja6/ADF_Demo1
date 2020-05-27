@@ -19,76 +19,64 @@
 						"type": "DelimitedTextSource",
 						"additionalColumns": [
 							{
-								"name": "SubmissionDate",
+								"name": "File_Name",
 								"value": {
-									"value": "@int(pipeline().parameters.SubmissionDate)",
+									"value": "@pipeline().parameters.fileName",
+									"type": "Expression"
+								}
+							},
+							{
+								"name": "Load_Time",
+								"value": {
+									"value": "@convertFromUtc(utcnow(),'Pacific Standard Time')",
 									"type": "Expression"
 								}
 							}
 						],
 						"storeSettings": {
 							"type": "AzureBlobStorageReadSettings",
-							"recursive": true
+							"recursive": true,
+							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
 							"type": "DelimitedTextReadSettings"
 						}
 					},
 					"sink": {
-						"type": "AzureSqlSink"
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
 					},
-					"enableStaging": false,
-					"translator": {
-						"type": "TabularTranslator",
-						"mappings": [
-							{
-								"source": {
-									"name": "Email",
-									"type": "String"
-								},
-								"sink": {
-									"name": "Email",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "SubmissionDate",
-									"type": "String"
-								},
-								"sink": {
-									"name": "SubmissionDate",
-									"type": "DateTime"
-								}
-							}
-						]
-					}
+					"enableStaging": false
 				},
 				"inputs": [
 					{
-						"referenceName": "DelimitedText2",
-						"type": "DatasetReference"
+						"referenceName": "DelimitedText1",
+						"type": "DatasetReference",
+						"parameters": {
+							"fileName": {
+								"value": "@pipeline().parameters.fileName",
+								"type": "Expression"
+							}
+						}
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "AzureSqlTable1",
-						"type": "DatasetReference",
-						"parameters": {
-							"TableName": {
-								"value": "@pipeline().parameters.TableName",
-								"type": "Expression"
-							}
-						}
+						"referenceName": "DelimitedText2",
+						"type": "DatasetReference"
 					}
 				]
 			}
 		],
 		"parameters": {
-			"TableName": {
-				"type": "string"
-			},
-			"SubmissionDate": {
+			"fileName": {
 				"type": "string",
 				"defaultValue": null
 			}

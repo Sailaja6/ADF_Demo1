@@ -10,20 +10,15 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "sfgc.csv",
-				"folderPath": "input/test",
+				"fileName": "SME1.csv",
+				"folderPath": "output",
 				"container": "storage"
 			},
-			"columnDelimiter": ",",
+			"columnDelimiter": "|",
 			"escapeChar": "\\",
 			"firstRowAsHeader": true,
 			"quoteChar": "\""
 		},
-		"schema": [
-			{
-				"name": "Email",
-				"type": "String"
-			}
-		]
+		"schema": []
 	}
 }

@@ -45,7 +45,7 @@
 				"type": "String"
 			},
 			{
-				"name": "Service theme",
+				"name": "Service themes",
 				"type": "String"
 			},
 			{
@@ -133,7 +133,7 @@
 				"type": "String"
 			},
 			{
-				"name": "Organizations Cityname",
+				"name": "Cityname",
 				"type": "String"
 			},
 			{
