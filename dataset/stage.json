@@ -37,7 +37,7 @@
 				"type": "String"
 			},
 			{
-				"name": "Service themes",
+				"name": "Service theme",
 				"type": "String"
 			},
 			{
@@ -45,27 +45,11 @@
 				"type": "String"
 			},
 			{
-				"name": "id",
+				"name": "Uniqueid",
 				"type": "String"
 			},
 			{
-				"name": "Course_name",
-				"type": "String"
-			},
-			{
-				"name": "Username",
-				"type": "String"
-			},
-			{
-				"name": "Email",
-				"type": "String"
-			},
-			{
-				"name": "Phone number",
-				"type": "String"
-			},
-			{
-				"name": "Title",
+				"name": "User_id",
 				"type": "String"
 			},
 			{
@@ -73,15 +57,11 @@
 				"type": "String"
 			},
 			{
-				"name": "Middle name",
-				"type": "String"
-			},
-			{
 				"name": "Last name",
 				"type": "String"
 			},
 			{
-				"name": "idnumber",
+				"name": "Email",
 				"type": "String"
 			},
 			{
@@ -90,6 +70,26 @@
 			},
 			{
 				"name": "Year of birth",
+				"type": "String"
+			},
+			{
+				"name": "Country",
+				"type": "String"
+			},
+			{
+				"name": "Cityname",
+				"type": "String"
+			},
+			{
+				"name": "Cityregion",
+				"type": "String"
+			},
+			{
+				"name": "Job title",
+				"type": "String"
+			},
+			{
+				"name": "Professional status",
 				"type": "String"
 			},
 			{
@@ -105,11 +105,11 @@
 				"type": "String"
 			},
 			{
-				"name": "Professional status",
+				"name": "Size",
 				"type": "String"
 			},
 			{
-				"name": "Functional_title",
+				"name": "Course_name",
 				"type": "String"
 			},
 			{
@@ -117,55 +117,19 @@
 				"type": "String"
 			},
 			{
-				"name": "Priorexperience",
+				"name": "Certification_date",
 				"type": "String"
 			},
 			{
-				"name": "Address",
+				"name": "Certified",
 				"type": "String"
 			},
 			{
-				"name": "Cityname",
+				"name": "Cohort",
 				"type": "String"
 			},
 			{
-				"name": "Country",
-				"type": "String"
-			},
-			{
-				"name": "Country code",
-				"type": "String"
-			},
-			{
-				"name": "Pobox",
-				"type": "String"
-			},
-			{
-				"name": "Postalcode",
-				"type": "String"
-			},
-			{
-				"name": "Nationality",
-				"type": "String"
-			},
-			{
-				"name": "Skype",
-				"type": "String"
-			},
-			{
-				"name": "Aim",
-				"type": "String"
-			},
-			{
-				"name": "Yahoo",
-				"type": "String"
-			},
-			{
-				"name": "Msn",
-				"type": "String"
-			},
-			{
-				"name": "Profile_field_Supervisor",
+				"name": "Enrol_time",
 				"type": "String"
 			},
 			{
