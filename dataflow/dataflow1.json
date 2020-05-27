@@ -3,30 +3,10 @@
 	"properties": {
 		"type": "MappingDataFlow",
 		"typeProperties": {
-			"sources": [
-				{
-					"dataset": {
-						"referenceName": "DelimitedText2",
-						"type": "DatasetReference"
-					},
-					"name": "source1"
-				}
-			],
-			"sinks": [
-				{
-					"dataset": {
-						"referenceName": "AzureSqlTable1",
-						"type": "DatasetReference"
-					},
-					"name": "sink1"
-				}
-			],
-			"transformations": [
-				{
-					"name": "DerivedColumn1"
-				}
-			],
-			"script": "source(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinferDriftedColumnTypes: true) ~> source1\nsource1 derive(Email = 'NULL') ~> DerivedColumn1\nDerivedColumn1 sink(input(\n\t\tProjectID as string,\n\t\tContext as string,\n\t\t{Type of tool} as string,\n\t\t{Area of change} as string,\n\t\t{Service theme} as string,\n\t\t{Date of data collection} as string,\n\t\tid as string,\n\t\tUsername as string,\n\t\tTitle as string,\n\t\t{First name} as string,\n\t\t{Middle name} as string,\n\t\t{Last name} as string,\n\t\tEmail as string,\n\t\t{Phone number} as string,\n\t\tGender as string,\n\t\t{Year of birth} as integer,\n\t\tCountry as string,\n\t\t{Participants Cityname} as string,\n\t\tCityregion as string,\n\t\t{Job title} as string,\n\t\t{Professional status} as string,\n\t\t{Organization/ Company name} as string,\n\t\t{Type of entity} as string,\n\t\t{Sub-type of entity} as string,\n\t\tSize as string,\n\t\tCourse_name as string,\n\t\tHowlong as string,\n\t\tPriorexperience as string,\n\t\tAddress as string,\n\t\t{Organizations Cityname} as string,\n\t\tPobox as string,\n\t\tPostalcode as string,\n\t\tNationality as string,\n\t\tSkype as string,\n\t\tAim as string,\n\t\tYahoo as string,\n\t\tMsn as string,\n\t\tCertification_date as date,\n\t\tCertified as string,\n\t\tCohort as string,\n\t\tEnrol_time as date\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> sink1"
+			"sources": [],
+			"sinks": [],
+			"transformations": [],
+			"script": ""
 		}
 	}
 }
