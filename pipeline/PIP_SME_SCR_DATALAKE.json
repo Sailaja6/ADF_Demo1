@@ -1,0 +1,91 @@
+{
+	"name": "PIP_SME_SCR_DATALAKE",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"additionalColumns": [
+							{
+								"name": "FILE_NAME",
+								"value": {
+									"value": "@pipeline().parameters.sorce_filename",
+									"type": "Expression"
+								}
+							},
+							{
+								"name": "LOAD_TIMESTAMP",
+								"value": {
+									"value": "@utcnow()",
+									"type": "Expression"
+								}
+							}
+						],
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "RAW_DATA",
+						"type": "DatasetReference",
+						"parameters": {
+							"folderName": {
+								"value": "@pipeline().parameters.source_foldername",
+								"type": "Expression"
+							},
+							"fileName": {
+								"value": "@pipeline().parameters.sorce_filename",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "stage",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"parameters": {
+			"source_foldername": {
+				"type": "string"
+			},
+			"sorce_filename": {
+				"type": "string"
+			}
+		},
+		"annotations": []
+	}
+}
