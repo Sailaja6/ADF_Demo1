@@ -33,6 +33,107 @@
 			"firstRowAsHeader": true,
 			"quoteChar": "\""
 		},
-		"schema": []
+		"schema": [
+			{
+				"name": "ProjectID",
+				"type": "String"
+			},
+			{
+				"name": "Context",
+				"type": "String"
+			},
+			{
+				"name": "Type of tool",
+				"type": "String"
+			},
+			{
+				"name": "Area of change",
+				"type": "String"
+			},
+			{
+				"name": "Service theme",
+				"type": "String"
+			},
+			{
+				"name": "Date of data collection",
+				"type": "String"
+			},
+			{
+				"name": "First name",
+				"type": "String"
+			},
+			{
+				"name": "Last name",
+				"type": "String"
+			},
+			{
+				"name": "Email",
+				"type": "String"
+			},
+			{
+				"name": "Gender",
+				"type": "String"
+			},
+			{
+				"name": "Year of birth",
+				"type": "String"
+			},
+			{
+				"name": "Country",
+				"type": "String"
+			},
+			{
+				"name": "Cityname",
+				"type": "String"
+			},
+			{
+				"name": "Cityregion",
+				"type": "String"
+			},
+			{
+				"name": "Job title",
+				"type": "String"
+			},
+			{
+				"name": "Professional status",
+				"type": "String"
+			},
+			{
+				"name": "Organization/ Company name",
+				"type": "String"
+			},
+			{
+				"name": "Type of entity",
+				"type": "String"
+			},
+			{
+				"name": "Sub-type of entity",
+				"type": "String"
+			},
+			{
+				"name": "Size",
+				"type": "String"
+			},
+			{
+				"name": "Course_name",
+				"type": "String"
+			},
+			{
+				"name": "Howlong",
+				"type": "String"
+			},
+			{
+				"name": "Certification_date",
+				"type": "String"
+			},
+			{
+				"name": "Certified",
+				"type": "String"
+			},
+			{
+				"name": "Cohort",
+				"type": "String"
+			}
+		]
 	}
 }
