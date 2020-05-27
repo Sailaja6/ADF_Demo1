@@ -206,6 +206,14 @@
 			{
 				"name": "Enrol_time",
 				"type": "String"
+			},
+			{
+				"name": "FILE_NAME",
+				"type": "String"
+			},
+			{
+				"name": "LOAD_TIMESTAMP",
+				"type": "String"
 			}
 		]
 	}
