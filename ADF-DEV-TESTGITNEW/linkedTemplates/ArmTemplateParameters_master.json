@@ -8,11 +8,11 @@
 		"AzureSqlDatabase1_connectionString": {
 			"value": ""
 		},
-		"AzureBlobStorage1_properties_typeProperties_connectionString_secretName": {
-			"value": "secretdev"
+		"source_accountKey": {
+			"value": ""
 		},
-		"AzureKeyVault1_properties_typeProperties_baseUrl": {
-			"value": "https://keystoragedev1.vault.azure.net/"
+		"source_properties_typeProperties_url": {
+			"value": "https://itcsource.dfs.core.windows.net"
 		},
 		"containerUri": {
 			"value": ""
