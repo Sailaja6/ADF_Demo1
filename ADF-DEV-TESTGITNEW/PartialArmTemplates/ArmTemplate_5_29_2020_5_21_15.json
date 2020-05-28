@@ -1,0 +1,420 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "ADF-DEV-TESTGITNEW"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/SRC_SSUPERSET')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "source",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"filename": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "SSuperSet"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "CombinedSourceData/curated_files",
+						"fileSystem": "martsupersuperset"
+					},
+					"columnDelimiter": "|",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "ProjectID",
+						"type": "String"
+					},
+					{
+						"name": "Context",
+						"type": "String"
+					},
+					{
+						"name": "Type of event",
+						"type": "String"
+					},
+					{
+						"name": "Email",
+						"type": "String"
+					},
+					{
+						"name": "Phone number",
+						"type": "String"
+					},
+					{
+						"name": "Registration Date",
+						"type": "String"
+					},
+					{
+						"name": "Submission Date",
+						"type": "String"
+					},
+					{
+						"name": "Last name",
+						"type": "String"
+					},
+					{
+						"name": "Middle name",
+						"type": "String"
+					},
+					{
+						"name": "First name",
+						"type": "String"
+					},
+					{
+						"name": "Gender",
+						"type": "String"
+					},
+					{
+						"name": "Year of birth",
+						"type": "String"
+					},
+					{
+						"name": "Date of birth",
+						"type": "String"
+					},
+					{
+						"name": "Country",
+						"type": "String"
+					},
+					{
+						"name": "Organization/ Company name",
+						"type": "String"
+					},
+					{
+						"name": "Job title",
+						"type": "String"
+					},
+					{
+						"name": "Professional status",
+						"type": "String"
+					},
+					{
+						"name": "Type of entity",
+						"type": "String"
+					},
+					{
+						"name": "Sub-type of entity",
+						"type": "String"
+					},
+					{
+						"name": "Size",
+						"type": "String"
+					},
+					{
+						"name": "BSO ownership",
+						"type": "String"
+					},
+					{
+						"name": "Office Address",
+						"type": "String"
+					},
+					{
+						"name": "City",
+						"type": "String"
+					},
+					{
+						"name": "Post Code",
+						"type": "String"
+					},
+					{
+						"name": "Website",
+						"type": "String"
+					},
+					{
+						"name": "Twitter",
+						"type": "String"
+					},
+					{
+						"name": "LinkedIn",
+						"type": "String"
+					},
+					{
+						"name": "Date of birth2",
+						"type": "String"
+					},
+					{
+						"name": "Country of Residence",
+						"type": "String"
+					},
+					{
+						"name": "Nationality",
+						"type": "String"
+					},
+					{
+						"name": "Address",
+						"type": "String"
+					},
+					{
+						"name": "Cityname",
+						"type": "String"
+					},
+					{
+						"name": "Region",
+						"type": "String"
+					},
+					{
+						"name": "FILE_NAME",
+						"type": "String"
+					},
+					{
+						"name": "LOAD_TIMESTAMP",
+						"type": "String"
+					},
+					{
+						"name": "Type of platform",
+						"type": "String"
+					},
+					{
+						"name": "SheTrades Project",
+						"type": "String"
+					},
+					{
+						"name": "Date of data collection",
+						"type": "String"
+					},
+					{
+						"name": "ISIC",
+						"type": "String"
+					},
+					{
+						"name": "Please select the area of your activity",
+						"type": "String"
+					},
+					{
+						"name": "HS",
+						"type": "String"
+					},
+					{
+						"name": "Owner/ top manager gender",
+						"type": "String"
+					},
+					{
+						"name": "Owner/ top manager age",
+						"type": "String"
+					},
+					{
+						"name": "Type of training",
+						"type": "String"
+					},
+					{
+						"name": "Course_name",
+						"type": "String"
+					},
+					{
+						"name": "Area of change",
+						"type": "String"
+					},
+					{
+						"name": "Service theme 1",
+						"type": "String"
+					},
+					{
+						"name": "Service theme 2",
+						"type": "String"
+					},
+					{
+						"name": "Location",
+						"type": "String"
+					},
+					{
+						"name": "Name of the entity",
+						"type": "String"
+					},
+					{
+						"name": "ISIC code division",
+						"type": "String"
+					},
+					{
+						"name": "HS 6 digit code (if available)",
+						"type": "String"
+					},
+					{
+						"name": "Type of tool",
+						"type": "String"
+					},
+					{
+						"name": "Service themes",
+						"type": "String"
+					},
+					{
+						"name": "id",
+						"type": "String"
+					},
+					{
+						"name": "Username",
+						"type": "String"
+					},
+					{
+						"name": "Title",
+						"type": "String"
+					},
+					{
+						"name": "idnumber",
+						"type": "String"
+					},
+					{
+						"name": "Functional_title",
+						"type": "String"
+					},
+					{
+						"name": "Howlong",
+						"type": "String"
+					},
+					{
+						"name": "Priorexperience",
+						"type": "String"
+					},
+					{
+						"name": "Country code",
+						"type": "String"
+					},
+					{
+						"name": "Pobox",
+						"type": "String"
+					},
+					{
+						"name": "Postalcode",
+						"type": "String"
+					},
+					{
+						"name": "Skype",
+						"type": "String"
+					},
+					{
+						"name": "Aim",
+						"type": "String"
+					},
+					{
+						"name": "Yahoo",
+						"type": "String"
+					},
+					{
+						"name": "Msn",
+						"type": "String"
+					},
+					{
+						"name": "Profile_field_Supervisor",
+						"type": "String"
+					},
+					{
+						"name": "Service theme",
+						"type": "String"
+					},
+					{
+						"name": "Cityregion",
+						"type": "String"
+					},
+					{
+						"name": "Certification_date",
+						"type": "String"
+					},
+					{
+						"name": "Certified",
+						"type": "String"
+					},
+					{
+						"name": "Cohort",
+						"type": "String"
+					},
+					{
+						"name": "Uniqueid",
+						"type": "String"
+					},
+					{
+						"name": "User_id",
+						"type": "String"
+					},
+					{
+						"name": "Enrol_time",
+						"type": "String"
+					},
+					{
+						"name": "Project ID",
+						"type": "String"
+					},
+					{
+						"name": "ContextCode",
+						"type": "String"
+					},
+					{
+						"name": "EventCode",
+						"type": "String"
+					},
+					{
+						"name": "A04",
+						"type": "String"
+					},
+					{
+						"name": "Date",
+						"type": "String"
+					},
+					{
+						"name": "A12",
+						"type": "String"
+					},
+					{
+						"name": "SalesUSD",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DF_DWH_MARTSUPERSET')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "SRC_SSUPERSET",
+								"type": "DatasetReference"
+							},
+							"name": "alldwhfiles"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "TGT_SSUPERSET",
+								"type": "DatasetReference"
+							},
+							"name": "sink1"
+						}
+					],
+					"transformations": [],
+					"script": "source(output(\n\t\tProjectID as string,\n\t\tContext as string,\n\t\t{Type of event} as string,\n\t\tEmail as string,\n\t\t{Phone number} as string,\n\t\t{Registration Date} as string,\n\t\t{Submission Date} as string,\n\t\t{Last name} as string,\n\t\t{Middle name} as string,\n\t\t{First name} as string,\n\t\tGender as string,\n\t\t{Year of birth} as string,\n\t\t{Date of birth} as string,\n\t\tCountry as string,\n\t\t{Organization/ Company name} as string,\n\t\t{Job title} as string,\n\t\t{Professional status} as string,\n\t\t{Type of entity} as string,\n\t\t{Sub-type of entity} as string,\n\t\tSize as string,\n\t\t{BSO ownership} as string,\n\t\t{Office Address} as string,\n\t\tCity as string,\n\t\t{Post Code} as string,\n\t\tWebsite as string,\n\t\tTwitter as string,\n\t\tLinkedIn as string,\n\t\t{Date of birth2} as string,\n\t\t{Country of Residence} as string,\n\t\tNationality as string,\n\t\tAddress as string,\n\t\tCityname as string,\n\t\tRegion as string,\n\t\tFILE_NAME as string,\n\t\tLOAD_TIMESTAMP as string,\n\t\t{Type of platform} as string,\n\t\t{SheTrades Project} as string,\n\t\t{Date of data collection} as string,\n\t\tISIC as string,\n\t\t{Please select the area of your activity} as string,\n\t\tHS as string,\n\t\t{Owner/ top manager gender} as string,\n\t\t{Owner/ top manager age} as string,\n\t\t{Type of training} as string,\n\t\tCourse_name as string,\n\t\t{Area of change} as string,\n\t\t{Service theme 1} as string,\n\t\t{Service theme 2} as string,\n\t\tLocation as string,\n\t\t{Name of the entity} as string,\n\t\t{ISIC code division} as string,\n\t\t{HS 6 digit code (if available)} as string,\n\t\t{Type of tool} as string,\n\t\t{Service themes} as string,\n\t\tid as string,\n\t\tUsername as string,\n\t\tTitle as string,\n\t\tidnumber as string,\n\t\tFunctional_title as string,\n\t\tHowlong as string,\n\t\tPriorexperience as string,\n\t\t{Country code} as string,\n\t\tPobox as string,\n\t\tPostalcode as string,\n\t\tSkype as string,\n\t\tAim as string,\n\t\tYahoo as string,\n\t\tMsn as string,\n\t\tProfile_field_Supervisor as string,\n\t\t{Service theme} as string,\n\t\tCityregion as string,\n\t\tCertification_date as string,\n\t\tCertified as string,\n\t\tCohort as string,\n\t\tUniqueid as string,\n\t\tUser_id as string,\n\t\tEnrol_time as string,\n\t\t{Project ID} as string,\n\t\tContextCode as string,\n\t\tEventCode as string,\n\t\tA04 as string,\n\t\tDate as string,\n\t\tA12 as string,\n\t\tSalesUSD as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false) ~> alldwhfiles\nalldwhfiles sink(input(\n\t\tProjectID as string,\n\t\tContext as string,\n\t\t{Type of event} as string,\n\t\tEmail as string,\n\t\t{Phone number} as string,\n\t\t{Registration Date} as string,\n\t\t{Submission Date} as string,\n\t\t{Last name} as string,\n\t\t{Middle name} as string,\n\t\t{First name} as string,\n\t\tGender as string,\n\t\t{Year of birth} as string,\n\t\t{Date of birth} as string,\n\t\tCountry as string,\n\t\t{Organization/ Company name} as string,\n\t\t{Job title} as string,\n\t\t{Professional status} as string,\n\t\t{Type of entity} as string,\n\t\t{Sub-type of entity} as string,\n\t\tSize as string,\n\t\t{BSO ownership} as string,\n\t\t{Office Address} as string,\n\t\tCity as string,\n\t\t{Post Code} as string,\n\t\tWebsite as string,\n\t\tTwitter as string,\n\t\tLinkedIn as string,\n\t\t{Date of birth2} as string,\n\t\t{Country of Residence} as string,\n\t\tNationality as string,\n\t\tAddress as string,\n\t\tCityname as string,\n\t\tRegion as string,\n\t\tFILE_NAME as string,\n\t\tLOAD_TIMESTAMP as string,\n\t\t{Type of platform} as string,\n\t\t{SheTrades Project} as string,\n\t\t{Date of data collection} as string,\n\t\tISIC as string,\n\t\t{Please select the area of your activity} as string,\n\t\tHS as string,\n\t\t{Owner/ top manager gender} as string,\n\t\t{Owner/ top manager age} as string,\n\t\t{Type of training} as string,\n\t\tCourse_name as string,\n\t\t{Area of change} as string,\n\t\t{Service theme 1} as string,\n\t\t{Service theme 2} as string,\n\t\tLocation as string,\n\t\t{Name of the entity} as string,\n\t\t{ISIC code division} as string,\n\t\t{HS 6 digit code (if available)} as string,\n\t\t{Type of tool} as string,\n\t\t{Service themes} as string,\n\t\tid as string,\n\t\tUsername as string,\n\t\tTitle as string,\n\t\tidnumber as string,\n\t\tFunctional_title as string,\n\t\tHowlong as string,\n\t\tPriorexperience as string,\n\t\t{Country code} as string,\n\t\tPobox as string,\n\t\tPostalcode as string,\n\t\tSkype as string,\n\t\tAim as string,\n\t\tYahoo as string,\n\t\tMsn as string,\n\t\tProfile_field_Supervisor as string,\n\t\t{Service theme} as string,\n\t\tCityregion as string,\n\t\tCertification_date as string,\n\t\tCertified as string,\n\t\tCohort as string,\n\t\tUniqueid as string,\n\t\tUser_id as string,\n\t\tEnrol_time as string,\n\t\t{Project ID} as string,\n\t\tContextCode as string,\n\t\tEventCode as string,\n\t\tA04 as string,\n\t\tDate as string,\n\t\tA12 as string,\n\t\tSalesUSD as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tpartitionFileNames:['MARTSSUPERSET.csv'],\n\tpartitionBy('hash', 1)) ~> sink1"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/SRC_SSUPERSET')]"
+			]
+		}
+	]
+}
