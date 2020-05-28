@@ -1,5 +1,5 @@
 {
-	"name": "Stage_SME",
+	"name": "Stage_SALES_KPI",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "source",
@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "SME.csv",
+				"fileName": "SALES_KPI.csv",
 				"folderPath": "STAGE",
 				"fileSystem": "itcsource"
 			},

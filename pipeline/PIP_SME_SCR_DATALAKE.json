@@ -72,7 +72,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "stage",
+						"referenceName": "Stage_SME",
 						"type": "DatasetReference"
 					}
 				]

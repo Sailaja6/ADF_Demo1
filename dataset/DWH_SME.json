@@ -1,5 +1,5 @@
 {
-	"name": "DWH",
+	"name": "DWH_SME",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "source",

@@ -1,9 +1,9 @@
 {
-	"name": "PIP_SME_SCR_DATALAKEg",
+	"name": "PIP_SALES_KPI_SCR_DATALAKEg",
 	"properties": {
 		"activities": [
 			{
-				"name": "Get SME files",
+				"name": "Get Sales files",
 				"type": "GetMetadata",
 				"dependsOn": [],
 				"policy": {
@@ -19,7 +19,7 @@
 						"referenceName": "RAW_DATA",
 						"type": "DatasetReference",
 						"parameters": {
-							"folderName": "SME",
+							"folderName": "SALES_KPI",
 							"fileName": "*.csv"
 						}
 					},
@@ -35,11 +35,11 @@
 				}
 			},
 			{
-				"name": "filter dir",
+				"name": "Filter Dir",
 				"type": "Filter",
 				"dependsOn": [
 					{
-						"activity": "Get SME files",
+						"activity": "Get Sales files",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -48,7 +48,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('Get SME files').output.childitems",
+						"value": "@activity('Get Sales files').output.childitems",
 						"type": "Expression"
 					},
 					"condition": {
@@ -58,11 +58,11 @@
 				}
 			},
 			{
-				"name": "Each SME file",
+				"name": "Each Sales file",
 				"type": "ForEach",
 				"dependsOn": [
 					{
-						"activity": "filter dir",
+						"activity": "Filter Dir",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -71,13 +71,13 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('filter dir').output.value",
+						"value": "@activity('Filter Dir').output.value",
 						"type": "Expression"
 					},
 					"isSequential": true,
 					"activities": [
 						{
-							"name": "Copy SME SRC To STAGE",
+							"name": "Copy Sales SRC To Stage",
 							"type": "Copy",
 							"dependsOn": [],
 							"policy": {
@@ -133,7 +133,7 @@
 									"referenceName": "RAW_DATA",
 									"type": "DatasetReference",
 									"parameters": {
-										"folderName": "SME",
+										"folderName": "SALES_KPI",
 										"fileName": {
 											"value": "@item().name",
 											"type": "Expression"
@@ -149,11 +149,11 @@
 							]
 						},
 						{
-							"name": "stage_dwh",
+							"name": "DF_SALES_STAGE_DWH",
 							"type": "ExecuteDataFlow",
 							"dependsOn": [
 								{
-									"activity": "Copy SME SRC To STAGE",
+									"activity": "Copy Sales SRC To Stage",
 									"dependencyConditions": [
 										"Succeeded"
 									]
@@ -169,7 +169,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"dataflow": {
-									"referenceName": "stage_dwh",
+									"referenceName": "DF_SALES_STAGE_DWH",
 									"type": "DataFlowReference",
 									"parameters": {
 										"filename": {
@@ -188,6 +188,14 @@
 				}
 			}
 		],
+		"parameters": {
+			"input_foldername": {
+				"type": "string"
+			},
+			"input_filename": {
+				"type": "string"
+			}
+		},
 		"annotations": []
 	}
 }
