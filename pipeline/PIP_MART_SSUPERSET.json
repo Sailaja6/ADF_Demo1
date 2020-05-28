@@ -91,7 +91,15 @@
 							"typeProperties": {
 								"dataflow": {
 									"referenceName": "DF_DWH_MARTSUPERSET",
-									"type": "DataFlowReference"
+									"type": "DataFlowReference",
+									"datasetParameters": {
+										"alldwhfiles": {
+											"filename": {
+												"value": "@item().name",
+												"type": "Expression"
+											}
+										}
+									}
 								},
 								"compute": {
 									"coreCount": 8,
