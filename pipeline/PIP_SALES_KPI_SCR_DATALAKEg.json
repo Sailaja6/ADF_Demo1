@@ -144,7 +144,7 @@
 							],
 							"outputs": [
 								{
-									"referenceName": "Stage_SME",
+									"referenceName": "Stage_SALES_KPI",
 									"type": "DatasetReference"
 								}
 							]
@@ -289,7 +289,7 @@
 										}
 									}
 								},
-								"enableLogging": true,
+								"enableLogging": false,
 								"storeSettings": {
 									"type": "AzureBlobFSReadSettings",
 									"recursive": true
@@ -473,7 +473,7 @@
 										}
 									}
 								},
-								"enableLogging": true,
+								"enableLogging": false,
 								"storeSettings": {
 									"type": "AzureBlobFSReadSettings",
 									"recursive": true
@@ -511,7 +511,7 @@
 										}
 									}
 								},
-								"enableLogging": true,
+								"enableLogging": false,
 								"storeSettings": {
 									"type": "AzureBlobFSReadSettings",
 									"recursive": true
