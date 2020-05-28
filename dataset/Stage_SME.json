@@ -5,6 +5,9 @@
 			"referenceName": "source",
 			"type": "LinkedServiceReference"
 		},
+		"folder": {
+			"name": "Stgae"
+		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {

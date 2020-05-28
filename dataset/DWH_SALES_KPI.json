@@ -5,6 +5,9 @@
 			"referenceName": "source",
 			"type": "LinkedServiceReference"
 		},
+		"folder": {
+			"name": "DWH"
+		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {

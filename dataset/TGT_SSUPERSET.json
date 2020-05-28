@@ -5,6 +5,9 @@
 			"referenceName": "source",
 			"type": "LinkedServiceReference"
 		},
+		"folder": {
+			"name": "SSuperSet"
+		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
