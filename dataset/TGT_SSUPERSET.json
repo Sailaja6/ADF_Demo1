@@ -6,14 +6,15 @@
 			"type": "LinkedServiceReference"
 		},
 		"folder": {
-			"name": "SSuperSet"
+			"name": "combined"
 		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"folderPath": "CombinedSourceData",
+				"fileName": "SHE_TRADES.csv",
+				"folderPath": "CombinedSourceData/Combinedsrcs/SHE_TRADES",
 				"fileSystem": "martsupersuperset"
 			},
 			"columnDelimiter": "|",
@@ -31,35 +32,23 @@
 				"type": "String"
 			},
 			{
-				"name": "Type of event",
+				"name": "Type of platform",
 				"type": "String"
 			},
 			{
-				"name": "Email",
+				"name": "SheTrades Project",
 				"type": "String"
 			},
 			{
-				"name": "Phone number",
-				"type": "String"
-			},
-			{
-				"name": "Registration Date",
-				"type": "String"
-			},
-			{
-				"name": "Submission Date",
-				"type": "String"
-			},
-			{
-				"name": "Last name",
-				"type": "String"
-			},
-			{
-				"name": "Middle name",
+				"name": "Date of data collection",
 				"type": "String"
 			},
 			{
 				"name": "First name",
+				"type": "String"
+			},
+			{
+				"name": "Last name",
 				"type": "String"
 			},
 			{
@@ -71,15 +60,11 @@
 				"type": "String"
 			},
 			{
-				"name": "Date of birth",
-				"type": "String"
-			},
-			{
 				"name": "Country",
 				"type": "String"
 			},
 			{
-				"name": "Organization/ Company name",
+				"name": "Email",
 				"type": "String"
 			},
 			{
@@ -91,23 +76,11 @@
 				"type": "String"
 			},
 			{
+				"name": "Organization/ Company name",
+				"type": "String"
+			},
+			{
 				"name": "Type of entity",
-				"type": "String"
-			},
-			{
-				"name": "Sub-type of entity",
-				"type": "String"
-			},
-			{
-				"name": "Size",
-				"type": "String"
-			},
-			{
-				"name": "BSO ownership",
-				"type": "String"
-			},
-			{
-				"name": "Office Address",
 				"type": "String"
 			},
 			{
@@ -115,63 +88,7 @@
 				"type": "String"
 			},
 			{
-				"name": "Post Code",
-				"type": "String"
-			},
-			{
-				"name": "Website",
-				"type": "String"
-			},
-			{
-				"name": "Twitter",
-				"type": "String"
-			},
-			{
-				"name": "LinkedIn",
-				"type": "String"
-			},
-			{
-				"name": "Date of birth2",
-				"type": "String"
-			},
-			{
-				"name": "Country of Residence",
-				"type": "String"
-			},
-			{
-				"name": "Nationality",
-				"type": "String"
-			},
-			{
-				"name": "Address",
-				"type": "String"
-			},
-			{
-				"name": "Cityname",
-				"type": "String"
-			},
-			{
-				"name": "Region",
-				"type": "String"
-			},
-			{
-				"name": "FILE_NAME",
-				"type": "String"
-			},
-			{
-				"name": "LOAD_TIMESTAMP",
-				"type": "String"
-			},
-			{
-				"name": "Type of platform",
-				"type": "String"
-			},
-			{
-				"name": "SheTrades Project",
-				"type": "String"
-			},
-			{
-				"name": "Date of data collection",
+				"name": "Size",
 				"type": "String"
 			},
 			{
@@ -195,167 +112,63 @@
 				"type": "String"
 			},
 			{
-				"name": "Type of training",
+				"name": "Type of event",
 				"type": "String"
 			},
 			{
-				"name": "Course_name",
+				"name": "Phone number",
 				"type": "String"
 			},
 			{
-				"name": "Area of change",
+				"name": "Registration Date",
 				"type": "String"
 			},
 			{
-				"name": "Service theme 1",
+				"name": "Submission Date",
 				"type": "String"
 			},
 			{
-				"name": "Service theme 2",
+				"name": "Middle name",
 				"type": "String"
 			},
 			{
-				"name": "Location",
+				"name": "Date of birth",
 				"type": "String"
 			},
 			{
-				"name": "Name of the entity",
+				"name": "Sub-type of entity",
 				"type": "String"
 			},
 			{
-				"name": "ISIC code division",
+				"name": "BSO ownership",
 				"type": "String"
 			},
 			{
-				"name": "HS 6 digit code (if available)",
+				"name": "Office Address",
 				"type": "String"
 			},
 			{
-				"name": "Type of tool",
+				"name": "Post Code",
 				"type": "String"
 			},
 			{
-				"name": "Service themes",
+				"name": "Website",
 				"type": "String"
 			},
 			{
-				"name": "id",
+				"name": "Twitter",
 				"type": "String"
 			},
 			{
-				"name": "Username",
+				"name": "LinkedIn",
 				"type": "String"
 			},
 			{
-				"name": "Title",
+				"name": "FILE_NAME",
 				"type": "String"
 			},
 			{
-				"name": "idnumber",
-				"type": "String"
-			},
-			{
-				"name": "Functional_title",
-				"type": "String"
-			},
-			{
-				"name": "Howlong",
-				"type": "String"
-			},
-			{
-				"name": "Priorexperience",
-				"type": "String"
-			},
-			{
-				"name": "Country code",
-				"type": "String"
-			},
-			{
-				"name": "Pobox",
-				"type": "String"
-			},
-			{
-				"name": "Postalcode",
-				"type": "String"
-			},
-			{
-				"name": "Skype",
-				"type": "String"
-			},
-			{
-				"name": "Aim",
-				"type": "String"
-			},
-			{
-				"name": "Yahoo",
-				"type": "String"
-			},
-			{
-				"name": "Msn",
-				"type": "String"
-			},
-			{
-				"name": "Profile_field_Supervisor",
-				"type": "String"
-			},
-			{
-				"name": "Service theme",
-				"type": "String"
-			},
-			{
-				"name": "Cityregion",
-				"type": "String"
-			},
-			{
-				"name": "Certification_date",
-				"type": "String"
-			},
-			{
-				"name": "Certified",
-				"type": "String"
-			},
-			{
-				"name": "Cohort",
-				"type": "String"
-			},
-			{
-				"name": "Uniqueid",
-				"type": "String"
-			},
-			{
-				"name": "User_id",
-				"type": "String"
-			},
-			{
-				"name": "Enrol_time",
-				"type": "String"
-			},
-			{
-				"name": "Project ID",
-				"type": "String"
-			},
-			{
-				"name": "ContextCode",
-				"type": "String"
-			},
-			{
-				"name": "EventCode",
-				"type": "String"
-			},
-			{
-				"name": "A04",
-				"type": "String"
-			},
-			{
-				"name": "Date",
-				"type": "String"
-			},
-			{
-				"name": "A12",
-				"type": "String"
-			},
-			{
-				"name": "SalesUSD",
+				"name": "LOAD_TIMESTAMP",
 				"type": "String"
 			}
 		]
