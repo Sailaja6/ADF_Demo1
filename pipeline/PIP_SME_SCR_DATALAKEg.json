@@ -532,6 +532,9 @@
 				"defaultValue": "SME/FAILED"
 			}
 		},
+		"folder": {
+			"name": "LandingToCurated"
+		},
 		"annotations": []
 	}
 }

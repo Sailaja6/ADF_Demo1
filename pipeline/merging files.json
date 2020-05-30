@@ -72,6 +72,9 @@
 				"defaultValue": "SHE_TRADES"
 			}
 		},
+		"folder": {
+			"name": "CuratedToDim"
+		},
 		"annotations": []
 	}
 }

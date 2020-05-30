@@ -532,6 +532,9 @@
 				"defaultValue": "SALES_KPI/LOADED"
 			}
 		},
+		"folder": {
+			"name": "LandingToCurated"
+		},
 		"annotations": []
 	}
 }
