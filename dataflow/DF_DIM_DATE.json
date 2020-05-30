@@ -1,12 +1,20 @@
 {
-	"name": "DIMTIME",
+	"name": "DF_DIM_DATE",
 	"properties": {
 		"type": "MappingDataFlow",
 		"typeProperties": {
-			"sources": [],
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "MART_OWNER",
+						"type": "DatasetReference"
+					},
+					"name": "dimtimetable"
+				}
+			],
 			"sinks": [],
 			"transformations": [],
-			"script": ""
+			"script": "source(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> dimtimetable"
 		}
 	}
 }
