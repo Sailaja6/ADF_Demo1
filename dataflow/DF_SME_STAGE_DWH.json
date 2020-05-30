@@ -1,5 +1,5 @@
 {
-	"name": "stage_dwh",
+	"name": "DF_SME_STAGE_DWH",
 	"properties": {
 		"type": "MappingDataFlow",
 		"typeProperties": {

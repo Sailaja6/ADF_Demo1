@@ -1,0 +1,16 @@
+{
+	"name": "MART_OWNER",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "MART_OWNER",
+			"table": " DIM"
+		}
+	}
+}

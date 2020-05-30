@@ -170,7 +170,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"dataflow": {
-									"referenceName": "stage_dwh",
+									"referenceName": "DF_SME_STAGE_DWH",
 									"type": "DataFlowReference",
 									"parameters": {
 										"filename": {
