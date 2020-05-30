@@ -5,6 +5,14 @@
 			"referenceName": "source",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"OutputFileName": {
+				"type": "string"
+			},
+			"OutputFolderName": {
+				"type": "string"
+			}
+		},
 		"folder": {
 			"name": "combined"
 		},
@@ -13,8 +21,14 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "SHE_TRADES.csv",
-				"folderPath": "CombinedSourceData/Combinedsrcs/SHE_TRADES",
+				"fileName": {
+					"value": "@dataset().OutputFileName",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "@dataset().OutputFolderName",
+					"type": "Expression"
+				},
 				"fileSystem": "martsupersuperset"
 			},
 			"columnDelimiter": "|",
@@ -32,11 +46,15 @@
 				"type": "String"
 			},
 			{
-				"name": "Type of platform",
+				"name": "Type of tool",
 				"type": "String"
 			},
 			{
-				"name": "SheTrades Project",
+				"name": "Area of change",
+				"type": "String"
+			},
+			{
+				"name": "Service themes",
 				"type": "String"
 			},
 			{
@@ -44,11 +62,43 @@
 				"type": "String"
 			},
 			{
+				"name": "id",
+				"type": "String"
+			},
+			{
+				"name": "Course_name",
+				"type": "String"
+			},
+			{
+				"name": "Username",
+				"type": "String"
+			},
+			{
+				"name": "Email",
+				"type": "String"
+			},
+			{
+				"name": "Phone number",
+				"type": "String"
+			},
+			{
+				"name": "Title",
+				"type": "String"
+			},
+			{
 				"name": "First name",
 				"type": "String"
 			},
 			{
+				"name": "Middle name",
+				"type": "String"
+			},
+			{
 				"name": "Last name",
+				"type": "String"
+			},
+			{
+				"name": "idnumber",
 				"type": "String"
 			},
 			{
@@ -60,22 +110,6 @@
 				"type": "String"
 			},
 			{
-				"name": "Country",
-				"type": "String"
-			},
-			{
-				"name": "Email",
-				"type": "String"
-			},
-			{
-				"name": "Job title",
-				"type": "String"
-			},
-			{
-				"name": "Professional status",
-				"type": "String"
-			},
-			{
 				"name": "Organization/ Company name",
 				"type": "String"
 			},
@@ -84,7 +118,83 @@
 				"type": "String"
 			},
 			{
-				"name": "City",
+				"name": "Sub-type of entity",
+				"type": "String"
+			},
+			{
+				"name": "Professional status",
+				"type": "String"
+			},
+			{
+				"name": "Functional_title",
+				"type": "String"
+			},
+			{
+				"name": "Howlong",
+				"type": "String"
+			},
+			{
+				"name": "Priorexperience",
+				"type": "String"
+			},
+			{
+				"name": "Address",
+				"type": "String"
+			},
+			{
+				"name": "Cityname",
+				"type": "String"
+			},
+			{
+				"name": "Country",
+				"type": "String"
+			},
+			{
+				"name": "Country code",
+				"type": "String"
+			},
+			{
+				"name": "Pobox",
+				"type": "String"
+			},
+			{
+				"name": "Postalcode",
+				"type": "String"
+			},
+			{
+				"name": "Nationality",
+				"type": "String"
+			},
+			{
+				"name": "Skype",
+				"type": "String"
+			},
+			{
+				"name": "Aim",
+				"type": "String"
+			},
+			{
+				"name": "Yahoo",
+				"type": "String"
+			},
+			{
+				"name": "Msn",
+				"type": "String"
+			},
+			{
+				"name": "Profile_field_Supervisor",
+				"type": "String"
+			},
+			{
+				"name": "Service theme",
+				"type": "String"
+			},
+			{
+				"name": "Cityregion",
+				"type": "String"
+			},
+			{
+				"name": "Job title",
 				"type": "String"
 			},
 			{
@@ -92,75 +202,27 @@
 				"type": "String"
 			},
 			{
-				"name": "ISIC",
+				"name": "Certification_date",
 				"type": "String"
 			},
 			{
-				"name": "Please select the area of your activity",
+				"name": "Certified",
 				"type": "String"
 			},
 			{
-				"name": "HS",
+				"name": "Cohort",
 				"type": "String"
 			},
 			{
-				"name": "Owner/ top manager gender",
+				"name": "Uniqueid",
 				"type": "String"
 			},
 			{
-				"name": "Owner/ top manager age",
+				"name": "User_id",
 				"type": "String"
 			},
 			{
-				"name": "Type of event",
-				"type": "String"
-			},
-			{
-				"name": "Phone number",
-				"type": "String"
-			},
-			{
-				"name": "Registration Date",
-				"type": "String"
-			},
-			{
-				"name": "Submission Date",
-				"type": "String"
-			},
-			{
-				"name": "Middle name",
-				"type": "String"
-			},
-			{
-				"name": "Date of birth",
-				"type": "String"
-			},
-			{
-				"name": "Sub-type of entity",
-				"type": "String"
-			},
-			{
-				"name": "BSO ownership",
-				"type": "String"
-			},
-			{
-				"name": "Office Address",
-				"type": "String"
-			},
-			{
-				"name": "Post Code",
-				"type": "String"
-			},
-			{
-				"name": "Website",
-				"type": "String"
-			},
-			{
-				"name": "Twitter",
-				"type": "String"
-			},
-			{
-				"name": "LinkedIn",
+				"name": "Enrol_time",
 				"type": "String"
 			},
 			{
