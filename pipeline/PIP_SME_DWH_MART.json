@@ -87,21 +87,7 @@
 				"typeProperties": {
 					"dataflow": {
 						"referenceName": "DF_SME_DIM_ENTITY",
-						"type": "DataFlowReference",
-						"datasetParameters": {
-							"ExistingDim": {
-								"TableName": "DIM_ENTITY"
-							},
-							"ExistingDimMaxID": {
-								"TableName": "DIM_ENTITY"
-							},
-							"DIMEntity": {
-								"TableName": "DIM_ENTITY"
-							},
-							"UpdDimEntity": {
-								"TableName": "DIM_ENTITY"
-							}
-						}
+						"type": "DataFlowReference"
 					},
 					"compute": {
 						"coreCount": 8,

@@ -15,7 +15,7 @@
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "MART_OWNER",
+						"referenceName": "MART_DIM_COURSE",
 						"type": "DatasetReference"
 					},
 					"name": "dimcourse"
