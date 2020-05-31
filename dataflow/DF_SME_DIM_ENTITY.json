@@ -1,0 +1,85 @@
+{
+	"name": "DF_SME_DIM_ENTITY",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "TGT_SSUPERSET",
+						"type": "DatasetReference"
+					},
+					"name": "SRCSME"
+				},
+				{
+					"dataset": {
+						"referenceName": "MART_OWNER",
+						"type": "DatasetReference"
+					},
+					"name": "ExistingDim"
+				},
+				{
+					"dataset": {
+						"referenceName": "MART_OWNER",
+						"type": "DatasetReference"
+					},
+					"name": "ExistingDimMaxID"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "MART_OWNER",
+						"type": "DatasetReference"
+					},
+					"name": "DIMEntity"
+				}
+			],
+			"transformations": [
+				{
+					"name": "Selectcolumn"
+				},
+				{
+					"name": "DistinctEntities"
+				},
+				{
+					"name": "SourceRecordHash"
+				},
+				{
+					"name": "Join1"
+				},
+				{
+					"name": "LatestEntityID"
+				},
+				{
+					"name": "SelectExistingCol"
+				},
+				{
+					"name": "ExistingRecordHash"
+				},
+				{
+					"name": "Exists1"
+				},
+				{
+					"name": "Lookup1"
+				},
+				{
+					"name": "ConditionalSplit1"
+				},
+				{
+					"name": "Join2"
+				},
+				{
+					"name": "SurrogateKey1"
+				},
+				{
+					"name": "RunInfo"
+				},
+				{
+					"name": "AlterRow1"
+				}
+			],
+			"script": "source(output(\n\t\tProjectID as string,\n\t\tContext as string,\n\t\t{Type of tool} as string,\n\t\t{Area of change} as string,\n\t\t{Service themes} as string,\n\t\t{Date of data collection} as string,\n\t\tid as string,\n\t\tCourse_name as string,\n\t\tUsername as string,\n\t\tEmail as string,\n\t\t{Phone number} as string,\n\t\tTitle as string,\n\t\t{First name} as string,\n\t\t{Middle name} as string,\n\t\t{Last name} as string,\n\t\tidnumber as string,\n\t\tGender as string,\n\t\t{Year of birth} as string,\n\t\t{Organization/ Company name} as string,\n\t\t{Type of entity} as string,\n\t\t{Sub-type of entity} as string,\n\t\t{Professional status} as string,\n\t\tFunctional_title as string,\n\t\tHowlong as string,\n\t\tPriorexperience as string,\n\t\tAddress as string,\n\t\tCityname as string,\n\t\tCountry as string,\n\t\t{Country code} as string,\n\t\tPobox as string,\n\t\tPostalcode as string,\n\t\tNationality as string,\n\t\tSkype as string,\n\t\tAim as string,\n\t\tYahoo as string,\n\t\tMsn as string,\n\t\tProfile_field_Supervisor as string,\n\t\t{Service theme} as string,\n\t\tCityregion as string,\n\t\t{Job title} as string,\n\t\tSize as string,\n\t\tCertification_date as string,\n\t\tCertified as string,\n\t\tCohort as string,\n\t\tUniqueid as string,\n\t\tUser_id as string,\n\t\tEnrol_time as string,\n\t\tFILE_NAME as string,\n\t\tLOAD_TIMESTAMP as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false) ~> SRCSME\nsource(output(\n\t\tENTITY_SR_KEY as integer,\n\t\tENTITY_ID as integer,\n\t\tVERSION_NO as integer,\n\t\tENTITY_NAME as string,\n\t\tENTITY_EMAIL_DOMAIN_NAME as string,\n\t\tADDRESS as string,\n\t\tCITY as string,\n\t\tREGION as string,\n\t\tPHONE_NUMBER as string,\n\t\tWEBSITE as string,\n\t\tTWITTER as string,\n\t\tLINKEDIN as string,\n\t\tBSO_OWNERSHIP as string,\n\t\tPOST_CODE as string,\n\t\tPOBOX as string,\n\t\tCITY_REGION as string,\n\t\tCATEGORY as string,\n\t\tCONFIDENTIAL as string,\n\t\tSOCIAL_MEDIA as string,\n\t\tOTHER_EMAILS as string,\n\t\tOTHER_PHONE_NUMBERS as string,\n\t\tOTHER_INFORMATION as string,\n\t\tMAILING_ADDRESS_STREET1 as string,\n\t\tMAILING_ADDRESS_STREET2 as string,\n\t\tMAILING_ADDRESS_CITY as string,\n\t\tMAILING_STATE_PROVICE as string,\n\t\tMAILING_POST_CODE as string,\n\t\tMAILING_COUNTRY as string,\n\t\tMAILING_FORMAT_UN as string,\n\t\tFIRM_ID as string,\n\t\tBATCH_ID as integer,\n\t\tSOURCE as string,\n\t\tCREATED_BY as string,\n\t\tUPDATED_BY as string,\n\t\tDATE_CREATED as timestamp,\n\t\tDATE_UPDATED as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> ExistingDim\nsource(output(\n\t\tMAX_VAL as integer\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tquery: 'Select IsNULL(Max(ENTITY_ID),0) MAX_VAL\\nFROM MART_OWNER.DIM_ENTITY',\n\tformat: 'query') ~> ExistingDimMaxID\nSRCSME select(mapColumn(\n\t\tENTITY_EMAIL_DOMAIN_NAME = Email,\n\t\tENTITY_NAME = {Organization/ Company name},\n\t\tADDRESS = Address,\n\t\tCITY = Cityname,\n\t\tPOST_CODE = Postalcode,\n\t\tFILE_NAME,\n\t\tCITY_REGION = Cityregion,\n\t\tLOAD_TIMESTAMP\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> Selectcolumn\nSelectcolumn aggregate(groupBy(ENTITY_NAME),\n\teach(match(name!='ENTITY_NAME'), $$ = last($$))) ~> DistinctEntities\nDistinctEntities derive(SOURCE_RECORD_HASH = sha2(256,\r\nENTITY_NAME,\r\nADDRESS,\r\nENTITY_EMAIL_DOMAIN_NAME,CITY,POST_CODE,CITY_REGION\r\n)) ~> SourceRecordHash\nExistingDim, LatestEntityID join(ExistingDim@ENTITY_ID == LatestEntityID@ENTITY_ID\n\t&& ExistingDim@ENTITY_NAME == LatestEntityID@ENTITY_NAME\n\t&& ExistingDim@VERSION_NO == LatestEntityID@VERSION_NO,\n\tjoinType:'inner',\n\tbroadcast: 'auto')~> Join1\nExistingDim aggregate(groupBy(ENTITY_ID,\n\t\tENTITY_NAME),\n\tVERSION_NO = max(VERSION_NO)) ~> LatestEntityID\nJoin1 select(mapColumn(\n\t\tEXIST_ENTITY_ID = ExistingDim@ENTITY_ID,\n\t\tEXIST_VERSION_NO = ExistingDim@VERSION_NO,\n\t\tEXIST_ENTITY_NAME = ExistingDim@ENTITY_NAME,\n\t\tEXIST_ENTITY_EMAIL_DOMAIN_NAME = ENTITY_EMAIL_DOMAIN_NAME,\n\t\tEXIST_ADDRESS = ADDRESS,\n\t\tEXIST_CITY = CITY,\n\t\tEXIST_CITY_REGION = CITY_REGION,\n\t\tEXIST_POST_CODE = POST_CODE\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SelectExistingCol\nSelectExistingCol derive(RECORD_HASH = sha2(256, EXIST_ENTITY_ID,EXIST_VERSION_NO,EXIST_ENTITY_NAME,EXIST_ENTITY_EMAIL_DOMAIN_NAME,EXIST_ADDRESS,EXIST_CITY,EXIST_CITY_REGION,EXIST_POST_CODE)) ~> ExistingRecordHash\nSourceRecordHash, ExistingRecordHash exists(SOURCE_RECORD_HASH == RECORD_HASH,\n\tnegate:true,\n\tbroadcast: 'auto')~> Exists1\nExists1, ExistingRecordHash lookup(ENTITY_NAME == EXIST_ENTITY_NAME,\n\tmultiple: false,\n\tpickup: 'any',\n\tbroadcast: 'auto')~> Lookup1\nLookup1 split(isNull(EXIST_ENTITY_ID),\n\tdisjoint: false) ~> ConditionalSplit1@(NewRecord, UpdateRecord)\nConditionalSplit1@NewRecord, ExistingDimMaxID join(1==1,\n\tjoinType:'cross',\n\tbroadcast: 'auto')~> Join2\nJoin2 keyGenerate(output(Dim_Surrogate_Key as long),\n\tstartAt: 1L) ~> SurrogateKey1\nSurrogateKey1 derive(ENTITY_ID = MAX_VAL+Dim_Surrogate_Key,\n\t\tVERSION_NO = 1,\n\t\tBATCH_ID = 1,\n\t\tSOURCE = FILE_NAME,\n\t\tCREATED_BY = FILE_NAME,\n\t\tUPDATED_BY = FILE_NAME,\n\t\tDATE_CREATED = currentDate(),\n\t\tDATE_UPDATED = currentDate()) ~> RunInfo\nRunInfo alterRow(insertIf(1==1)) ~> AlterRow1\nAlterRow1 sink(input(\n\t\tENTITY_SR_KEY as integer,\n\t\tENTITY_ID as integer,\n\t\tVERSION_NO as integer,\n\t\tENTITY_NAME as string,\n\t\tENTITY_EMAIL_DOMAIN_NAME as string,\n\t\tADDRESS as string,\n\t\tCITY as string,\n\t\tREGION as string,\n\t\tPHONE_NUMBER as string,\n\t\tWEBSITE as string,\n\t\tTWITTER as string,\n\t\tLINKEDIN as string,\n\t\tBSO_OWNERSHIP as string,\n\t\tPOST_CODE as string,\n\t\tPOBOX as string,\n\t\tCITY_REGION as string,\n\t\tCATEGORY as string,\n\t\tCONFIDENTIAL as string,\n\t\tSOCIAL_MEDIA as string,\n\t\tOTHER_EMAILS as string,\n\t\tOTHER_PHONE_NUMBERS as string,\n\t\tOTHER_INFORMATION as string,\n\t\tMAILING_ADDRESS_STREET1 as string,\n\t\tMAILING_ADDRESS_STREET2 as string,\n\t\tMAILING_ADDRESS_CITY as string,\n\t\tMAILING_STATE_PROVICE as string,\n\t\tMAILING_POST_CODE as string,\n\t\tMAILING_COUNTRY as string,\n\t\tMAILING_FORMAT_UN as string,\n\t\tFIRM_ID as string,\n\t\tBATCH_ID as integer,\n\t\tSOURCE as string,\n\t\tCREATED_BY as string,\n\t\tUPDATED_BY as string,\n\t\tDATE_CREATED as timestamp,\n\t\tDATE_UPDATED as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tmapColumn(\n\t\tENTITY_ID,\n\t\tVERSION_NO,\n\t\tENTITY_NAME,\n\t\tENTITY_EMAIL_DOMAIN_NAME,\n\t\tADDRESS,\n\t\tCITY,\n\t\tPOST_CODE,\n\t\tCITY_REGION,\n\t\tBATCH_ID,\n\t\tSOURCE,\n\t\tCREATED_BY,\n\t\tUPDATED_BY,\n\t\tDATE_CREATED,\n\t\tDATE_UPDATED\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> DIMEntity"
+		}
+	}
+}
