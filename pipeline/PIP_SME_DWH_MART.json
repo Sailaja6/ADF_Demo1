@@ -94,7 +94,25 @@
 				"typeProperties": {
 					"dataflow": {
 						"referenceName": "DF_SME_DIM_ENTITY",
-						"type": "DataFlowReference"
+						"type": "DataFlowReference",
+						"datasetParameters": {
+							"SRCSME": {
+								"OutputFileName": "SME.csv",
+								"OutputFolderName": "SME"
+							},
+							"ExistingDim": {
+								"TableName": "DIM_ENTITY"
+							},
+							"ExistingDimMaxID": {
+								"TableName": "DIM_ENTITY"
+							},
+							"DIMEntity": {
+								"TableName": "DIM_ENTITY"
+							},
+							"UpdDimEntity": {
+								"TableName": "DIM_ENTITY"
+							}
+						}
 					},
 					"compute": {
 						"coreCount": 8,
