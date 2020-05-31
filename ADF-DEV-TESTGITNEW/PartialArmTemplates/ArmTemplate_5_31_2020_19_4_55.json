@@ -1,0 +1,822 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "ADF-DEV-TESTGITNEW"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/PIP_SME_DWH_MART')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "AllSMEToOneFile",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"wildcardFolderPath": {
+										"value": "@variables('FolderName')",
+										"type": "Expression"
+									},
+									"wildcardFileName": "*.csv",
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings",
+									"copyBehavior": "MergeFiles"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "SRC_SSUPERSET",
+								"type": "DatasetReference",
+								"parameters": {
+									"filename": "*.*",
+									"FolderName": {
+										"value": "@variables('FolderName')",
+										"type": "Expression"
+									}
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "TGT_SME",
+								"type": "DatasetReference"
+							}
+						]
+					},
+					{
+						"name": "DF_SME_DIM_ENTITY",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [
+							{
+								"activity": "AllSMEToOneFile",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "DF_SME_DIM_ENTITY",
+								"type": "DataFlowReference"
+							},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							}
+						}
+					}
+				],
+				"variables": {
+					"FolderName": {
+						"type": "String",
+						"defaultValue": "SME"
+					}
+				},
+				"folder": {
+					"name": "CuratedToDim"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/TGT_SME')]",
+				"[concat(variables('factoryId'), '/dataflows/DF_SME_DIM_ENTITY')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/merging files')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy data1",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"wildcardFolderPath": {
+										"value": "@variables('FolderName')",
+										"type": "Expression"
+									},
+									"wildcardFileName": "*.csv",
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings",
+									"copyBehavior": "MergeFiles"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "SRC_SSUPERSET",
+								"type": "DatasetReference",
+								"parameters": {
+									"filename": "*.*",
+									"FolderName": {
+										"value": "@variables('FolderName')",
+										"type": "Expression"
+									}
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "TGT_SME",
+								"type": "DatasetReference"
+							}
+						]
+					}
+				],
+				"variables": {
+					"FolderName": {
+						"type": "String",
+						"defaultValue": "SHE_TRADES"
+					}
+				},
+				"folder": {
+					"name": "CuratedToDim"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/TGT_SME')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/MART_DIM_ENTITY')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase2",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "ENTITY_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "ENTITY_ID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "VERSION_NO",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "ENTITY_NAME",
+						"type": "varchar"
+					},
+					{
+						"name": "ENTITY_EMAIL_DOMAIN_NAME",
+						"type": "varchar"
+					},
+					{
+						"name": "ADDRESS",
+						"type": "varchar"
+					},
+					{
+						"name": "CITY",
+						"type": "varchar"
+					},
+					{
+						"name": "REGION",
+						"type": "varchar"
+					},
+					{
+						"name": "PHONE_NUMBER",
+						"type": "varchar"
+					},
+					{
+						"name": "WEBSITE",
+						"type": "varchar"
+					},
+					{
+						"name": "TWITTER",
+						"type": "varchar"
+					},
+					{
+						"name": "LINKEDIN",
+						"type": "varchar"
+					},
+					{
+						"name": "BSO_OWNERSHIP",
+						"type": "varchar"
+					},
+					{
+						"name": "POST_CODE",
+						"type": "varchar"
+					},
+					{
+						"name": "POBOX",
+						"type": "varchar"
+					},
+					{
+						"name": "CITY_REGION",
+						"type": "varchar"
+					},
+					{
+						"name": "CATEGORY",
+						"type": "varchar"
+					},
+					{
+						"name": "CONFIDENTIAL",
+						"type": "varchar"
+					},
+					{
+						"name": "SOCIAL_MEDIA",
+						"type": "varchar"
+					},
+					{
+						"name": "OTHER_EMAILS",
+						"type": "varchar"
+					},
+					{
+						"name": "OTHER_PHONE_NUMBERS",
+						"type": "varchar"
+					},
+					{
+						"name": "OTHER_INFORMATION",
+						"type": "varchar"
+					},
+					{
+						"name": "MAILING_ADDRESS_STREET1",
+						"type": "varchar"
+					},
+					{
+						"name": "MAILING_ADDRESS_STREET2",
+						"type": "varchar"
+					},
+					{
+						"name": "MAILING_ADDRESS_CITY",
+						"type": "varchar"
+					},
+					{
+						"name": "MAILING_STATE_PROVICE",
+						"type": "varchar"
+					},
+					{
+						"name": "MAILING_POST_CODE",
+						"type": "varchar"
+					},
+					{
+						"name": "MAILING_COUNTRY",
+						"type": "varchar"
+					},
+					{
+						"name": "MAILING_FORMAT_UN",
+						"type": "varchar"
+					},
+					{
+						"name": "FIRM_ID",
+						"type": "varchar"
+					},
+					{
+						"name": "BATCH_ID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "SOURCE",
+						"type": "varchar"
+					},
+					{
+						"name": "CREATED_BY",
+						"type": "varchar"
+					},
+					{
+						"name": "UPDATED_BY",
+						"type": "varchar"
+					},
+					{
+						"name": "DATE_CREATED",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "DATE_UPDATED",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					}
+				],
+				"typeProperties": {
+					"schema": "MART_OWNER",
+					"table": "DIM_ENTITY"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/TGT_SME')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "source",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "combined"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "SME.csv",
+						"folderPath": "SME",
+						"fileSystem": "martsupersuperset"
+					},
+					"columnDelimiter": "|",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "ProjectID",
+						"type": "String"
+					},
+					{
+						"name": "Context",
+						"type": "String"
+					},
+					{
+						"name": "Type of tool",
+						"type": "String"
+					},
+					{
+						"name": "Area of change",
+						"type": "String"
+					},
+					{
+						"name": "Service themes",
+						"type": "String"
+					},
+					{
+						"name": "Date of data collection",
+						"type": "String"
+					},
+					{
+						"name": "id",
+						"type": "String"
+					},
+					{
+						"name": "Course_name",
+						"type": "String"
+					},
+					{
+						"name": "Username",
+						"type": "String"
+					},
+					{
+						"name": "Email",
+						"type": "String"
+					},
+					{
+						"name": "Phone number",
+						"type": "String"
+					},
+					{
+						"name": "Title",
+						"type": "String"
+					},
+					{
+						"name": "First name",
+						"type": "String"
+					},
+					{
+						"name": "Middle name",
+						"type": "String"
+					},
+					{
+						"name": "Last name",
+						"type": "String"
+					},
+					{
+						"name": "idnumber",
+						"type": "String"
+					},
+					{
+						"name": "Gender",
+						"type": "String"
+					},
+					{
+						"name": "Year of birth",
+						"type": "String"
+					},
+					{
+						"name": "Organization/ Company name",
+						"type": "String"
+					},
+					{
+						"name": "Type of entity",
+						"type": "String"
+					},
+					{
+						"name": "Sub-type of entity",
+						"type": "String"
+					},
+					{
+						"name": "Professional status",
+						"type": "String"
+					},
+					{
+						"name": "Functional_title",
+						"type": "String"
+					},
+					{
+						"name": "Howlong",
+						"type": "String"
+					},
+					{
+						"name": "Priorexperience",
+						"type": "String"
+					},
+					{
+						"name": "Address",
+						"type": "String"
+					},
+					{
+						"name": "Cityname",
+						"type": "String"
+					},
+					{
+						"name": "Country",
+						"type": "String"
+					},
+					{
+						"name": "Country code",
+						"type": "String"
+					},
+					{
+						"name": "Pobox",
+						"type": "String"
+					},
+					{
+						"name": "Postalcode",
+						"type": "String"
+					},
+					{
+						"name": "Nationality",
+						"type": "String"
+					},
+					{
+						"name": "Skype",
+						"type": "String"
+					},
+					{
+						"name": "Aim",
+						"type": "String"
+					},
+					{
+						"name": "Yahoo",
+						"type": "String"
+					},
+					{
+						"name": "Msn",
+						"type": "String"
+					},
+					{
+						"name": "Profile_field_Supervisor",
+						"type": "String"
+					},
+					{
+						"name": "Service theme",
+						"type": "String"
+					},
+					{
+						"name": "Cityregion",
+						"type": "String"
+					},
+					{
+						"name": "Job title",
+						"type": "String"
+					},
+					{
+						"name": "Size",
+						"type": "String"
+					},
+					{
+						"name": "Certification_date",
+						"type": "String"
+					},
+					{
+						"name": "Certified",
+						"type": "String"
+					},
+					{
+						"name": "Cohort",
+						"type": "String"
+					},
+					{
+						"name": "Uniqueid",
+						"type": "String"
+					},
+					{
+						"name": "User_id",
+						"type": "String"
+					},
+					{
+						"name": "Enrol_time",
+						"type": "String"
+					},
+					{
+						"name": "FILE_NAME",
+						"type": "String"
+					},
+					{
+						"name": "LOAD_TIMESTAMP",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DF_SME_DIM_ENTITY')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "TGT_SME",
+								"type": "DatasetReference"
+							},
+							"name": "SRCSME"
+						},
+						{
+							"dataset": {
+								"referenceName": "MART_DIM_ENTITY",
+								"type": "DatasetReference"
+							},
+							"name": "ExistingDim"
+						},
+						{
+							"dataset": {
+								"referenceName": "MART_DIM_ENTITY",
+								"type": "DatasetReference"
+							},
+							"name": "ExistingDimMaxID"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "MART_DIM_ENTITY",
+								"type": "DatasetReference"
+							},
+							"name": "DIMEntity"
+						},
+						{
+							"dataset": {
+								"referenceName": "MART_DIM_ENTITY",
+								"type": "DatasetReference"
+							},
+							"name": "UpdDimEntity"
+						}
+					],
+					"transformations": [
+						{
+							"name": "Selectcolumn"
+						},
+						{
+							"name": "DistinctEntities"
+						},
+						{
+							"name": "SourceRecordHash"
+						},
+						{
+							"name": "Join1"
+						},
+						{
+							"name": "LatestEntityID"
+						},
+						{
+							"name": "SelectExistingCol"
+						},
+						{
+							"name": "ExistingRecordHash"
+						},
+						{
+							"name": "Exists1"
+						},
+						{
+							"name": "Lookup1"
+						},
+						{
+							"name": "ConditionalSplit1"
+						},
+						{
+							"name": "Join2"
+						},
+						{
+							"name": "SurrogateKey1"
+						},
+						{
+							"name": "RunInfo"
+						},
+						{
+							"name": "AlterRow1"
+						},
+						{
+							"name": "RunInfo1"
+						},
+						{
+							"name": "AlterRow2"
+						}
+					],
+					"script": "source(output(\n\t\tProjectID as string,\n\t\tContext as string,\n\t\t{Type of tool} as string,\n\t\t{Area of change} as string,\n\t\t{Service themes} as string,\n\t\t{Date of data collection} as string,\n\t\tid as string,\n\t\tCourse_name as string,\n\t\tUsername as string,\n\t\tEmail as string,\n\t\t{Phone number} as string,\n\t\tTitle as string,\n\t\t{First name} as string,\n\t\t{Middle name} as string,\n\t\t{Last name} as string,\n\t\tidnumber as string,\n\t\tGender as string,\n\t\t{Year of birth} as string,\n\t\t{Organization/ Company name} as string,\n\t\t{Type of entity} as string,\n\t\t{Sub-type of entity} as string,\n\t\t{Professional status} as string,\n\t\tFunctional_title as string,\n\t\tHowlong as string,\n\t\tPriorexperience as string,\n\t\tAddress as string,\n\t\tCityname as string,\n\t\tCountry as string,\n\t\t{Country code} as string,\n\t\tPobox as string,\n\t\tPostalcode as string,\n\t\tNationality as string,\n\t\tSkype as string,\n\t\tAim as string,\n\t\tYahoo as string,\n\t\tMsn as string,\n\t\tProfile_field_Supervisor as string,\n\t\t{Service theme} as string,\n\t\tCityregion as string,\n\t\t{Job title} as string,\n\t\tSize as string,\n\t\tCertification_date as string,\n\t\tCertified as string,\n\t\tCohort as string,\n\t\tUniqueid as string,\n\t\tUser_id as string,\n\t\tEnrol_time as string,\n\t\tFILE_NAME as string,\n\t\tLOAD_TIMESTAMP as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false) ~> SRCSME\nsource(output(\n\t\tENTITY_SR_KEY as integer,\n\t\tENTITY_ID as integer,\n\t\tVERSION_NO as integer,\n\t\tENTITY_NAME as string,\n\t\tENTITY_EMAIL_DOMAIN_NAME as string,\n\t\tADDRESS as string,\n\t\tCITY as string,\n\t\tREGION as string,\n\t\tPHONE_NUMBER as string,\n\t\tWEBSITE as string,\n\t\tTWITTER as string,\n\t\tLINKEDIN as string,\n\t\tBSO_OWNERSHIP as string,\n\t\tPOST_CODE as string,\n\t\tPOBOX as string,\n\t\tCITY_REGION as string,\n\t\tCATEGORY as string,\n\t\tCONFIDENTIAL as string,\n\t\tSOCIAL_MEDIA as string,\n\t\tOTHER_EMAILS as string,\n\t\tOTHER_PHONE_NUMBERS as string,\n\t\tOTHER_INFORMATION as string,\n\t\tMAILING_ADDRESS_STREET1 as string,\n\t\tMAILING_ADDRESS_STREET2 as string,\n\t\tMAILING_ADDRESS_CITY as string,\n\t\tMAILING_STATE_PROVICE as string,\n\t\tMAILING_POST_CODE as string,\n\t\tMAILING_COUNTRY as string,\n\t\tMAILING_FORMAT_UN as string,\n\t\tFIRM_ID as string,\n\t\tBATCH_ID as integer,\n\t\tSOURCE as string,\n\t\tCREATED_BY as string,\n\t\tUPDATED_BY as string,\n\t\tDATE_CREATED as timestamp,\n\t\tDATE_UPDATED as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> ExistingDim\nsource(output(\n\t\tMAX_VAL as integer\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tquery: 'Select IsNULL(Max(ENTITY_ID),0) MAX_VAL\\nFROM MART_OWNER.DIM_ENTITY',\n\tformat: 'query') ~> ExistingDimMaxID\nSRCSME select(mapColumn(\n\t\tENTITY_EMAIL_DOMAIN_NAME = Email,\n\t\tENTITY_NAME = {Organization/ Company name},\n\t\tADDRESS = Address,\n\t\tCITY = Cityname,\n\t\tPOST_CODE = Postalcode,\n\t\tFILE_NAME,\n\t\tCITY_REGION = Cityregion,\n\t\tLOAD_TIMESTAMP\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> Selectcolumn\nSelectcolumn aggregate(groupBy(ENTITY_NAME),\n\teach(match(name !='ENTITY_NAME'), $$ = last($$))) ~> DistinctEntities\nDistinctEntities derive(SOURCE_RECORD_HASH = sha2(256,\r\nENTITY_NAME,\r\nADDRESS,\r\nENTITY_EMAIL_DOMAIN_NAME,CITY,POST_CODE,CITY_REGION\r\n)) ~> SourceRecordHash\nExistingDim, LatestEntityID join(ExistingDim@ENTITY_ID == LatestEntityID@ENTITY_ID\n\t&& ExistingDim@ENTITY_NAME == LatestEntityID@ENTITY_NAME\n\t&& ExistingDim@VERSION_NO == LatestEntityID@VERSION_NO,\n\tjoinType:'inner',\n\tbroadcast: 'auto')~> Join1\nExistingDim aggregate(groupBy(ENTITY_ID,\n\t\tENTITY_NAME),\n\tVERSION_NO = max(VERSION_NO)) ~> LatestEntityID\nJoin1 select(mapColumn(\n\t\tEXIST_ENTITY_ID = ExistingDim@ENTITY_ID,\n\t\tEXIST_VERSION_NO = ExistingDim@VERSION_NO,\n\t\tEXIST_ENTITY_NAME = ExistingDim@ENTITY_NAME,\n\t\tEXIST_ENTITY_EMAIL_DOMAIN_NAME = ENTITY_EMAIL_DOMAIN_NAME,\n\t\tEXIST_ADDRESS = ADDRESS,\n\t\tEXIST_CITY = CITY,\n\t\tEXIST_CITY_REGION = CITY_REGION,\n\t\tEXIST_POST_CODE = POST_CODE\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SelectExistingCol\nSelectExistingCol derive(RECORD_HASH = sha2(256, EXIST_ENTITY_ID,EXIST_VERSION_NO,EXIST_ENTITY_NAME,EXIST_ENTITY_EMAIL_DOMAIN_NAME,EXIST_ADDRESS,EXIST_CITY,EXIST_CITY_REGION,EXIST_POST_CODE)) ~> ExistingRecordHash\nSourceRecordHash, ExistingRecordHash exists(SOURCE_RECORD_HASH == RECORD_HASH,\n\tnegate:true,\n\tbroadcast: 'auto')~> Exists1\nExists1, ExistingRecordHash lookup(ENTITY_NAME == EXIST_ENTITY_NAME,\n\tmultiple: false,\n\tpickup: 'any',\n\tbroadcast: 'auto')~> Lookup1\nLookup1 split(isNull(EXIST_ENTITY_ID),\n\tdisjoint: false) ~> ConditionalSplit1@(NewRecord, UpdateRecord)\nConditionalSplit1@NewRecord, ExistingDimMaxID join(1==1,\n\tjoinType:'cross',\n\tbroadcast: 'auto')~> Join2\nJoin2 keyGenerate(output(Dim_Surrogate_Key as long),\n\tstartAt: 1L) ~> SurrogateKey1\nSurrogateKey1 derive(ENTITY_ID = MAX_VAL+Dim_Surrogate_Key,\n\t\tVERSION_NO = 1,\n\t\tBATCH_ID = 1,\n\t\tSOURCE = FILE_NAME,\n\t\tCREATED_BY = FILE_NAME,\n\t\tUPDATED_BY = FILE_NAME,\n\t\tDATE_CREATED = currentDate(),\n\t\tDATE_UPDATED = currentDate()) ~> RunInfo\nRunInfo alterRow(insertIf(1==1)) ~> AlterRow1\nConditionalSplit1@UpdateRecord derive(VERSION_NO = EXIST_VERSION_NO+1,\n\t\tBATCH_ID = 1,\n\t\tSOURCE = FILE_NAME,\n\t\tCREATED_BY = FILE_NAME,\n\t\tUPDATED_BY = FILE_NAME,\n\t\tDATE_CREATED = currentDate(),\n\t\tDATE_UPDATED = currentDate()) ~> RunInfo1\nRunInfo1 alterRow(updateIf(1==1)) ~> AlterRow2\nAlterRow1 sink(input(\n\t\tENTITY_SR_KEY as integer,\n\t\tENTITY_ID as integer,\n\t\tVERSION_NO as integer,\n\t\tENTITY_NAME as string,\n\t\tENTITY_EMAIL_DOMAIN_NAME as string,\n\t\tADDRESS as string,\n\t\tCITY as string,\n\t\tREGION as string,\n\t\tPHONE_NUMBER as string,\n\t\tWEBSITE as string,\n\t\tTWITTER as string,\n\t\tLINKEDIN as string,\n\t\tBSO_OWNERSHIP as string,\n\t\tPOST_CODE as string,\n\t\tPOBOX as string,\n\t\tCITY_REGION as string,\n\t\tCATEGORY as string,\n\t\tCONFIDENTIAL as string,\n\t\tSOCIAL_MEDIA as string,\n\t\tOTHER_EMAILS as string,\n\t\tOTHER_PHONE_NUMBERS as string,\n\t\tOTHER_INFORMATION as string,\n\t\tMAILING_ADDRESS_STREET1 as string,\n\t\tMAILING_ADDRESS_STREET2 as string,\n\t\tMAILING_ADDRESS_CITY as string,\n\t\tMAILING_STATE_PROVICE as string,\n\t\tMAILING_POST_CODE as string,\n\t\tMAILING_COUNTRY as string,\n\t\tMAILING_FORMAT_UN as string,\n\t\tFIRM_ID as string,\n\t\tBATCH_ID as integer,\n\t\tSOURCE as string,\n\t\tCREATED_BY as string,\n\t\tUPDATED_BY as string,\n\t\tDATE_CREATED as timestamp,\n\t\tDATE_UPDATED as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tmapColumn(\n\t\tENTITY_ID,\n\t\tVERSION_NO,\n\t\tENTITY_NAME,\n\t\tENTITY_EMAIL_DOMAIN_NAME,\n\t\tADDRESS,\n\t\tCITY,\n\t\tPOST_CODE,\n\t\tCITY_REGION,\n\t\tBATCH_ID,\n\t\tSOURCE,\n\t\tCREATED_BY,\n\t\tUPDATED_BY,\n\t\tDATE_CREATED,\n\t\tDATE_UPDATED\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> DIMEntity\nAlterRow2 sink(input(\n\t\tENTITY_SR_KEY as integer,\n\t\tENTITY_ID as integer,\n\t\tVERSION_NO as integer,\n\t\tENTITY_NAME as string,\n\t\tENTITY_EMAIL_DOMAIN_NAME as string,\n\t\tADDRESS as string,\n\t\tCITY as string,\n\t\tREGION as string,\n\t\tPHONE_NUMBER as string,\n\t\tWEBSITE as string,\n\t\tTWITTER as string,\n\t\tLINKEDIN as string,\n\t\tBSO_OWNERSHIP as string,\n\t\tPOST_CODE as string,\n\t\tPOBOX as string,\n\t\tCITY_REGION as string,\n\t\tCATEGORY as string,\n\t\tCONFIDENTIAL as string,\n\t\tSOCIAL_MEDIA as string,\n\t\tOTHER_EMAILS as string,\n\t\tOTHER_PHONE_NUMBERS as string,\n\t\tOTHER_INFORMATION as string,\n\t\tMAILING_ADDRESS_STREET1 as string,\n\t\tMAILING_ADDRESS_STREET2 as string,\n\t\tMAILING_ADDRESS_CITY as string,\n\t\tMAILING_STATE_PROVICE as string,\n\t\tMAILING_POST_CODE as string,\n\t\tMAILING_COUNTRY as string,\n\t\tMAILING_FORMAT_UN as string,\n\t\tFIRM_ID as string,\n\t\tBATCH_ID as integer,\n\t\tSOURCE as string,\n\t\tCREATED_BY as string,\n\t\tUPDATED_BY as string,\n\t\tDATE_CREATED as timestamp,\n\t\tDATE_UPDATED as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tmapColumn(\n\t\tENTITY_ID = EXIST_ENTITY_ID,\n\t\tVERSION_NO,\n\t\tENTITY_NAME,\n\t\tENTITY_EMAIL_DOMAIN_NAME,\n\t\tADDRESS,\n\t\tCITY,\n\t\tPOST_CODE,\n\t\tCITY_REGION,\n\t\tBATCH_ID,\n\t\tSOURCE,\n\t\tCREATED_BY,\n\t\tUPDATED_BY,\n\t\tDATE_CREATED,\n\t\tDATE_UPDATED\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> UpdDimEntity"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/TGT_SME')]",
+				"[concat(variables('factoryId'), '/datasets/MART_DIM_ENTITY')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DF_SME_DIM_COURSE')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "TGT_SME",
+								"type": "DatasetReference"
+							},
+							"name": "allsmefiles"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "MART_DIM_COURSE",
+								"type": "DatasetReference"
+							},
+							"name": "dimcourse"
+						}
+					],
+					"transformations": [
+						{
+							"name": "Selectingcoursename"
+						},
+						{
+							"name": "Aggregate1"
+						},
+						{
+							"name": "DerivedColumn1"
+						}
+					],
+					"script": "source(output(\n\t\tProjectID as string,\n\t\tContext as string,\n\t\t{Type of tool} as string,\n\t\t{Area of change} as string,\n\t\t{Service themes} as string,\n\t\t{Date of data collection} as string,\n\t\tid as string,\n\t\tCourse_name as string,\n\t\tUsername as string,\n\t\tEmail as string,\n\t\t{Phone number} as string,\n\t\tTitle as string,\n\t\t{First name} as string,\n\t\t{Middle name} as string,\n\t\t{Last name} as string,\n\t\tidnumber as string,\n\t\tGender as string,\n\t\t{Year of birth} as string,\n\t\t{Organization/ Company name} as string,\n\t\t{Type of entity} as string,\n\t\t{Sub-type of entity} as string,\n\t\t{Professional status} as string,\n\t\tFunctional_title as string,\n\t\tHowlong as string,\n\t\tPriorexperience as string,\n\t\tAddress as string,\n\t\tCityname as string,\n\t\tCountry as string,\n\t\t{Country code} as string,\n\t\tPobox as string,\n\t\tPostalcode as string,\n\t\tNationality as string,\n\t\tSkype as string,\n\t\tAim as string,\n\t\tYahoo as string,\n\t\tMsn as string,\n\t\tProfile_field_Supervisor as string,\n\t\t{Service theme} as string,\n\t\tCityregion as string,\n\t\t{Job title} as string,\n\t\tSize as string,\n\t\tCertification_date as string,\n\t\tCertified as string,\n\t\tCohort as string,\n\t\tUniqueid as string,\n\t\tUser_id as string,\n\t\tEnrol_time as string,\n\t\tFILE_NAME as string,\n\t\tLOAD_TIMESTAMP as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false) ~> allsmefiles\nallsmefiles select(mapColumn(\n\t\tCOURSE_NAME = Course_name,\n\t\tFILE_NAME,\n\t\tLOAD_TIMESTAMP\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> Selectingcoursename\nSelectingcoursename aggregate(groupBy(COURSE_NAME),\n\teach(match(name != 'COURSE_NAME'), $$ = last($$))) ~> Aggregate1\nAggregate1 derive(BATCH_ID = 1,\n\t\tSOURCE = FILE_NAME,\n\t\tCREATED_BY = FILE_NAME,\n\t\tUPDATED_BY = FILE_NAME,\n\t\tDATE_CREATED = currentDate(),\n\t\tDATE_UPDATED = currentDate()) ~> DerivedColumn1\nDerivedColumn1 sink(input(\n\t\tCOURSE_SR_KEY as integer,\n\t\tCOURSE_NAME as string,\n\t\tBATCH_ID as integer,\n\t\tSOURCE as string,\n\t\tCREATED_BY as string,\n\t\tUPDATED_BY as string,\n\t\tDATE_CREATED as timestamp,\n\t\tDATE_UPDATED as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tmapColumn(\n\t\tCOURSE_NAME,\n\t\tBATCH_ID,\n\t\tSOURCE,\n\t\tCREATED_BY,\n\t\tUPDATED_BY,\n\t\tDATE_CREATED,\n\t\tDATE_UPDATED\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> dimcourse"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/TGT_SME')]",
+				"[concat(variables('factoryId'), '/datasets/MART_DIM_COURSE')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/MART_DIM_COURSE')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase2",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "COURSE_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "COURSE_NAME",
+						"type": "varchar"
+					},
+					{
+						"name": "BATCH_ID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "SOURCE",
+						"type": "varchar"
+					},
+					{
+						"name": "CREATED_BY",
+						"type": "varchar"
+					},
+					{
+						"name": "UPDATED_BY",
+						"type": "varchar"
+					},
+					{
+						"name": "DATE_CREATED",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "DATE_UPDATED",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					}
+				],
+				"typeProperties": {
+					"schema": "MART_OWNER",
+					"table": "DIM_COURSE"
+				}
+			},
+			"dependsOn": []
+		}
+	]
+}
