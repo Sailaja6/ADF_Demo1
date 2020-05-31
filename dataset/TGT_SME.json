@@ -1,17 +1,9 @@
 {
-	"name": "TGT_SSUPERSET",
+	"name": "TGT_SME",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "source",
 			"type": "LinkedServiceReference"
-		},
-		"parameters": {
-			"OutputFileName": {
-				"type": "string"
-			},
-			"OutputFolderName": {
-				"type": "string"
-			}
 		},
 		"folder": {
 			"name": "combined"
@@ -21,14 +13,8 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": {
-					"value": "@dataset().OutputFileName",
-					"type": "Expression"
-				},
-				"folderPath": {
-					"value": "@dataset().OutputFolderName",
-					"type": "Expression"
-				},
+				"fileName": "SME.csv",
+				"folderPath": "SME",
 				"fileSystem": "martsupersuperset"
 			},
 			"columnDelimiter": "|",

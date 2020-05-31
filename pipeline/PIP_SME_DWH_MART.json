@@ -60,15 +60,8 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "TGT_SSUPERSET",
-						"type": "DatasetReference",
-						"parameters": {
-							"OutputFileName": "SME.csv",
-							"OutputFolderName": {
-								"value": "@variables('FolderName')",
-								"type": "Expression"
-							}
-						}
+						"referenceName": "TGT_SME",
+						"type": "DatasetReference"
 					}
 				]
 			},
@@ -96,10 +89,6 @@
 						"referenceName": "DF_SME_DIM_ENTITY",
 						"type": "DataFlowReference",
 						"datasetParameters": {
-							"SRCSME": {
-								"OutputFileName": "SME.csv",
-								"OutputFolderName": "SME"
-							},
 							"ExistingDim": {
 								"TableName": "DIM_ENTITY"
 							},

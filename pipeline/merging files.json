@@ -60,7 +60,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "TGT_SSUPERSET",
+						"referenceName": "TGT_SME",
 						"type": "DatasetReference",
 						"parameters": {
 							"OutputFileName": {
