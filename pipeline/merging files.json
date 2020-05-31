@@ -61,11 +61,29 @@
 				"outputs": [
 					{
 						"referenceName": "TGT_SSUPERSET",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"OutputFileName": {
+								"value": "@pipeline().parameters.outputfilename",
+								"type": "Expression"
+							},
+							"OutputFolderName": {
+								"value": "@variables('FolderName')",
+								"type": "Expression"
+							}
+						}
 					}
 				]
 			}
 		],
+		"parameters": {
+			"outputfilename": {
+				"type": "string"
+			},
+			"outputfoldername": {
+				"type": "string"
+			}
+		},
 		"variables": {
 			"FolderName": {
 				"type": "String",
