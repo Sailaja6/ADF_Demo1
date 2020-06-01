@@ -1,0 +1,12 @@
+{
+	"name": "DF_SALES_DIM_ENTITY",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [],
+			"sinks": [],
+			"transformations": [],
+			"script": ""
+		}
+	}
+}

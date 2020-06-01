@@ -1,0 +1,80 @@
+{
+	"name": "PIP_SALES_DWH_MART",
+	"properties": {
+		"activities": [
+			{
+				"name": "AllSALESToOneFile",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"wildcardFolderPath": {
+								"value": "@variables('FolderName')",
+								"type": "Expression"
+							},
+							"wildcardFileName": "*.csv",
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings",
+							"copyBehavior": "MergeFiles"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "SRC_SSUPERSET",
+						"type": "DatasetReference",
+						"parameters": {
+							"filename": "*.*",
+							"FolderName": {
+								"value": "@variables('FolderName')",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "TGT_SALES_KPI",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"variables": {
+			"FolderName": {
+				"type": "String",
+				"defaultValue": "SALES_KPI"
+			}
+		},
+		"folder": {
+			"name": "CuratedToDim"
+		},
+		"annotations": []
+	}
+}
