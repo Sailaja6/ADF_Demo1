@@ -5,6 +5,9 @@
 			"referenceName": "source",
 			"type": "LinkedServiceReference"
 		},
+		"folder": {
+			"name": "combined"
+		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
@@ -14,7 +17,7 @@
 				"folderPath": "SALES_KPI",
 				"fileSystem": "martsupersuperset"
 			},
-			"columnDelimiter": ",",
+			"columnDelimiter": "|",
 			"escapeChar": "\\",
 			"firstRowAsHeader": true,
 			"quoteChar": "\""
