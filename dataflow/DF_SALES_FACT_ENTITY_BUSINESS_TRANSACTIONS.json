@@ -1,6 +1,9 @@
 {
 	"name": "DF_SALES_FACT_ENTITY_BUSINESS_TRANSACTIONS",
 	"properties": {
+		"folder": {
+			"name": "SALES_DWHToMART"
+		},
 		"type": "MappingDataFlow",
 		"typeProperties": {
 			"sources": [
