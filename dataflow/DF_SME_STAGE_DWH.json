@@ -1,6 +1,9 @@
 {
 	"name": "DF_SME_STAGE_DWH",
 	"properties": {
+		"folder": {
+			"name": "StageToCurated"
+		},
 		"type": "MappingDataFlow",
 		"typeProperties": {
 			"sources": [

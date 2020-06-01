@@ -1,6 +1,9 @@
 {
 	"name": "DF_SME_FACT_PROJECT_EVENTS_INDIVIDUAL",
 	"properties": {
+		"folder": {
+			"name": "SME_DWHToMART"
+		},
 		"type": "MappingDataFlow",
 		"typeProperties": {
 			"sources": [
