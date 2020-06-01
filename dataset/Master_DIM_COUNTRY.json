@@ -1,38 +1,57 @@
 {
-	"name": "Master_DIM_AGE_GROUP",
+	"name": "Master_DIM_COUNTRY",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "Master",
 			"type": "LinkedServiceReference"
 		},
-		"folder": {
-			"name": "Master"
-		},
 		"annotations": [],
 		"type": "AzureSqlTable",
 		"schema": [
 			{
-				"name": "AGE_GROUP_SR_KEY",
+				"name": "COUNTRY_SR_KEY",
 				"type": "int",
 				"precision": 10
 			},
 			{
-				"name": "AGE_GROUP_CODE",
+				"name": "COUNTRY_CODE",
 				"type": "varchar"
 			},
 			{
-				"name": "AGE_GROUP_DESC",
+				"name": "COUNTRY_NAME_EN",
 				"type": "varchar"
 			},
 			{
-				"name": "LOWER_AGE_LIMIT",
-				"type": "int",
-				"precision": 10
+				"name": "COUNTRY_NAME_ES",
+				"type": "nvarchar"
 			},
 			{
-				"name": "HIGHER_AGE_LIMIT",
-				"type": "int",
-				"precision": 10
+				"name": "COUNTRY_NAME_FR",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ISO2_CODE",
+				"type": "varchar"
+			},
+			{
+				"name": "ISO3_CODE",
+				"type": "varchar"
+			},
+			{
+				"name": "LEAST_DEVELPED_COUNTRY",
+				"type": "varchar"
+			},
+			{
+				"name": "LAND_LCKD_DEVELOPING_COUNTRY",
+				"type": "varchar"
+			},
+			{
+				"name": "SMALL_ISLAND_DEVELOPING_STATES",
+				"type": "varchar"
+			},
+			{
+				"name": "DEVELOPED_DEVELOPING_COUNTRY",
+				"type": "varchar"
 			},
 			{
 				"name": "BATCH_ID",
@@ -66,7 +85,7 @@
 		],
 		"typeProperties": {
 			"schema": "MART_OWNER",
-			"table": "DIM_AGE_GROUP"
+			"table": "DIM_COUNTRY"
 		}
 	}
 }

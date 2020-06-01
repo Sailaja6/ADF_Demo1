@@ -1,36 +1,33 @@
 {
-	"name": "Master_DIM_AGE_GROUP",
+	"name": "Master_DIM_ENTITY_SIZE_GROUP",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "Master",
 			"type": "LinkedServiceReference"
 		},
-		"folder": {
-			"name": "Master"
-		},
 		"annotations": [],
 		"type": "AzureSqlTable",
 		"schema": [
 			{
-				"name": "AGE_GROUP_SR_KEY",
+				"name": "ENTITY_SIZE_GROUP_SR_KEY",
 				"type": "int",
 				"precision": 10
 			},
 			{
-				"name": "AGE_GROUP_CODE",
+				"name": "ENTITY_SIZE_GROUP_CODE",
 				"type": "varchar"
 			},
 			{
-				"name": "AGE_GROUP_DESC",
+				"name": "ENTITY_SIZE_GROUP_DESC",
 				"type": "varchar"
 			},
 			{
-				"name": "LOWER_AGE_LIMIT",
+				"name": "LOWER_SZIE_LIMIT",
 				"type": "int",
 				"precision": 10
 			},
 			{
-				"name": "HIGHER_AGE_LIMIT",
+				"name": "HIGHER_SIZE_LIMIT",
 				"type": "int",
 				"precision": 10
 			},
@@ -66,7 +63,7 @@
 		],
 		"typeProperties": {
 			"schema": "MART_OWNER",
-			"table": "DIM_AGE_GROUP"
+			"table": "DIM_ENTITY_SIZE_GROUP"
 		}
 	}
 }

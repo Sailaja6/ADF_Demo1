@@ -1,0 +1,91 @@
+{
+	"name": "Master_DIM_DATE",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Master",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "DATE_SR_KEY",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "DATE_TIME",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "DAY_OF_MONTH",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "CALENDER_MONTH_NAME",
+				"type": "varchar"
+			},
+			{
+				"name": "CALENDER_MONTH_ID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "CALENDER_YEAR",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "CALENDER_QUARTER_ID",
+				"type": "varchar"
+			},
+			{
+				"name": "CALENDER_QUARTER_NAME",
+				"type": "varchar"
+			},
+			{
+				"name": "CALENDER_HALF_YEAR_ID",
+				"type": "varchar"
+			},
+			{
+				"name": "CALENDER_HALF_YEAR_NAME",
+				"type": "varchar"
+			},
+			{
+				"name": "FISCAL_MONTH_ID",
+				"type": "varchar"
+			},
+			{
+				"name": "FISCAL_MONTH_NAME",
+				"type": "varchar"
+			},
+			{
+				"name": "FISCAL_QUARTER_ID",
+				"type": "varchar"
+			},
+			{
+				"name": "FISCAL_QUARTER_NAME",
+				"type": "varchar"
+			},
+			{
+				"name": "FISCAL_HALF_YEAR_ID",
+				"type": "varchar"
+			},
+			{
+				"name": "FISCAL_HALF_YEAR_NAME",
+				"type": "varchar"
+			},
+			{
+				"name": "FISCAL_YEAR",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "MART_OWNER",
+			"table": "DIM_DATE"
+		}
+	}
+}

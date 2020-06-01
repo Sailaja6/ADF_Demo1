@@ -1,0 +1,98 @@
+{
+	"name": "DF_SME_FACT_PROJECT_EVENTS_INDIVIDUAL",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "TGT_SME",
+						"type": "DatasetReference"
+					},
+					"name": "SRCSME"
+				},
+				{
+					"dataset": {
+						"referenceName": "Master_DIM_AREA_OF_CHANGE",
+						"type": "DatasetReference"
+					},
+					"name": "DIMAREAOFCHANGE"
+				},
+				{
+					"dataset": {
+						"referenceName": "Master_DIM_DATE",
+						"type": "DatasetReference"
+					},
+					"name": "DIMDATE"
+				},
+				{
+					"dataset": {
+						"referenceName": "Master_DIM_CONTEXT_SUB_TYPE",
+						"type": "DatasetReference"
+					},
+					"name": "DIMCONTEXTSUBTYPE"
+				},
+				{
+					"dataset": {
+						"referenceName": "MART_DIM_COURSE",
+						"type": "DatasetReference"
+					},
+					"name": "DIMCOURSE"
+				},
+				{
+					"dataset": {
+						"referenceName": "Master_DIM_COUNTRY",
+						"type": "DatasetReference"
+					},
+					"name": "DIMCOUNTRY"
+				}
+			],
+			"sinks": [],
+			"transformations": [
+				{
+					"name": "SelectAREAOFCHANGE"
+				},
+				{
+					"name": "LookUpAreaofChange"
+				},
+				{
+					"name": "SelectCertificationDate"
+				},
+				{
+					"name": "LookUpDimDate"
+				},
+				{
+					"name": "SelectContextSubType"
+				},
+				{
+					"name": "LookupContextSubType"
+				},
+				{
+					"name": "SelectCourse"
+				},
+				{
+					"name": "LookupCourseName"
+				},
+				{
+					"name": "SelectRegistrationDate"
+				},
+				{
+					"name": "SelectDateOfBirth"
+				},
+				{
+					"name": "SelectEnrollDate"
+				},
+				{
+					"name": "LookupEnrollDate"
+				},
+				{
+					"name": "SelectEntityCountry"
+				},
+				{
+					"name": "LookupEntityCountry"
+				}
+			],
+			"script": "source(output(\n\t\tProjectID as string,\n\t\tContext as string,\n\t\t{Type of tool} as string,\n\t\t{Area of change} as string,\n\t\t{Service themes} as string,\n\t\t{Date of data collection} as string,\n\t\tid as string,\n\t\tCourse_name as string,\n\t\tUsername as string,\n\t\tEmail as string,\n\t\t{Phone number} as string,\n\t\tTitle as string,\n\t\t{First name} as string,\n\t\t{Middle name} as string,\n\t\t{Last name} as string,\n\t\tidnumber as string,\n\t\tGender as string,\n\t\t{Year of birth} as string,\n\t\t{Organization/ Company name} as string,\n\t\t{Type of entity} as string,\n\t\t{Sub-type of entity} as string,\n\t\t{Professional status} as string,\n\t\tFunctional_title as string,\n\t\tHowlong as string,\n\t\tPriorexperience as string,\n\t\tAddress as string,\n\t\tCityname as string,\n\t\tCountry as string,\n\t\t{Country code} as string,\n\t\tPobox as string,\n\t\tPostalcode as string,\n\t\tNationality as string,\n\t\tSkype as string,\n\t\tAim as string,\n\t\tYahoo as string,\n\t\tMsn as string,\n\t\tProfile_field_Supervisor as string,\n\t\t{Service theme} as string,\n\t\tCityregion as string,\n\t\t{Job title} as string,\n\t\tSize as string,\n\t\tCertification_date as string,\n\t\tCertified as string,\n\t\tCohort as string,\n\t\tUniqueid as string,\n\t\tUser_id as string,\n\t\tEnrol_time as string,\n\t\tFILE_NAME as string,\n\t\tLOAD_TIMESTAMP as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false) ~> SRCSME\nsource(output(\n\t\tAREA_OF_CHANGE_SR_KEY as integer,\n\t\tAREA_OF_CHANGE_CODE as string,\n\t\tAREA_OF_CHANGE_DESC as string,\n\t\tBATCH_ID as integer,\n\t\tSOURCE as string,\n\t\tCREATED_BY as string,\n\t\tUPDATED_BY as string,\n\t\tDATE_CREATED as timestamp,\n\t\tDATE_UPDATED as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> DIMAREAOFCHANGE\nsource(output(\n\t\tDATE_SR_KEY as integer,\n\t\tDATE_TIME as timestamp,\n\t\tDAY_OF_MONTH as integer,\n\t\tCALENDER_MONTH_NAME as string,\n\t\tCALENDER_MONTH_ID as integer,\n\t\tCALENDER_YEAR as integer,\n\t\tCALENDER_QUARTER_ID as string,\n\t\tCALENDER_QUARTER_NAME as string,\n\t\tCALENDER_HALF_YEAR_ID as string,\n\t\tCALENDER_HALF_YEAR_NAME as string,\n\t\tFISCAL_MONTH_ID as string,\n\t\tFISCAL_MONTH_NAME as string,\n\t\tFISCAL_QUARTER_ID as string,\n\t\tFISCAL_QUARTER_NAME as string,\n\t\tFISCAL_HALF_YEAR_ID as string,\n\t\tFISCAL_HALF_YEAR_NAME as string,\n\t\tFISCAL_YEAR as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> DIMDATE\nsource(output(\n\t\tCONTEXT_SUB_TYPE_SR_KEY as integer,\n\t\tCONTEXT_TYPE_CODE as string,\n\t\tCONTEXT_TYPE_DESC as string,\n\t\tCONTEXT_SUB_TYPE_CODE as string,\n\t\tCONTEXT_SUB_TYPE_DESC as string,\n\t\tBATCH_ID as integer,\n\t\tSOURCE as string,\n\t\tCREATED_BY as string,\n\t\tUPDATED_BY as string,\n\t\tDATE_CREATED as timestamp,\n\t\tDATE_UPDATED as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> DIMCONTEXTSUBTYPE\nsource(output(\n\t\tCOURSE_SR_KEY as integer,\n\t\tCOURSE_NAME as string,\n\t\tBATCH_ID as integer,\n\t\tSOURCE as string,\n\t\tCREATED_BY as string,\n\t\tUPDATED_BY as string,\n\t\tDATE_CREATED as timestamp,\n\t\tDATE_UPDATED as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> DIMCOURSE\nsource(output(\n\t\tCOUNTRY_SR_KEY as integer,\n\t\tCOUNTRY_CODE as string,\n\t\tCOUNTRY_NAME_EN as string,\n\t\tCOUNTRY_NAME_ES as string,\n\t\tCOUNTRY_NAME_FR as string,\n\t\tISO2_CODE as string,\n\t\tISO3_CODE as string,\n\t\tLEAST_DEVELPED_COUNTRY as string,\n\t\tLAND_LCKD_DEVELOPING_COUNTRY as string,\n\t\tSMALL_ISLAND_DEVELOPING_STATES as string,\n\t\tDEVELOPED_DEVELOPING_COUNTRY as string,\n\t\tBATCH_ID as integer,\n\t\tSOURCE as string,\n\t\tCREATED_BY as string,\n\t\tUPDATED_BY as string,\n\t\tDATE_CREATED as timestamp,\n\t\tDATE_UPDATED as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> DIMCOUNTRY\nDIMAREAOFCHANGE select(mapColumn(\n\t\tAREA_OF_CHANGE_SR_KEY,\n\t\tAREA_OF_CHANGE_CODE,\n\t\tAREA_OF_CHANGE_DESC\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SelectAREAOFCHANGE\nSRCSME, SelectAREAOFCHANGE lookup(upper(trim({Area of change})) == upper(trim(AREA_OF_CHANGE_DESC)),\n\tmultiple: false,\n\tpickup: 'any',\n\tbroadcast: 'auto')~> LookUpAreaofChange\nDIMDATE select(mapColumn(\n\t\tCERTIFICATION_DATE_SR_KEY = DATE_SR_KEY,\n\t\tDATE_TIME\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SelectCertificationDate\nLookUpAreaofChange, SelectCertificationDate lookup(\r\n\r\ntoDate(Certification_date, 'MM/DD/YYYY') == DATE_TIME,\n\tmultiple: false,\n\tpickup: 'any',\n\tbroadcast: 'auto')~> LookUpDimDate\nDIMCONTEXTSUBTYPE select(mapColumn(\n\t\tCONTEXT_SUB_TYPE_SR_KEY,\n\t\tCONTEXT_TYPE_CODE,\n\t\tCONTEXT_TYPE_DESC\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SelectContextSubType\nLookUpDimDate, SelectContextSubType lookup(upper(trim(Context)) == upper(trim(CONTEXT_TYPE_DESC)),\n\tmultiple: false,\n\tpickup: 'any',\n\tbroadcast: 'auto')~> LookupContextSubType\nDIMCOURSE select(mapColumn(\n\t\tCOURSE_SR_KEY,\n\t\tCOURSE_NAME\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SelectCourse\nLookupContextSubType, SelectCourse lookup(upper(trim(SRCSME@Course_name)) == upper(trim(SelectCourse@COURSE_NAME)),\n\tmultiple: false,\n\tpickup: 'any',\n\tbroadcast: 'auto')~> LookupCourseName\nDIMDATE select(mapColumn(\n\t\tDATE_COLLECTION_DATE_SR_KEY = DATE_SR_KEY,\n\t\tDATE_TIME\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SelectRegistrationDate\nDIMDATE select(mapColumn(\n\t\tDATE_OF_BIRTH_SR_KEY = DATE_SR_KEY,\n\t\tDATE_TIME\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SelectDateOfBirth\nDIMDATE select(mapColumn(\n\t\tENROLL_DATE_SR_KEY = DATE_SR_KEY,\n\t\tDATE_TIME\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SelectEnrollDate\nLookupCourseName, SelectEnrollDate lookup(toDate(Enrol_time,'MM/DD/YYYY') == SelectEnrollDate@DATE_TIME,\n\tmultiple: false,\n\tpickup: 'any',\n\tbroadcast: 'auto')~> LookupEnrollDate\nDIMCOUNTRY select(mapColumn(\n\t\tENTITY_COUNTRY_SR_KEY = COUNTRY_SR_KEY,\n\t\tCOUNTRY_NAME_EN\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SelectEntityCountry\nLookupEnrollDate, SelectEntityCountry lookup(upper(trim(Country)) == upper(trim(COUNTRY_NAME_EN)),\n\tmultiple: false,\n\tpickup: 'any',\n\tbroadcast: 'auto')~> LookupEntityCountry"
+		}
+	}
+}

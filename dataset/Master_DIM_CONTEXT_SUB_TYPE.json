@@ -1,38 +1,33 @@
 {
-	"name": "Master_DIM_AGE_GROUP",
+	"name": "Master_DIM_CONTEXT_SUB_TYPE",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "Master",
 			"type": "LinkedServiceReference"
 		},
-		"folder": {
-			"name": "Master"
-		},
 		"annotations": [],
 		"type": "AzureSqlTable",
 		"schema": [
 			{
-				"name": "AGE_GROUP_SR_KEY",
+				"name": "CONTEXT_SUB_TYPE_SR_KEY",
 				"type": "int",
 				"precision": 10
 			},
 			{
-				"name": "AGE_GROUP_CODE",
+				"name": "CONTEXT_TYPE_CODE",
 				"type": "varchar"
 			},
 			{
-				"name": "AGE_GROUP_DESC",
+				"name": "CONTEXT_TYPE_DESC",
 				"type": "varchar"
 			},
 			{
-				"name": "LOWER_AGE_LIMIT",
-				"type": "int",
-				"precision": 10
+				"name": "CONTEXT_SUB_TYPE_CODE",
+				"type": "varchar"
 			},
 			{
-				"name": "HIGHER_AGE_LIMIT",
-				"type": "int",
-				"precision": 10
+				"name": "CONTEXT_SUB_TYPE_DESC",
+				"type": "varchar"
 			},
 			{
 				"name": "BATCH_ID",
@@ -66,7 +61,7 @@
 		],
 		"typeProperties": {
 			"schema": "MART_OWNER",
-			"table": "DIM_AGE_GROUP"
+			"table": "DIM_CONTEXT_SUB_TYPE"
 		}
 	}
 }
