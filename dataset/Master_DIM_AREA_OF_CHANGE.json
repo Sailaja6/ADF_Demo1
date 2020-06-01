@@ -5,6 +5,9 @@
 			"referenceName": "Master",
 			"type": "LinkedServiceReference"
 		},
+		"folder": {
+			"name": "Master"
+		},
 		"annotations": [],
 		"type": "AzureSqlTable",
 		"schema": [
