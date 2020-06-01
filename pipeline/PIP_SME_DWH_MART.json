@@ -94,6 +94,66 @@
 						"computeType": "General"
 					}
 				}
+			},
+			{
+				"name": "DF_SME_DIM_COURSE",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [
+					{
+						"activity": "AllSMEToOneFile",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "DF_SME_DIM_COURSE",
+						"type": "DataFlowReference"
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					}
+				}
+			},
+			{
+				"name": "DF_SME_DIM_PARTICIPANT",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [
+					{
+						"activity": "AllSMEToOneFile",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "DF_SME_DIM_PARTICIPANT",
+						"type": "DataFlowReference"
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					}
+				}
 			}
 		],
 		"variables": {
