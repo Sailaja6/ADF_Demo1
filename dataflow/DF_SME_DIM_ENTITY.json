@@ -1,6 +1,9 @@
 {
 	"name": "DF_SME_DIM_ENTITY",
 	"properties": {
+		"folder": {
+			"name": "SME_DWHToMART"
+		},
 		"type": "MappingDataFlow",
 		"typeProperties": {
 			"sources": [
