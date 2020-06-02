@@ -1,0 +1,60 @@
+{
+	"name": "SALES",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Master",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "Project ID",
+				"type": "varchar"
+			},
+			{
+				"name": "ContextCode",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "EventCode",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "A04",
+				"type": "varchar"
+			},
+			{
+				"name": "Date",
+				"type": "date"
+			},
+			{
+				"name": "Country",
+				"type": "varchar"
+			},
+			{
+				"name": "A12",
+				"type": "varchar"
+			},
+			{
+				"name": "SalesUSD",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "FILE_NAME",
+				"type": "varchar"
+			},
+			{
+				"name": "LOAD_TIMESTAMP",
+				"type": "timestamp"
+			}
+		],
+		"typeProperties": {
+			"schema": "MART_OWNER",
+			"table": "SALES"
+		}
+	}
+}
