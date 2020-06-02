@@ -18,9 +18,7 @@
 			},
 			{
 				"name": "DATE_TIME",
-				"type": "datetime",
-				"precision": 23,
-				"scale": 3
+				"type": "date"
 			},
 			{
 				"name": "DAY_OF_MONTH",
