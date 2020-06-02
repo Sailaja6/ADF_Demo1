@@ -478,6 +478,225 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/FACT_PROJECT_EVENTS_INDIVIDUAL')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase2",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Facts"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "PROJECT_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "CONTEXT_SUB_TYPE_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "EVENT_TYPE_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "TRAINING_TYPE_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "PLATFORM_TYPE_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "PARTICIPANT_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "DATE_COLLECTION_DATE_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "SUBMISSON_DATE_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "GENDER_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "DATE_OF_BIRTH_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "DATE_OF_BIRTH2_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "PARTICIPANT_HOME_COUNTRY_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "ENTITY_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "PROFESSIONAL_STATUS_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "ENTITY_TYPE_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "ENTITY_SUB_TYPE_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "ENTITY_COUNTRY_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "SOURCE_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "ENTITY_SIZE_GROUP_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "COURSE_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "AREA_OF_CHANGE_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "SERVICE_THEME1_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "SERVICE_THEME2_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "HS_CODE_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "INT_STD_INDUSTRY_CODES_ISIC_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "TOP_MANAGER_GENDER_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "TOP_MANAGER_AGE_GROUP_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "AGE_GROUP_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "CERTIFICATION_DATE_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "CERTIFIED_FLAG",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "ENROLL_DATE_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "YOUTH_MANAGED_FLAG",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "WOMAN_MANAGED_FLAG",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "BATCH_ID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "SOURCE",
+						"type": "varchar"
+					},
+					{
+						"name": "CREATED_BY",
+						"type": "varchar"
+					},
+					{
+						"name": "UPDATED_BY",
+						"type": "varchar"
+					},
+					{
+						"name": "DATE_CREATED",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "DATE_UPDATED",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					}
+				],
+				"typeProperties": {
+					"schema": "MART_OWNER",
+					"table": "FACT_PROJECT_EVENTS_INDIVIDUAL"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase2')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/MART_DIM_COURSE')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -1600,73 +1819,6 @@
 				"typeProperties": {
 					"schema": "MART_OWNER",
 					"table": "DIM_EVENT_TYPE"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/Master')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Master_DIM_GENDER')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "Master",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "Master"
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [
-					{
-						"name": "GENDER_SR_KEY",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "GENDER_CODE",
-						"type": "varchar"
-					},
-					{
-						"name": "GENDER_DESC",
-						"type": "varchar"
-					},
-					{
-						"name": "BATCH_ID",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "SOURCE",
-						"type": "varchar"
-					},
-					{
-						"name": "CREATED_BY",
-						"type": "varchar"
-					},
-					{
-						"name": "UPDATED_BY",
-						"type": "varchar"
-					},
-					{
-						"name": "DATE_CREATED",
-						"type": "datetime",
-						"precision": 23,
-						"scale": 3
-					},
-					{
-						"name": "DATE_UPDATED",
-						"type": "datetime",
-						"precision": 23,
-						"scale": 3
-					}
-				],
-				"typeProperties": {
-					"schema": "MART_OWNER",
-					"table": "DIM_GENDER"
 				}
 			},
 			"dependsOn": [
