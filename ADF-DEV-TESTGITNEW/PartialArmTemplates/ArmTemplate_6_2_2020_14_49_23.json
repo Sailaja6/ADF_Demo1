@@ -6,26 +6,6 @@
 			"type": "string",
 			"metadata": "Data Factory name",
 			"defaultValue": "ADF-DEV-TESTGITNEW"
-		},
-		"AzureSqlDatabase1_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase1'"
-		},
-		"AzureSqlDatabase2_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase2'"
-		},
-		"Master_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'Master'"
-		},
-		"source_accountKey": {
-			"type": "secureString",
-			"metadata": "Secure string for 'accountKey' of 'source'"
-		},
-		"source_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https://itcsource.dfs.core.windows.net"
 		}
 	},
 	"variables": {
@@ -97,8 +77,7 @@
 						"outputs": [
 							{
 								"referenceName": "TGT_SALES_KPI",
-								"type": "DatasetReference",
-								"parameters": {}
+								"type": "DatasetReference"
 							}
 						]
 					},
@@ -124,17 +103,8 @@
 						"typeProperties": {
 							"dataflow": {
 								"referenceName": "DF_SALES_DIM_ENTITY",
-								"type": "DataFlowReference",
-								"parameters": {},
-								"datasetParameters": {
-									"SRCSALES": {},
-									"ExistingDim": {},
-									"ExistingDimMaxID": {},
-									"UpdateDIMENTITY": {},
-									"InsertDIMENTITY": {}
-								}
+								"type": "DataFlowReference"
 							},
-							"staging": {},
 							"compute": {
 								"coreCount": 8,
 								"computeType": "General"
@@ -163,20 +133,8 @@
 						"typeProperties": {
 							"dataflow": {
 								"referenceName": "DF_SALES_FACT_ENTITY_BUSINESS_TRANSACTIONS",
-								"type": "DataFlowReference",
-								"parameters": {},
-								"datasetParameters": {
-									"SRCSALES": {},
-									"DIMCONTEXTSUBTYPE": {},
-									"DIMCOUNTRY": {},
-									"DIMENTITY": {},
-									"DIMEVENTTYPE": {},
-									"DIMPROJECT": {},
-									"DIMDATE": {},
-									"FACTENTITYBUSINESSTRANSACTIONS": {}
-								}
+								"type": "DataFlowReference"
 							},
-							"staging": {},
 							"compute": {
 								"coreCount": 8,
 								"computeType": "General"
@@ -196,563 +154,9 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/SRC_SSUPERSET')]",
 				"[concat(variables('factoryId'), '/datasets/TGT_SALES_KPI')]",
 				"[concat(variables('factoryId'), '/dataflows/DF_SALES_DIM_ENTITY')]",
 				"[concat(variables('factoryId'), '/dataflows/DF_SALES_FACT_ENTITY_BUSINESS_TRANSACTIONS')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/PIP_SALES_KPI_SCR_DATALAKEg')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Get Sales files",
-						"type": "GetMetadata",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"dataset": {
-								"referenceName": "RAW_DATA",
-								"type": "DatasetReference",
-								"parameters": {
-									"folderName": "SALES_KPI",
-									"fileName": "*.csv"
-								}
-							},
-							"fieldList": [
-								"childItems"
-							],
-							"storeSettings": {
-								"type": "AzureBlobFSReadSettings",
-								"recursive": true
-							},
-							"formatSettings": {
-								"type": "DelimitedTextReadSettings"
-							}
-						}
-					},
-					{
-						"name": "Filter Dir",
-						"type": "Filter",
-						"dependsOn": [
-							{
-								"activity": "Get Sales files",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"items": {
-								"value": "@activity('Get Sales files').output.childitems",
-								"type": "Expression"
-							},
-							"condition": {
-								"value": "@equals(item().type,'File')",
-								"type": "Expression"
-							}
-						}
-					},
-					{
-						"name": "Each Sales file",
-						"type": "ForEach",
-						"dependsOn": [
-							{
-								"activity": "Filter Dir",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"items": {
-								"value": "@activity('Filter Dir').output.value",
-								"type": "Expression"
-							},
-							"isSequential": true,
-							"activities": [
-								{
-									"name": "Copy Sales SRC To Stage",
-									"type": "Copy",
-									"dependsOn": [],
-									"policy": {
-										"timeout": "7.00:00:00",
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [],
-									"typeProperties": {
-										"source": {
-											"type": "DelimitedTextSource",
-											"additionalColumns": [
-												{
-													"name": "FILE_NAME",
-													"value": {
-														"value": "@item().name",
-														"type": "Expression"
-													}
-												},
-												{
-													"name": "LOAD_TIMESTAMP",
-													"value": {
-														"value": "@utcnow()",
-														"type": "Expression"
-													}
-												}
-											],
-											"storeSettings": {
-												"type": "AzureBlobFSReadSettings",
-												"recursive": true
-											},
-											"formatSettings": {
-												"type": "DelimitedTextReadSettings"
-											}
-										},
-										"sink": {
-											"type": "DelimitedTextSink",
-											"storeSettings": {
-												"type": "AzureBlobFSWriteSettings"
-											},
-											"formatSettings": {
-												"type": "DelimitedTextWriteSettings",
-												"quoteAllText": true,
-												"fileExtension": ".txt"
-											}
-										},
-										"enableStaging": false
-									},
-									"inputs": [
-										{
-											"referenceName": "RAW_DATA",
-											"type": "DatasetReference",
-											"parameters": {
-												"folderName": "SALES_KPI",
-												"fileName": {
-													"value": "@item().name",
-													"type": "Expression"
-												}
-											}
-										}
-									],
-									"outputs": [
-										{
-											"referenceName": "Stage_SALES_KPI",
-											"type": "DatasetReference",
-											"parameters": {}
-										}
-									]
-								},
-								{
-									"name": "DF_SALES_STAGE_DWH",
-									"type": "ExecuteDataFlow",
-									"dependsOn": [
-										{
-											"activity": "Copy Sales SRC To Stage",
-											"dependencyConditions": [
-												"Succeeded"
-											]
-										}
-									],
-									"policy": {
-										"timeout": "7.00:00:00",
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [],
-									"typeProperties": {
-										"dataflow": {
-											"referenceName": "DF_SALES_STAGE_DWH",
-											"type": "DataFlowReference",
-											"parameters": {
-												"filename": {
-													"value": "'@{item().name}'",
-													"type": "Expression"
-												}
-											},
-											"datasetParameters": {
-												"source1": {},
-												"sink1": {}
-											}
-										},
-										"staging": {},
-										"compute": {
-											"coreCount": 8,
-											"computeType": "General"
-										}
-									}
-								},
-								{
-									"name": "Copy Failed Files",
-									"type": "Copy",
-									"dependsOn": [
-										{
-											"activity": "Copy Sales SRC To Stage",
-											"dependencyConditions": [
-												"Failed"
-											]
-										}
-									],
-									"policy": {
-										"timeout": "7.00:00:00",
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [],
-									"typeProperties": {
-										"source": {
-											"type": "DelimitedTextSource",
-											"storeSettings": {
-												"type": "AzureBlobFSReadSettings",
-												"recursive": true
-											},
-											"formatSettings": {
-												"type": "DelimitedTextReadSettings"
-											}
-										},
-										"sink": {
-											"type": "DelimitedTextSink",
-											"storeSettings": {
-												"type": "AzureBlobFSWriteSettings"
-											},
-											"formatSettings": {
-												"type": "DelimitedTextWriteSettings",
-												"quoteAllText": true,
-												"fileExtension": ".txt"
-											}
-										},
-										"enableStaging": false
-									},
-									"inputs": [
-										{
-											"referenceName": "RAW_DATA",
-											"type": "DatasetReference",
-											"parameters": {
-												"folderName": "SALES_KPI",
-												"fileName": {
-													"value": "@item().name",
-													"type": "Expression"
-												}
-											}
-										}
-									],
-									"outputs": [
-										{
-											"referenceName": "RAW_DATA",
-											"type": "DatasetReference",
-											"parameters": {
-												"folderName": {
-													"value": "@variables('V_FAILED_PATH')",
-													"type": "Expression"
-												},
-												"fileName": {
-													"value": "@item().name",
-													"type": "Expression"
-												}
-											}
-										}
-									]
-								},
-								{
-									"name": "Delete failed files",
-									"type": "Delete",
-									"dependsOn": [
-										{
-											"activity": "Copy Failed Files",
-											"dependencyConditions": [
-												"Succeeded"
-											]
-										}
-									],
-									"policy": {
-										"timeout": "7.00:00:00",
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [],
-									"typeProperties": {
-										"dataset": {
-											"referenceName": "RAW_DATA",
-											"type": "DatasetReference",
-											"parameters": {
-												"folderName": "SALES_KPI",
-												"fileName": {
-													"value": "@item().name",
-													"type": "Expression"
-												}
-											}
-										},
-										"enableLogging": false,
-										"storeSettings": {
-											"type": "AzureBlobFSReadSettings",
-											"recursive": true
-										}
-									}
-								},
-								{
-									"name": "Copy Loaded files",
-									"type": "Copy",
-									"dependsOn": [
-										{
-											"activity": "DF_SALES_STAGE_DWH",
-											"dependencyConditions": [
-												"Succeeded"
-											]
-										}
-									],
-									"policy": {
-										"timeout": "7.00:00:00",
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [],
-									"typeProperties": {
-										"source": {
-											"type": "DelimitedTextSource",
-											"storeSettings": {
-												"type": "AzureBlobFSReadSettings",
-												"recursive": true
-											},
-											"formatSettings": {
-												"type": "DelimitedTextReadSettings"
-											}
-										},
-										"sink": {
-											"type": "DelimitedTextSink",
-											"storeSettings": {
-												"type": "AzureBlobFSWriteSettings"
-											},
-											"formatSettings": {
-												"type": "DelimitedTextWriteSettings",
-												"quoteAllText": true,
-												"fileExtension": ".txt"
-											}
-										},
-										"enableStaging": false
-									},
-									"inputs": [
-										{
-											"referenceName": "RAW_DATA",
-											"type": "DatasetReference",
-											"parameters": {
-												"folderName": "SALES_KPI",
-												"fileName": {
-													"value": "@item().name",
-													"type": "Expression"
-												}
-											}
-										}
-									],
-									"outputs": [
-										{
-											"referenceName": "RAW_DATA",
-											"type": "DatasetReference",
-											"parameters": {
-												"folderName": {
-													"value": "@variables('V_LOADED_PATH')",
-													"type": "Expression"
-												},
-												"fileName": {
-													"value": "@item().name",
-													"type": "Expression"
-												}
-											}
-										}
-									]
-								},
-								{
-									"name": "Copy Failed Files_copy1",
-									"type": "Copy",
-									"dependsOn": [
-										{
-											"activity": "DF_SALES_STAGE_DWH",
-											"dependencyConditions": [
-												"Failed"
-											]
-										}
-									],
-									"policy": {
-										"timeout": "7.00:00:00",
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [],
-									"typeProperties": {
-										"source": {
-											"type": "DelimitedTextSource",
-											"storeSettings": {
-												"type": "AzureBlobFSReadSettings",
-												"recursive": true
-											},
-											"formatSettings": {
-												"type": "DelimitedTextReadSettings"
-											}
-										},
-										"sink": {
-											"type": "DelimitedTextSink",
-											"storeSettings": {
-												"type": "AzureBlobFSWriteSettings"
-											},
-											"formatSettings": {
-												"type": "DelimitedTextWriteSettings",
-												"quoteAllText": true,
-												"fileExtension": ".txt"
-											}
-										},
-										"enableStaging": false
-									},
-									"inputs": [
-										{
-											"referenceName": "RAW_DATA",
-											"type": "DatasetReference",
-											"parameters": {
-												"folderName": "SALES_KPI",
-												"fileName": {
-													"value": "@item().name",
-													"type": "Expression"
-												}
-											}
-										}
-									],
-									"outputs": [
-										{
-											"referenceName": "RAW_DATA",
-											"type": "DatasetReference",
-											"parameters": {
-												"folderName": {
-													"value": "@variables('V_FAILED_PATH')",
-													"type": "Expression"
-												},
-												"fileName": {
-													"value": "@item().name",
-													"type": "Expression"
-												}
-											}
-										}
-									]
-								},
-								{
-									"name": "Delete loaded files",
-									"type": "Delete",
-									"dependsOn": [
-										{
-											"activity": "Copy Loaded files",
-											"dependencyConditions": [
-												"Succeeded"
-											]
-										}
-									],
-									"policy": {
-										"timeout": "7.00:00:00",
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [],
-									"typeProperties": {
-										"dataset": {
-											"referenceName": "RAW_DATA",
-											"type": "DatasetReference",
-											"parameters": {
-												"folderName": "SALES_KPI",
-												"fileName": {
-													"value": "@item().name",
-													"type": "Expression"
-												}
-											}
-										},
-										"enableLogging": false,
-										"storeSettings": {
-											"type": "AzureBlobFSReadSettings",
-											"recursive": true
-										}
-									}
-								},
-								{
-									"name": "Delete Failed Files from SRC",
-									"type": "Delete",
-									"dependsOn": [
-										{
-											"activity": "Copy Failed Files_copy1",
-											"dependencyConditions": [
-												"Succeeded"
-											]
-										}
-									],
-									"policy": {
-										"timeout": "7.00:00:00",
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [],
-									"typeProperties": {
-										"dataset": {
-											"referenceName": "RAW_DATA",
-											"type": "DatasetReference",
-											"parameters": {
-												"folderName": "SALES_KPI",
-												"fileName": {
-													"value": "@item().name",
-													"type": "Expression"
-												}
-											}
-										},
-										"enableLogging": false,
-										"storeSettings": {
-											"type": "AzureBlobFSReadSettings",
-											"recursive": true
-										}
-									}
-								}
-							]
-						}
-					}
-				],
-				"variables": {
-					"V_FAILED_PATH": {
-						"type": "String",
-						"defaultValue": "SALES_KPI/FAILED"
-					},
-					"V_LOADED_PATH": {
-						"type": "String",
-						"defaultValue": "SALES_KPI/LOADED"
-					}
-				},
-				"folder": {
-					"name": "LandingToCurated"
-				},
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/RAW_DATA')]",
-				"[concat(variables('factoryId'), '/datasets/Stage_SALES_KPI')]",
-				"[concat(variables('factoryId'), '/dataflows/DF_SALES_STAGE_DWH')]"
 			]
 		},
 		{
@@ -820,8 +224,7 @@
 						"outputs": [
 							{
 								"referenceName": "TGT_SME",
-								"type": "DatasetReference",
-								"parameters": {}
+								"type": "DatasetReference"
 							}
 						]
 					},
@@ -847,17 +250,8 @@
 						"typeProperties": {
 							"dataflow": {
 								"referenceName": "DF_SME_DIM_ENTITY",
-								"type": "DataFlowReference",
-								"parameters": {},
-								"datasetParameters": {
-									"SRCSME": {},
-									"ExistingDim": {},
-									"ExistingDimMaxID": {},
-									"DIMEntity": {},
-									"UpdDimEntity": {}
-								}
+								"type": "DataFlowReference"
 							},
-							"staging": {},
 							"compute": {
 								"coreCount": 8,
 								"computeType": "General"
@@ -886,15 +280,8 @@
 						"typeProperties": {
 							"dataflow": {
 								"referenceName": "DF_SME_DIM_COURSE",
-								"type": "DataFlowReference",
-								"parameters": {},
-								"datasetParameters": {
-									"allsmefiles": {},
-									"source1": {},
-									"dimcourse": {}
-								}
+								"type": "DataFlowReference"
 							},
-							"staging": {},
 							"compute": {
 								"coreCount": 8,
 								"computeType": "General"
@@ -923,17 +310,8 @@
 						"typeProperties": {
 							"dataflow": {
 								"referenceName": "DF_SME_DIM_PARTICIPANT",
-								"type": "DataFlowReference",
-								"parameters": {},
-								"datasetParameters": {
-									"SRCSME": {},
-									"ExistingDim": {},
-									"ExistingDimMaxPartcipantID": {},
-									"InsertDimParticipant": {},
-									"UpdateDimParticipant": {}
-								}
+								"type": "DataFlowReference"
 							},
-							"staging": {},
 							"compute": {
 								"coreCount": 8,
 								"computeType": "General"
@@ -974,31 +352,8 @@
 						"typeProperties": {
 							"dataflow": {
 								"referenceName": "DF_SME_FACT_PROJECT_EVENTS_INDIVIDUAL",
-								"type": "DataFlowReference",
-								"parameters": {},
-								"datasetParameters": {
-									"SRCSME": {},
-									"DIMAREAOFCHANGE": {},
-									"DIMDATE": {},
-									"DIMCONTEXTSUBTYPE": {},
-									"DIMCOURSE": {},
-									"DIMCOUNTRY": {},
-									"DIMENTITYSIZEGROUP": {},
-									"DIMENTITY": {},
-									"DIMENTITYSUBTYPE": {},
-									"DIMENTITYTYPE": {},
-									"DIMGENDER": {},
-									"DIMPLATFORMTYPE": {},
-									"DIMPROFESSIONALSTATUS": {},
-									"DIMPROJECT": {},
-									"DIMSERVICETHEME": {},
-									"DIMSOURCE": {},
-									"DIMAGEGROUP": {},
-									"DIMPARTICIPANT": {},
-									"FACTPROJECTEVENTSINDIVIDUAL": {}
-								}
+								"type": "DataFlowReference"
 							},
-							"staging": {},
 							"compute": {
 								"coreCount": 8,
 								"computeType": "General"
@@ -1018,565 +373,10 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/SRC_SSUPERSET')]",
-				"[concat(variables('factoryId'), '/datasets/TGT_SME')]",
 				"[concat(variables('factoryId'), '/dataflows/DF_SME_DIM_ENTITY')]",
 				"[concat(variables('factoryId'), '/dataflows/DF_SME_DIM_COURSE')]",
 				"[concat(variables('factoryId'), '/dataflows/DF_SME_DIM_PARTICIPANT')]",
 				"[concat(variables('factoryId'), '/dataflows/DF_SME_FACT_PROJECT_EVENTS_INDIVIDUAL')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/PIP_SME_SCR_DATALAKEg')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Get SME files",
-						"type": "GetMetadata",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"dataset": {
-								"referenceName": "RAW_DATA",
-								"type": "DatasetReference",
-								"parameters": {
-									"folderName": "SME",
-									"fileName": "*.csv"
-								}
-							},
-							"fieldList": [
-								"childItems"
-							],
-							"storeSettings": {
-								"type": "AzureBlobFSReadSettings",
-								"recursive": true
-							},
-							"formatSettings": {
-								"type": "DelimitedTextReadSettings"
-							}
-						}
-					},
-					{
-						"name": "filter dir",
-						"type": "Filter",
-						"dependsOn": [
-							{
-								"activity": "Get SME files",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"items": {
-								"value": "@activity('Get SME files').output.childitems",
-								"type": "Expression"
-							},
-							"condition": {
-								"value": "@equals(item().type,'File')",
-								"type": "Expression"
-							}
-						}
-					},
-					{
-						"name": "Each SME file",
-						"type": "ForEach",
-						"dependsOn": [
-							{
-								"activity": "filter dir",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"items": {
-								"value": "@activity('filter dir').output.value",
-								"type": "Expression"
-							},
-							"isSequential": true,
-							"activities": [
-								{
-									"name": "Copy SME SRC To STAGE",
-									"type": "Copy",
-									"dependsOn": [],
-									"policy": {
-										"timeout": "7.00:00:00",
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [],
-									"typeProperties": {
-										"source": {
-											"type": "DelimitedTextSource",
-											"additionalColumns": [
-												{
-													"name": "FILE_NAME",
-													"value": {
-														"value": "@item().name",
-														"type": "Expression"
-													}
-												},
-												{
-													"name": "LOAD_TIMESTAMP",
-													"value": {
-														"value": "@utcnow()",
-														"type": "Expression"
-													}
-												}
-											],
-											"storeSettings": {
-												"type": "AzureBlobFSReadSettings",
-												"recursive": true
-											},
-											"formatSettings": {
-												"type": "DelimitedTextReadSettings"
-											}
-										},
-										"sink": {
-											"type": "DelimitedTextSink",
-											"storeSettings": {
-												"type": "AzureBlobFSWriteSettings"
-											},
-											"formatSettings": {
-												"type": "DelimitedTextWriteSettings",
-												"quoteAllText": true,
-												"fileExtension": ".txt"
-											}
-										},
-										"enableStaging": false
-									},
-									"inputs": [
-										{
-											"referenceName": "RAW_DATA",
-											"type": "DatasetReference",
-											"parameters": {
-												"folderName": "SME",
-												"fileName": {
-													"value": "@item().name",
-													"type": "Expression"
-												}
-											}
-										}
-									],
-									"outputs": [
-										{
-											"referenceName": "Stage_SME",
-											"type": "DatasetReference",
-											"parameters": {}
-										}
-									]
-								},
-								{
-									"name": "stage_dwh",
-									"type": "ExecuteDataFlow",
-									"dependsOn": [
-										{
-											"activity": "Copy SME SRC To STAGE",
-											"dependencyConditions": [
-												"Succeeded"
-											]
-										}
-									],
-									"policy": {
-										"timeout": "7.00:00:00",
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [],
-									"typeProperties": {
-										"dataflow": {
-											"referenceName": "DF_SME_STAGE_DWH",
-											"type": "DataFlowReference",
-											"parameters": {
-												"filename": {
-													"value": "'@{item().name}'",
-													"type": "Expression"
-												}
-											},
-											"datasetParameters": {
-												"source1": {},
-												"sink1": {}
-											}
-										},
-										"staging": {},
-										"compute": {
-											"coreCount": 8,
-											"computeType": "General"
-										}
-									}
-								},
-								{
-									"name": "Copy data1",
-									"type": "Copy",
-									"dependsOn": [
-										{
-											"activity": "Copy SME SRC To STAGE",
-											"dependencyConditions": [
-												"Failed"
-											]
-										}
-									],
-									"policy": {
-										"timeout": "7.00:00:00",
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [],
-									"typeProperties": {
-										"source": {
-											"type": "DelimitedTextSource",
-											"storeSettings": {
-												"type": "AzureBlobFSReadSettings",
-												"recursive": true
-											},
-											"formatSettings": {
-												"type": "DelimitedTextReadSettings"
-											}
-										},
-										"sink": {
-											"type": "DelimitedTextSink",
-											"storeSettings": {
-												"type": "AzureBlobFSWriteSettings"
-											},
-											"formatSettings": {
-												"type": "DelimitedTextWriteSettings",
-												"quoteAllText": true,
-												"fileExtension": ".txt"
-											}
-										},
-										"enableStaging": false
-									},
-									"inputs": [
-										{
-											"referenceName": "RAW_DATA",
-											"type": "DatasetReference",
-											"parameters": {
-												"folderName": "SME",
-												"fileName": {
-													"value": "@item().name",
-													"type": "Expression"
-												}
-											}
-										}
-									],
-									"outputs": [
-										{
-											"referenceName": "RAW_DATA",
-											"type": "DatasetReference",
-											"parameters": {
-												"folderName": {
-													"value": "@variables('V_FAILED_PATH')",
-													"type": "Expression"
-												},
-												"fileName": {
-													"value": "@item().name",
-													"type": "Expression"
-												}
-											}
-										}
-									]
-								},
-								{
-									"name": "Delete failed files",
-									"type": "Delete",
-									"dependsOn": [
-										{
-											"activity": "Copy data1",
-											"dependencyConditions": [
-												"Succeeded"
-											]
-										}
-									],
-									"policy": {
-										"timeout": "7.00:00:00",
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [],
-									"typeProperties": {
-										"dataset": {
-											"referenceName": "RAW_DATA",
-											"type": "DatasetReference",
-											"parameters": {
-												"folderName": "SME",
-												"fileName": {
-													"value": "@item().name",
-													"type": "Expression"
-												}
-											}
-										},
-										"enableLogging": false,
-										"storeSettings": {
-											"type": "AzureBlobFSReadSettings",
-											"recursive": true
-										}
-									}
-								},
-								{
-									"name": "Copy Loaded files",
-									"type": "Copy",
-									"dependsOn": [
-										{
-											"activity": "stage_dwh",
-											"dependencyConditions": [
-												"Succeeded"
-											]
-										}
-									],
-									"policy": {
-										"timeout": "7.00:00:00",
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [],
-									"typeProperties": {
-										"source": {
-											"type": "DelimitedTextSource",
-											"storeSettings": {
-												"type": "AzureBlobFSReadSettings",
-												"recursive": true
-											},
-											"formatSettings": {
-												"type": "DelimitedTextReadSettings"
-											}
-										},
-										"sink": {
-											"type": "DelimitedTextSink",
-											"storeSettings": {
-												"type": "AzureBlobFSWriteSettings"
-											},
-											"formatSettings": {
-												"type": "DelimitedTextWriteSettings",
-												"quoteAllText": true,
-												"fileExtension": ".txt"
-											}
-										},
-										"enableStaging": false
-									},
-									"inputs": [
-										{
-											"referenceName": "RAW_DATA",
-											"type": "DatasetReference",
-											"parameters": {
-												"folderName": "SME",
-												"fileName": {
-													"value": "@item().name",
-													"type": "Expression"
-												}
-											}
-										}
-									],
-									"outputs": [
-										{
-											"referenceName": "RAW_DATA",
-											"type": "DatasetReference",
-											"parameters": {
-												"folderName": {
-													"value": "@variables('V_LOADED_PATH')",
-													"type": "Expression"
-												},
-												"fileName": {
-													"value": "@item().name",
-													"type": "Expression"
-												}
-											}
-										}
-									]
-								},
-								{
-									"name": "Copy Failed Files",
-									"type": "Copy",
-									"dependsOn": [
-										{
-											"activity": "stage_dwh",
-											"dependencyConditions": [
-												"Failed"
-											]
-										}
-									],
-									"policy": {
-										"timeout": "7.00:00:00",
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [],
-									"typeProperties": {
-										"source": {
-											"type": "DelimitedTextSource",
-											"storeSettings": {
-												"type": "AzureBlobFSReadSettings",
-												"recursive": true
-											},
-											"formatSettings": {
-												"type": "DelimitedTextReadSettings"
-											}
-										},
-										"sink": {
-											"type": "DelimitedTextSink",
-											"storeSettings": {
-												"type": "AzureBlobFSWriteSettings"
-											},
-											"formatSettings": {
-												"type": "DelimitedTextWriteSettings",
-												"quoteAllText": true,
-												"fileExtension": ".txt"
-											}
-										},
-										"enableStaging": false
-									},
-									"inputs": [
-										{
-											"referenceName": "RAW_DATA",
-											"type": "DatasetReference",
-											"parameters": {
-												"folderName": "SME",
-												"fileName": {
-													"value": "@item().name",
-													"type": "Expression"
-												}
-											}
-										}
-									],
-									"outputs": [
-										{
-											"referenceName": "RAW_DATA",
-											"type": "DatasetReference",
-											"parameters": {
-												"folderName": {
-													"value": "@variables('V_FAILED_PATH')",
-													"type": "Expression"
-												},
-												"fileName": {
-													"value": "@item().name",
-													"type": "Expression"
-												}
-											}
-										}
-									]
-								},
-								{
-									"name": "Delete loaded files",
-									"type": "Delete",
-									"dependsOn": [
-										{
-											"activity": "Copy Loaded files",
-											"dependencyConditions": [
-												"Succeeded"
-											]
-										}
-									],
-									"policy": {
-										"timeout": "7.00:00:00",
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [],
-									"typeProperties": {
-										"dataset": {
-											"referenceName": "RAW_DATA",
-											"type": "DatasetReference",
-											"parameters": {
-												"folderName": "SME",
-												"fileName": {
-													"value": "@item().name",
-													"type": "Expression"
-												}
-											}
-										},
-										"enableLogging": false,
-										"storeSettings": {
-											"type": "AzureBlobFSReadSettings",
-											"recursive": true
-										}
-									}
-								},
-								{
-									"name": "Delete Failed Files from SRC",
-									"type": "Delete",
-									"dependsOn": [
-										{
-											"activity": "Copy Failed Files",
-											"dependencyConditions": [
-												"Succeeded"
-											]
-										}
-									],
-									"policy": {
-										"timeout": "7.00:00:00",
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [],
-									"typeProperties": {
-										"dataset": {
-											"referenceName": "RAW_DATA",
-											"type": "DatasetReference",
-											"parameters": {
-												"folderName": "SME",
-												"fileName": {
-													"value": "@item().name",
-													"type": "Expression"
-												}
-											}
-										},
-										"enableLogging": false,
-										"storeSettings": {
-											"type": "AzureBlobFSReadSettings",
-											"recursive": true
-										}
-									}
-								}
-							]
-						}
-					}
-				],
-				"variables": {
-					"V_LOADED_PATH": {
-						"type": "String",
-						"defaultValue": "SME/LOADED"
-					},
-					"V_FAILED_PATH": {
-						"type": "String",
-						"defaultValue": "SME/FAILED"
-					}
-				},
-				"folder": {
-					"name": "LandingToCurated"
-				},
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/RAW_DATA')]",
-				"[concat(variables('factoryId'), '/datasets/Stage_SME')]",
-				"[concat(variables('factoryId'), '/dataflows/DF_SME_STAGE_DWH')]"
 			]
 		},
 		{
@@ -1644,8 +444,7 @@
 						"outputs": [
 							{
 								"referenceName": "TGT_SME",
-								"type": "DatasetReference",
-								"parameters": {}
+								"type": "DatasetReference"
 							}
 						]
 					}
@@ -1661,310 +460,7 @@
 				},
 				"annotations": []
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/SRC_SSUPERSET')]",
-				"[concat(variables('factoryId'), '/datasets/TGT_SME')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DWH_SALES_KPI')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "source",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "DWH"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"folderPath": "SALES_KPI",
-						"fileSystem": "itcdwhdatalake"
-					},
-					"columnDelimiter": "|",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": [
-					{
-						"name": "Project ID",
-						"type": "String"
-					},
-					{
-						"name": "ContextCode",
-						"type": "String"
-					},
-					{
-						"name": "EventCode",
-						"type": "String"
-					},
-					{
-						"name": "A04",
-						"type": "String"
-					},
-					{
-						"name": "Date",
-						"type": "String"
-					},
-					{
-						"name": "Country",
-						"type": "String"
-					},
-					{
-						"name": "A12",
-						"type": "String"
-					},
-					{
-						"name": "SalesUSD",
-						"type": "String"
-					},
-					{
-						"name": "FILE_NAME",
-						"type": "String"
-					},
-					{
-						"name": "LOAD_TIMESTAMP",
-						"type": "String"
-					}
-				]
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/source')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DWH_SME')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "source",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "DWH"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"folderPath": "SME",
-						"fileSystem": "itcdwhdatalake"
-					},
-					"columnDelimiter": "|",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": [
-					{
-						"name": "ProjectID",
-						"type": "String"
-					},
-					{
-						"name": "Context",
-						"type": "String"
-					},
-					{
-						"name": "Type of tool",
-						"type": "String"
-					},
-					{
-						"name": "Area of change",
-						"type": "String"
-					},
-					{
-						"name": "Service themes",
-						"type": "String"
-					},
-					{
-						"name": "Date of data collection",
-						"type": "String"
-					},
-					{
-						"name": "id",
-						"type": "String"
-					},
-					{
-						"name": "Course_name",
-						"type": "String"
-					},
-					{
-						"name": "Username",
-						"type": "String"
-					},
-					{
-						"name": "Email",
-						"type": "String"
-					},
-					{
-						"name": "Phone number",
-						"type": "String"
-					},
-					{
-						"name": "Title",
-						"type": "String"
-					},
-					{
-						"name": "First name",
-						"type": "String"
-					},
-					{
-						"name": "Middle name",
-						"type": "String"
-					},
-					{
-						"name": "Last name",
-						"type": "String"
-					},
-					{
-						"name": "idnumber",
-						"type": "String"
-					},
-					{
-						"name": "Gender",
-						"type": "String"
-					},
-					{
-						"name": "Year of birth",
-						"type": "String"
-					},
-					{
-						"name": "Organization/ Company name",
-						"type": "String"
-					},
-					{
-						"name": "Type of entity",
-						"type": "String"
-					},
-					{
-						"name": "Sub-type of entity",
-						"type": "String"
-					},
-					{
-						"name": "Professional status",
-						"type": "String"
-					},
-					{
-						"name": "Functional_title",
-						"type": "String"
-					},
-					{
-						"name": "Howlong",
-						"type": "String"
-					},
-					{
-						"name": "Priorexperience",
-						"type": "String"
-					},
-					{
-						"name": "Address",
-						"type": "String"
-					},
-					{
-						"name": "Cityname",
-						"type": "String"
-					},
-					{
-						"name": "Country",
-						"type": "String"
-					},
-					{
-						"name": "Country code",
-						"type": "String"
-					},
-					{
-						"name": "Pobox",
-						"type": "String"
-					},
-					{
-						"name": "Postalcode",
-						"type": "String"
-					},
-					{
-						"name": "Nationality",
-						"type": "String"
-					},
-					{
-						"name": "Skype",
-						"type": "String"
-					},
-					{
-						"name": "Aim",
-						"type": "String"
-					},
-					{
-						"name": "Yahoo",
-						"type": "String"
-					},
-					{
-						"name": "Msn",
-						"type": "String"
-					},
-					{
-						"name": "Profile_field_Supervisor",
-						"type": "String"
-					},
-					{
-						"name": "Service theme",
-						"type": "String"
-					},
-					{
-						"name": "Cityregion",
-						"type": "String"
-					},
-					{
-						"name": "Job title",
-						"type": "String"
-					},
-					{
-						"name": "Size",
-						"type": "String"
-					},
-					{
-						"name": "Certification_date",
-						"type": "String"
-					},
-					{
-						"name": "Certified",
-						"type": "String"
-					},
-					{
-						"name": "Cohort",
-						"type": "String"
-					},
-					{
-						"name": "Uniqueid",
-						"type": "String"
-					},
-					{
-						"name": "User_id",
-						"type": "String"
-					},
-					{
-						"name": "Enrol_time",
-						"type": "String"
-					},
-					{
-						"name": "FILE_NAME",
-						"type": "String"
-					},
-					{
-						"name": "LOAD_TIMESTAMP",
-						"type": "String"
-					}
-				]
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/source')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/FACT_ENTITY_BUSINESS_TRANSACTIONS')]",
@@ -2051,9 +547,7 @@
 					"table": "FACT_ENTITY_BUSINESS_TRANSACTIONS"
 				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase2')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/MART_DIM_COURSE')]",
@@ -2114,9 +608,7 @@
 					"table": "DIM_COURSE"
 				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase2')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/MART_DIM_ENTITY')]",
@@ -2291,9 +783,7 @@
 					"table": "DIM_ENTITY"
 				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase2')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/MART_DIM_PARTICIPANT')]",
@@ -2477,9 +967,7 @@
 					"table": "DIM_PARTICIPANT"
 				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase2')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/Master_DIM_AGE_GROUP')]",
@@ -2554,9 +1042,7 @@
 					"table": "DIM_AGE_GROUP"
 				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/Master')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/Master_DIM_AREA_OF_CHANGE')]",
@@ -2621,9 +1107,7 @@
 					"table": "DIM_AREA_OF_CHANGE"
 				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/Master')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/Master_DIM_CONTEXT_SUB_TYPE')]",
@@ -2696,9 +1180,7 @@
 					"table": "DIM_CONTEXT_SUB_TYPE"
 				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/Master')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/Master_DIM_COUNTRY')]",
@@ -2795,9 +1277,7 @@
 					"table": "DIM_COUNTRY"
 				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/Master')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/Master_DIM_DATE')]",
@@ -2894,9 +1374,7 @@
 					"table": "DIM_DATE"
 				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/Master')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/Master_DIM_ENTITY_SIZE_GROUP')]",
@@ -2971,9 +1449,7 @@
 					"table": "DIM_ENTITY_SIZE_GROUP"
 				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/Master')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/Master_DIM_ENTITY_SUB_TYPE')]",
@@ -3046,9 +1522,7 @@
 					"table": "DIM_ENTITY_SUB_TYPE"
 				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/Master')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/Master_DIM_ENTITY_TYPE')]",
@@ -3113,9 +1587,7 @@
 					"table": "DIM_ENTITY_TYPE"
 				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/Master')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/Master_DIM_EVENT_TYPE')]",
@@ -3180,9 +1652,7 @@
 					"table": "DIM_EVENT_TYPE"
 				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/Master')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/Master_DIM_GENDER')]",
@@ -3247,9 +1717,7 @@
 					"table": "DIM_GENDER"
 				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/Master')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/Master_DIM_PLATFORM_TYPE')]",
@@ -3314,9 +1782,7 @@
 					"table": "DIM_PLATFORM_TYPE"
 				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/Master')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/Master_DIM_PROFESSIONAL_STATUS')]",
@@ -3377,9 +1843,7 @@
 					"table": "DIM_PROFESSIONAL_STATUS"
 				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/Master')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/Master_DIM_PROJECT')]",
@@ -3444,9 +1908,7 @@
 					"table": "DIM_PROJECT"
 				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/Master')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/Master_DIM_SERVICE_THEME')]",
@@ -3511,460 +1973,7 @@
 					"table": "DIM_SERVICE_THEME"
 				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/Master')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/RAW_DATA')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "source",
-					"type": "LinkedServiceReference"
-				},
-				"parameters": {
-					"folderName": {
-						"type": "string"
-					},
-					"fileName": {
-						"type": "string"
-					}
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": {
-							"value": "@dataset().fileName",
-							"type": "Expression"
-						},
-						"folderPath": {
-							"value": "@dataset().folderName",
-							"type": "Expression"
-						},
-						"fileSystem": "itcsource"
-					},
-					"columnDelimiter": "|",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": [
-					{
-						"name": "ProjectID",
-						"type": "String"
-					},
-					{
-						"name": "Context",
-						"type": "String"
-					},
-					{
-						"name": "Type of tool",
-						"type": "String"
-					},
-					{
-						"name": "Area of change",
-						"type": "String"
-					},
-					{
-						"name": "Service theme",
-						"type": "String"
-					},
-					{
-						"name": "Date of data collection",
-						"type": "String"
-					},
-					{
-						"name": "First name",
-						"type": "String"
-					},
-					{
-						"name": "Last name",
-						"type": "String"
-					},
-					{
-						"name": "Email",
-						"type": "String"
-					},
-					{
-						"name": "Gender",
-						"type": "String"
-					},
-					{
-						"name": "Year of birth",
-						"type": "String"
-					},
-					{
-						"name": "Country",
-						"type": "String"
-					},
-					{
-						"name": "Cityname",
-						"type": "String"
-					},
-					{
-						"name": "Cityregion",
-						"type": "String"
-					},
-					{
-						"name": "Job title",
-						"type": "String"
-					},
-					{
-						"name": "Professional status",
-						"type": "String"
-					},
-					{
-						"name": "Organization/ Company name",
-						"type": "String"
-					},
-					{
-						"name": "Type of entity",
-						"type": "String"
-					},
-					{
-						"name": "Sub-type of entity",
-						"type": "String"
-					},
-					{
-						"name": "Size",
-						"type": "String"
-					},
-					{
-						"name": "Course_name",
-						"type": "String"
-					},
-					{
-						"name": "Howlong",
-						"type": "String"
-					},
-					{
-						"name": "Certification_date",
-						"type": "String"
-					},
-					{
-						"name": "Certified",
-						"type": "String"
-					},
-					{
-						"name": "Cohort",
-						"type": "String"
-					}
-				]
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/source')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/SRC_SSUPERSET')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "source",
-					"type": "LinkedServiceReference"
-				},
-				"parameters": {
-					"filename": {
-						"type": "string"
-					},
-					"FolderName": {
-						"type": "string"
-					}
-				},
-				"folder": {
-					"name": "combined"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": {
-							"value": "@dataset().filename",
-							"type": "Expression"
-						},
-						"folderPath": {
-							"value": "@dataset().FolderName",
-							"type": "Expression"
-						},
-						"fileSystem": "itcdwhdatalake"
-					},
-					"columnDelimiter": "|",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/source')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Stage_SALES_KPI')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "source",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "Stgae"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": "SALES_KPI.csv",
-						"folderPath": "STAGE",
-						"fileSystem": "itcsource"
-					},
-					"columnDelimiter": "|",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/source')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Stage_SME')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "source",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "Stgae"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": "SME.csv",
-						"folderPath": "STAGE",
-						"fileSystem": "itcsource"
-					},
-					"columnDelimiter": "|",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": [
-					{
-						"name": "ProjectID",
-						"type": "String"
-					},
-					{
-						"name": "Context",
-						"type": "String"
-					},
-					{
-						"name": "Type of tool",
-						"type": "String"
-					},
-					{
-						"name": "Area of change",
-						"type": "String"
-					},
-					{
-						"name": "Service themes",
-						"type": "String"
-					},
-					{
-						"name": "Date of data collection",
-						"type": "String"
-					},
-					{
-						"name": "id",
-						"type": "String"
-					},
-					{
-						"name": "Course_name",
-						"type": "String"
-					},
-					{
-						"name": "Username",
-						"type": "String"
-					},
-					{
-						"name": "Email",
-						"type": "String"
-					},
-					{
-						"name": "Phone number",
-						"type": "String"
-					},
-					{
-						"name": "Title",
-						"type": "String"
-					},
-					{
-						"name": "First name",
-						"type": "String"
-					},
-					{
-						"name": "Middle name",
-						"type": "String"
-					},
-					{
-						"name": "Last name",
-						"type": "String"
-					},
-					{
-						"name": "idnumber",
-						"type": "String"
-					},
-					{
-						"name": "Gender",
-						"type": "String"
-					},
-					{
-						"name": "Year of birth",
-						"type": "String"
-					},
-					{
-						"name": "Organization/ Company name",
-						"type": "String"
-					},
-					{
-						"name": "Type of entity",
-						"type": "String"
-					},
-					{
-						"name": "Sub-type of entity",
-						"type": "String"
-					},
-					{
-						"name": "Professional status",
-						"type": "String"
-					},
-					{
-						"name": "Functional_title",
-						"type": "String"
-					},
-					{
-						"name": "Howlong",
-						"type": "String"
-					},
-					{
-						"name": "Priorexperience",
-						"type": "String"
-					},
-					{
-						"name": "Address",
-						"type": "String"
-					},
-					{
-						"name": "Cityname",
-						"type": "String"
-					},
-					{
-						"name": "Country",
-						"type": "String"
-					},
-					{
-						"name": "Country code",
-						"type": "String"
-					},
-					{
-						"name": "Pobox",
-						"type": "String"
-					},
-					{
-						"name": "Postalcode",
-						"type": "String"
-					},
-					{
-						"name": "Nationality",
-						"type": "String"
-					},
-					{
-						"name": "Skype",
-						"type": "String"
-					},
-					{
-						"name": "Aim",
-						"type": "String"
-					},
-					{
-						"name": "Yahoo",
-						"type": "String"
-					},
-					{
-						"name": "Msn",
-						"type": "String"
-					},
-					{
-						"name": "Profile_field_Supervisor",
-						"type": "String"
-					},
-					{
-						"name": "Service theme",
-						"type": "String"
-					},
-					{
-						"name": "Cityregion",
-						"type": "String"
-					},
-					{
-						"name": "Job title",
-						"type": "String"
-					},
-					{
-						"name": "Size",
-						"type": "String"
-					},
-					{
-						"name": "Certification_date",
-						"type": "String"
-					},
-					{
-						"name": "Certified",
-						"type": "String"
-					},
-					{
-						"name": "Cohort",
-						"type": "String"
-					},
-					{
-						"name": "Uniqueid",
-						"type": "String"
-					},
-					{
-						"name": "User_id",
-						"type": "String"
-					},
-					{
-						"name": "Enrol_time",
-						"type": "String"
-					},
-					{
-						"name": "FILE_NAME",
-						"type": "String"
-					},
-					{
-						"name": "LOAD_TIMESTAMP",
-						"type": "String"
-					}
-				]
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/source')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/TGT_SALES_KPI')]",
@@ -4034,293 +2043,6 @@
 						"type": "String"
 					}
 				]
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/source')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/TGT_SME')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "source",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "combined"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": "SME.csv",
-						"folderPath": "SME",
-						"fileSystem": "martsupersuperset"
-					},
-					"columnDelimiter": "|",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": [
-					{
-						"name": "ProjectID",
-						"type": "String"
-					},
-					{
-						"name": "Context",
-						"type": "String"
-					},
-					{
-						"name": "Type of tool",
-						"type": "String"
-					},
-					{
-						"name": "Area of change",
-						"type": "String"
-					},
-					{
-						"name": "Service themes",
-						"type": "String"
-					},
-					{
-						"name": "Date of data collection",
-						"type": "String"
-					},
-					{
-						"name": "id",
-						"type": "String"
-					},
-					{
-						"name": "Course_name",
-						"type": "String"
-					},
-					{
-						"name": "Username",
-						"type": "String"
-					},
-					{
-						"name": "Email",
-						"type": "String"
-					},
-					{
-						"name": "Phone number",
-						"type": "String"
-					},
-					{
-						"name": "Title",
-						"type": "String"
-					},
-					{
-						"name": "First name",
-						"type": "String"
-					},
-					{
-						"name": "Middle name",
-						"type": "String"
-					},
-					{
-						"name": "Last name",
-						"type": "String"
-					},
-					{
-						"name": "idnumber",
-						"type": "String"
-					},
-					{
-						"name": "Gender",
-						"type": "String"
-					},
-					{
-						"name": "Year of birth",
-						"type": "String"
-					},
-					{
-						"name": "Organization/ Company name",
-						"type": "String"
-					},
-					{
-						"name": "Type of entity",
-						"type": "String"
-					},
-					{
-						"name": "Sub-type of entity",
-						"type": "String"
-					},
-					{
-						"name": "Professional status",
-						"type": "String"
-					},
-					{
-						"name": "Functional_title",
-						"type": "String"
-					},
-					{
-						"name": "Howlong",
-						"type": "String"
-					},
-					{
-						"name": "Priorexperience",
-						"type": "String"
-					},
-					{
-						"name": "Address",
-						"type": "String"
-					},
-					{
-						"name": "Cityname",
-						"type": "String"
-					},
-					{
-						"name": "Country",
-						"type": "String"
-					},
-					{
-						"name": "Country code",
-						"type": "String"
-					},
-					{
-						"name": "Pobox",
-						"type": "String"
-					},
-					{
-						"name": "Postalcode",
-						"type": "String"
-					},
-					{
-						"name": "Nationality",
-						"type": "String"
-					},
-					{
-						"name": "Skype",
-						"type": "String"
-					},
-					{
-						"name": "Aim",
-						"type": "String"
-					},
-					{
-						"name": "Yahoo",
-						"type": "String"
-					},
-					{
-						"name": "Msn",
-						"type": "String"
-					},
-					{
-						"name": "Profile_field_Supervisor",
-						"type": "String"
-					},
-					{
-						"name": "Service theme",
-						"type": "String"
-					},
-					{
-						"name": "Cityregion",
-						"type": "String"
-					},
-					{
-						"name": "Job title",
-						"type": "String"
-					},
-					{
-						"name": "Size",
-						"type": "String"
-					},
-					{
-						"name": "Certification_date",
-						"type": "String"
-					},
-					{
-						"name": "Certified",
-						"type": "String"
-					},
-					{
-						"name": "Cohort",
-						"type": "String"
-					},
-					{
-						"name": "Uniqueid",
-						"type": "String"
-					},
-					{
-						"name": "User_id",
-						"type": "String"
-					},
-					{
-						"name": "Enrol_time",
-						"type": "String"
-					},
-					{
-						"name": "FILE_NAME",
-						"type": "String"
-					},
-					{
-						"name": "LOAD_TIMESTAMP",
-						"type": "String"
-					}
-				]
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/source')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/AzureSqlDatabase1')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureSqlDatabase",
-				"typeProperties": {
-					"connectionString": "[parameters('AzureSqlDatabase1_connectionString')]"
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/AzureSqlDatabase2')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureSqlDatabase",
-				"typeProperties": {
-					"connectionString": "[parameters('AzureSqlDatabase2_connectionString')]"
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Master')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureSqlDatabase",
-				"typeProperties": {
-					"connectionString": "[parameters('Master_connectionString')]"
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/source')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureBlobFS",
-				"typeProperties": {
-					"url": "[parameters('source_properties_typeProperties_url')]",
-					"accountKey": {
-						"type": "SecureString",
-						"value": "[parameters('source_accountKey')]"
-					}
-				}
 			},
 			"dependsOn": []
 		},
@@ -4595,10 +2317,7 @@
 					"script": "parameters{\n\tfilename as string\n}\nsource(allowSchemaDrift: true,\n\tvalidateSchema: false) ~> source1\nsource1 derive(filename = 'SALES_KPI/'+replace($filename, '.csv', '_'+toString(currentTimestamp(),'YYYYMMdd_HHmmss')+'.csv')) ~> DerivedColumn1\nDerivedColumn1 sink(input(\n\t\t{Project ID} as string,\n\t\tContextCode as string,\n\t\tEventCode as string,\n\t\tA04 as string,\n\t\tDate as string,\n\t\tCountry as string,\n\t\tA12 as string,\n\t\tSalesUSD as string,\n\t\tFILE_NAME as string,\n\t\tLOAD_TIMESTAMP as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\trowUrlColumn:'filename') ~> sink1"
 				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/Stage_SALES_KPI')]",
-				"[concat(variables('factoryId'), '/datasets/DWH_SALES_KPI')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/DF_SME_DIM_COURSE')]",
@@ -4665,7 +2384,6 @@
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/TGT_SME')]",
 				"[concat(variables('factoryId'), '/datasets/MART_DIM_COURSE')]"
 			]
 		},
@@ -4772,7 +2490,6 @@
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/TGT_SME')]",
 				"[concat(variables('factoryId'), '/datasets/MART_DIM_ENTITY')]"
 			]
 		},
@@ -4885,7 +2602,6 @@
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/TGT_SME')]",
 				"[concat(variables('factoryId'), '/datasets/MART_DIM_PARTICIPANT')]"
 			]
 		},
@@ -5171,7 +2887,6 @@
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/TGT_SME')]",
 				"[concat(variables('factoryId'), '/datasets/Master_DIM_AREA_OF_CHANGE')]",
 				"[concat(variables('factoryId'), '/datasets/Master_DIM_DATE')]",
 				"[concat(variables('factoryId'), '/datasets/Master_DIM_CONTEXT_SUB_TYPE')]",
@@ -5228,10 +2943,7 @@
 					"script": "parameters{\n\tfilename as string\n}\nsource(output(\n\t\tProjectID as string,\n\t\tContext as string,\n\t\t{Type of tool} as string,\n\t\t{Area of change} as string,\n\t\t{Service themes} as string,\n\t\t{Date of data collection} as string,\n\t\tid as string,\n\t\tCourse_name as string,\n\t\tUsername as string,\n\t\tEmail as string,\n\t\t{Phone number} as string,\n\t\tTitle as string,\n\t\t{First name} as string,\n\t\t{Middle name} as string,\n\t\t{Last name} as string,\n\t\tidnumber as string,\n\t\tGender as string,\n\t\t{Year of birth} as string,\n\t\t{Organization/ Company name} as string,\n\t\t{Type of entity} as string,\n\t\t{Sub-type of entity} as string,\n\t\t{Professional status} as string,\n\t\tFunctional_title as string,\n\t\tHowlong as string,\n\t\tPriorexperience as string,\n\t\tAddress as string,\n\t\tCityname as string,\n\t\tCountry as string,\n\t\t{Country code} as string,\n\t\tPobox as string,\n\t\tPostalcode as string,\n\t\tNationality as string,\n\t\tSkype as string,\n\t\tAim as string,\n\t\tYahoo as string,\n\t\tMsn as string,\n\t\tProfile_field_Supervisor as string,\n\t\t{Service theme} as string,\n\t\tCityregion as string,\n\t\t{Job title} as string,\n\t\tSize as string,\n\t\tCertification_date as string,\n\t\tCertified as string,\n\t\tCohort as string,\n\t\tUniqueid as string,\n\t\tUser_id as string,\n\t\tEnrol_time as string,\n\t\tFILE_NAME as string,\n\t\tLOAD_TIMESTAMP as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false) ~> source1\nsource1 derive(Priorexperience = replace(Priorexperience,'N/A',''),\n\t\tCertification_date = iif(isNull(toDate(Certification_date,'yyyy-mm-dd')),'',Certification_date),\n\t\tfilename = 'SME/'+replace($filename, '.csv', '_'+toString(currentTimestamp(),'YYYYMMdd_HHmmss')+'.csv')) ~> DerivedColumn1\nDerivedColumn1 sink(input(\n\t\tProjectID as string,\n\t\tContext as string,\n\t\t{Type of tool} as string,\n\t\t{Area of change} as string,\n\t\t{Service themes} as string,\n\t\t{Date of data collection} as string,\n\t\tid as string,\n\t\tCourse_name as string,\n\t\tUsername as string,\n\t\tEmail as string,\n\t\t{Phone number} as string,\n\t\tTitle as string,\n\t\t{First name} as string,\n\t\t{Middle name} as string,\n\t\t{Last name} as string,\n\t\tidnumber as string,\n\t\tGender as string,\n\t\t{Year of birth} as string,\n\t\t{Organization/ Company name} as string,\n\t\t{Type of entity} as string,\n\t\t{Sub-type of entity} as string,\n\t\t{Professional status} as string,\n\t\tFunctional_title as string,\n\t\tHowlong as string,\n\t\tPriorexperience as string,\n\t\tAddress as string,\n\t\tCityname as string,\n\t\tCountry as string,\n\t\t{Country code} as string,\n\t\tPobox as string,\n\t\tPostalcode as string,\n\t\tNationality as string,\n\t\tSkype as string,\n\t\tAim as string,\n\t\tYahoo as string,\n\t\tMsn as string,\n\t\tProfile_field_Supervisor as string,\n\t\t{Service theme} as string,\n\t\tCityregion as string,\n\t\t{Job title} as string,\n\t\tSize as string,\n\t\tCertification_date as string,\n\t\tCertified as string,\n\t\tCohort as string,\n\t\tUniqueid as string,\n\t\tUser_id as string,\n\t\tEnrol_time as string,\n\t\tFILE_NAME as string,\n\t\tLOAD_TIMESTAMP as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\trowUrlColumn:'filename') ~> sink1"
 				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/Stage_SME')]",
-				"[concat(variables('factoryId'), '/datasets/DWH_SME')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/Master_DIM_SOURCE')]",
@@ -5288,9 +3000,7 @@
 					"table": "DIM_SOURCE"
 				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/Master')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/Master_DIM__AGE_GROUP')]",
@@ -5365,9 +3075,7 @@
 					"table": "DIM_AGE_GROUP"
 				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/Master')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/FACT_PROJECT_EVENTS_INDIVIDUAL')]",
@@ -5584,9 +3292,7 @@
 					"table": "FACT_PROJECT_EVENTS_INDIVIDUAL"
 				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase2')]"
-			]
+			"dependsOn": []
 		}
 	]
 }

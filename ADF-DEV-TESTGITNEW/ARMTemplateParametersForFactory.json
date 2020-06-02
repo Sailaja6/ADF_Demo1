@@ -11,6 +11,9 @@
 		"AzureSqlDatabase2_connectionString": {
 			"value": ""
 		},
+		"Master_connectionString": {
+			"value": ""
+		},
 		"source_accountKey": {
 			"value": ""
 		},
