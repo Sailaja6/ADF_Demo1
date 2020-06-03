@@ -33,15 +33,23 @@
 				"type": "String"
 			},
 			{
-				"name": "Project Title",
+				"name": "AccountId",
 				"type": "String"
 			},
 			{
-				"name": "Section",
+				"name": "AccountName",
 				"type": "String"
 			},
 			{
-				"name": "Stage",
+				"name": "Acronym",
+				"type": "String"
+			},
+			{
+				"name": "AccountCountry",
+				"type": "String"
+			},
+			{
+				"name": "Relation",
 				"type": "String"
 			}
 		]

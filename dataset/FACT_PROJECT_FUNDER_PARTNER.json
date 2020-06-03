@@ -1,5 +1,5 @@
 {
-	"name": "FACT_PROJECT_STAGE",
+	"name": "FACT_PROJECT_FUNDER_PARTNER",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureSqlDatabase2",
@@ -9,12 +9,17 @@
 		"type": "AzureSqlTable",
 		"schema": [
 			{
-				"name": "ITC_SECTION_SR_KEY",
+				"name": "FUNDER_SR_KEY",
 				"type": "int",
 				"precision": 10
 			},
 			{
-				"name": "PROJECT_STAGE_SR_KEY",
+				"name": "COUNTRY_SR_KEY",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "RELATION_SR_KEY",
 				"type": "int",
 				"precision": 10
 			},
@@ -55,7 +60,7 @@
 		],
 		"typeProperties": {
 			"schema": "MART_OWNER",
-			"table": "FACT_PROJECT_STAGE"
+			"table": "FACT_PROJECT_FUNDER_PARTNER"
 		}
 	}
 }

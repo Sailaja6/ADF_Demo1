@@ -1,27 +1,21 @@
 {
-	"name": "FACT_PROJECT_STAGE",
+	"name": "Master_DIM_RELATION",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "AzureSqlDatabase2",
+			"referenceName": "Master",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
 		"type": "AzureSqlTable",
 		"schema": [
 			{
-				"name": "ITC_SECTION_SR_KEY",
+				"name": "RELATION_SR_KEY",
 				"type": "int",
 				"precision": 10
 			},
 			{
-				"name": "PROJECT_STAGE_SR_KEY",
-				"type": "int",
-				"precision": 10
-			},
-			{
-				"name": "PROJECT_SR_KEY",
-				"type": "int",
-				"precision": 10
+				"name": "RELATION_DESC",
+				"type": "varchar"
 			},
 			{
 				"name": "BATCH_ID",
@@ -55,7 +49,7 @@
 		],
 		"typeProperties": {
 			"schema": "MART_OWNER",
-			"table": "FACT_PROJECT_STAGE"
+			"table": "DIM_RELATION"
 		}
 	}
 }

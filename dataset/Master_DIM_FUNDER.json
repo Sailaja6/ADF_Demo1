@@ -1,27 +1,33 @@
 {
-	"name": "FACT_PROJECT_STAGE",
+	"name": "Master_DIM_FUNDER",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "AzureSqlDatabase2",
+			"referenceName": "Master",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
 		"type": "AzureSqlTable",
 		"schema": [
 			{
-				"name": "ITC_SECTION_SR_KEY",
+				"name": "FUNDER_SR_KEY",
 				"type": "int",
 				"precision": 10
 			},
 			{
-				"name": "PROJECT_STAGE_SR_KEY",
-				"type": "int",
-				"precision": 10
+				"name": "ACCOUNT_ID",
+				"type": "varchar"
 			},
 			{
-				"name": "PROJECT_SR_KEY",
-				"type": "int",
-				"precision": 10
+				"name": "ACCOUNT_NAME",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ACRONYM",
+				"type": "varchar"
+			},
+			{
+				"name": "ACCOUNT_COUNTRY",
+				"type": "varchar"
 			},
 			{
 				"name": "BATCH_ID",
@@ -55,7 +61,7 @@
 		],
 		"typeProperties": {
 			"schema": "MART_OWNER",
-			"table": "FACT_PROJECT_STAGE"
+			"table": "DIM_FUNDER"
 		}
 	}
 }
