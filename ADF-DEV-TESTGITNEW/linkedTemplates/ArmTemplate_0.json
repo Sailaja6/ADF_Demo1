@@ -478,6 +478,70 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/FACT_PROJECT_COUNTRY')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase2",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Facts"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "PROJECT_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "COUNTRY_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "BATCH_ID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "SOURCE",
+						"type": "varchar"
+					},
+					{
+						"name": "CREATED_BY",
+						"type": "varchar"
+					},
+					{
+						"name": "UPDATED_BY",
+						"type": "varchar"
+					},
+					{
+						"name": "DATE_CREATED",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "DATE_UPDATED",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					}
+				],
+				"typeProperties": {
+					"schema": "MART_OWNER",
+					"table": "FACT_PROJECT_COUNTRY"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase2')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/FACT_PROJECT_EVENTS_INDIVIDUAL')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -690,6 +754,149 @@
 				"typeProperties": {
 					"schema": "MART_OWNER",
 					"table": "FACT_PROJECT_EVENTS_INDIVIDUAL"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase2')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/FACT_PROJECT_FUNDER_PARTNER')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase2",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Facts"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "FUNDER_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "COUNTRY_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "RELATION_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "PROJECT_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "BATCH_ID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "SOURCE",
+						"type": "varchar"
+					},
+					{
+						"name": "CREATED_BY",
+						"type": "varchar"
+					},
+					{
+						"name": "UPDATED_BY",
+						"type": "varchar"
+					},
+					{
+						"name": "DATE_CREATED",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "DATE_UPDATED",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					}
+				],
+				"typeProperties": {
+					"schema": "MART_OWNER",
+					"table": "FACT_PROJECT_FUNDER_PARTNER"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase2')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/FACT_PROJECT_STAGE')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase2",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Facts"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "ITC_SECTION_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "PROJECT_STAGE_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "PROJECT_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "BATCH_ID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "SOURCE",
+						"type": "varchar"
+					},
+					{
+						"name": "CREATED_BY",
+						"type": "varchar"
+					},
+					{
+						"name": "UPDATED_BY",
+						"type": "varchar"
+					},
+					{
+						"name": "DATE_CREATED",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "DATE_UPDATED",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					}
+				],
+				"typeProperties": {
+					"schema": "MART_OWNER",
+					"table": "FACT_PROJECT_STAGE"
 				}
 			},
 			"dependsOn": [
@@ -1462,9 +1669,7 @@
 					},
 					{
 						"name": "DATE_TIME",
-						"type": "datetime",
-						"precision": 23,
-						"scale": 3
+						"type": "date"
 					},
 					{
 						"name": "DAY_OF_MONTH",
@@ -1610,215 +1815,6 @@
 				"typeProperties": {
 					"schema": "MART_OWNER",
 					"table": "DIM_ENTITY_SIZE_GROUP"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/Master')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Master_DIM_ENTITY_SUB_TYPE')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "Master",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "Master"
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [
-					{
-						"name": "ENTITY_SUB_TYPE_SR_KEY",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "ENTITY_TYPE_CODE",
-						"type": "varchar"
-					},
-					{
-						"name": "ENTITY_TYPE_DESC",
-						"type": "varchar"
-					},
-					{
-						"name": "ENTITY_SUB_TYPE_CODE",
-						"type": "varchar"
-					},
-					{
-						"name": "ENTITY_SUB_TYPE_DESC",
-						"type": "varchar"
-					},
-					{
-						"name": "BATCH_ID",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "SOURCE",
-						"type": "varchar"
-					},
-					{
-						"name": "CREATED_BY",
-						"type": "varchar"
-					},
-					{
-						"name": "UPDATED_BY",
-						"type": "varchar"
-					},
-					{
-						"name": "DATE_CREATED",
-						"type": "datetime",
-						"precision": 23,
-						"scale": 3
-					},
-					{
-						"name": "DATE_UPDATED",
-						"type": "datetime",
-						"precision": 23,
-						"scale": 3
-					}
-				],
-				"typeProperties": {
-					"schema": "MART_OWNER",
-					"table": "DIM_ENTITY_SUB_TYPE"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/Master')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Master_DIM_ENTITY_TYPE')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "Master",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "Master"
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [
-					{
-						"name": "ENTITY_TYPE_SR_KEY",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "ENTITY_TYPE_CODE",
-						"type": "varchar"
-					},
-					{
-						"name": "ENTITY_TYPE_DESC",
-						"type": "varchar"
-					},
-					{
-						"name": "BATCH_ID",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "SOURCE",
-						"type": "varchar"
-					},
-					{
-						"name": "CREATED_BY",
-						"type": "varchar"
-					},
-					{
-						"name": "UPDATED_BY",
-						"type": "varchar"
-					},
-					{
-						"name": "DATE_CREATED",
-						"type": "datetime",
-						"precision": 23,
-						"scale": 3
-					},
-					{
-						"name": "DATE_UPDATED",
-						"type": "datetime",
-						"precision": 23,
-						"scale": 3
-					}
-				],
-				"typeProperties": {
-					"schema": "MART_OWNER",
-					"table": "DIM_ENTITY_TYPE"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/Master')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Master_DIM_EVENT_TYPE')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "Master",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "Master"
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [
-					{
-						"name": "EVENT_TYPE_SR_KEY",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "EVENT_TYPE_CODE",
-						"type": "varchar"
-					},
-					{
-						"name": "EVENT_TYPE_DESC",
-						"type": "varchar"
-					},
-					{
-						"name": "BATCH_ID",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "SOURCE",
-						"type": "varchar"
-					},
-					{
-						"name": "CREATED_BY",
-						"type": "varchar"
-					},
-					{
-						"name": "UPDATED_BY",
-						"type": "varchar"
-					},
-					{
-						"name": "DATE_CREATED",
-						"type": "datetime",
-						"precision": 23,
-						"scale": 3
-					},
-					{
-						"name": "DATE_UPDATED",
-						"type": "datetime",
-						"precision": 23,
-						"scale": 3
-					}
-				],
-				"typeProperties": {
-					"schema": "MART_OWNER",
-					"table": "DIM_EVENT_TYPE"
 				}
 			},
 			"dependsOn": [
