@@ -1,5 +1,5 @@
 {
-	"name": "Master_PrjCountry",
+	"name": "Master_PartnerFunder",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "source",
@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "Project_countries.csv",
+				"fileName": "ProjectFunderPartners.csv",
 				"folderPath": "masters",
 				"fileSystem": "itcsource"
 			},
@@ -25,11 +25,23 @@
 				"type": "String"
 			},
 			{
-				"name": "Country",
+				"name": "AccountId",
 				"type": "String"
 			},
 			{
-				"name": "CountryCode",
+				"name": "AccountName",
+				"type": "String"
+			},
+			{
+				"name": "Acronym",
+				"type": "String"
+			},
+			{
+				"name": "AccountCountry",
+				"type": "String"
+			},
+			{
+				"name": "Relation",
 				"type": "String"
 			}
 		]

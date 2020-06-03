@@ -17,12 +17,7 @@
 				"typeProperties": {
 					"dataflow": {
 						"referenceName": "DF_FACT_PROJECT_STAGE",
-						"type": "DataFlowReference",
-						"datasetParameters": {
-							"projectlist": {
-								"FileName": "ProjectsList.csv"
-							}
-						}
+						"type": "DataFlowReference"
 					},
 					"compute": {
 						"coreCount": 8,

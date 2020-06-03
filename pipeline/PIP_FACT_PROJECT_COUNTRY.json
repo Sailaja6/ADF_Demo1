@@ -17,12 +17,7 @@
 				"typeProperties": {
 					"dataflow": {
 						"referenceName": "DF_FACT_PROJECT_COUNTRY",
-						"type": "DataFlowReference",
-						"datasetParameters": {
-							"ProjectCountries": {
-								"FileName": "Project_countries.csv"
-							}
-						}
+						"type": "DataFlowReference"
 					},
 					"compute": {
 						"coreCount": 8,

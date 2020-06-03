@@ -6,7 +6,7 @@
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "Master_Files",
+						"referenceName": "Master_PrjCountry",
 						"type": "DatasetReference"
 					},
 					"name": "ProjectCountries"

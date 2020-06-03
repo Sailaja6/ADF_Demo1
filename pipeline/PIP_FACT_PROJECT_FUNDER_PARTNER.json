@@ -17,12 +17,7 @@
 				"typeProperties": {
 					"dataflow": {
 						"referenceName": "DF_FACT_PROJECT_FUNDER_PARTNER",
-						"type": "DataFlowReference",
-						"datasetParameters": {
-							"ProjectPartnerFunders": {
-								"FileName": "ProjectFunderPartners.csv"
-							}
-						}
+						"type": "DataFlowReference"
 					},
 					"compute": {
 						"coreCount": 8,
