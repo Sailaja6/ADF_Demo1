@@ -26,14 +26,6 @@
 				"precision": 10
 			},
 			{
-				"name": "CREATED_BY",
-				"type": "varchar"
-			},
-			{
-				"name": "UPDATED_BY",
-				"type": "varchar"
-			},
-			{
 				"name": "DATE_CREATED",
 				"type": "datetime",
 				"precision": 23,
