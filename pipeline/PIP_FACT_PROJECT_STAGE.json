@@ -1,9 +1,9 @@
 {
-	"name": "PIP_FACT_PROJECT_FUNDER_PARTNER",
+	"name": "PIP_FACT_PROJECT_STAGE",
 	"properties": {
 		"activities": [
 			{
-				"name": "DF_FACT_PROJECT_FUNDER_PARTNER",
+				"name": "DF_FACT_PROJECT_STAGE",
 				"type": "ExecuteDataFlow",
 				"dependsOn": [],
 				"policy": {
@@ -16,11 +16,11 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataflow": {
-						"referenceName": "DF_FACT_PROJECT_FUNDER_PARTNER",
+						"referenceName": "DF_FACT_PROJECT_STAGE",
 						"type": "DataFlowReference",
 						"datasetParameters": {
-							"ProjectPartnerFunders": {
-								"FileName": "ProjectFunderPartners.csv"
+							"projectlist": {
+								"FileName": "ProjectsList.csv"
 							}
 						}
 					},
