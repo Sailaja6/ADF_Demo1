@@ -1,0 +1,63 @@
+{
+	"name": "Master_DIM_ITC_SECTION",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Master",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "ITC_SECTION_SR_KEY",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "ITC_SECTION_CODE",
+				"type": "varchar"
+			},
+			{
+				"name": "ITC_SECTION_DESC",
+				"type": "varchar"
+			},
+			{
+				"name": "ITC_SECTION_DESC_LONG",
+				"type": "varchar"
+			},
+			{
+				"name": "BATCH_ID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "SOURCE",
+				"type": "varchar"
+			},
+			{
+				"name": "CREATED_BY",
+				"type": "varchar"
+			},
+			{
+				"name": "UPDATED_BY",
+				"type": "varchar"
+			},
+			{
+				"name": "DATE_CREATED",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "DATE_UPDATED",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			}
+		],
+		"typeProperties": {
+			"schema": "MART_OWNER",
+			"table": "DIM_ITC_SECTION"
+		}
+	}
+}

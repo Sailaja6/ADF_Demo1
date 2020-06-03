@@ -1,0 +1,49 @@
+{
+	"name": "Master_Files",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "source",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"FileName": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().FileName",
+					"type": "Expression"
+				},
+				"folderPath": "masters",
+				"fileSystem": "itcsource"
+			},
+			"columnDelimiter": "|",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "ProjectID",
+				"type": "String"
+			},
+			{
+				"name": "Project Title",
+				"type": "String"
+			},
+			{
+				"name": "Section",
+				"type": "String"
+			},
+			{
+				"name": "Stage",
+				"type": "String"
+			}
+		]
+	}
+}
