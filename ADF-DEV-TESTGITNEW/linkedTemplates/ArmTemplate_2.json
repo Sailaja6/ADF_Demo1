@@ -13,6 +13,263 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/Stage_SALES_KPI')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "source",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Stgae"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "SALES_KPI.csv",
+						"folderPath": "STAGE",
+						"fileSystem": "itcsource"
+					},
+					"columnDelimiter": "|",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Stage_SME')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "source",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Stgae"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "SME.csv",
+						"folderPath": "STAGE",
+						"fileSystem": "itcsource"
+					},
+					"columnDelimiter": "|",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "ProjectID",
+						"type": "String"
+					},
+					{
+						"name": "Context",
+						"type": "String"
+					},
+					{
+						"name": "Type of tool",
+						"type": "String"
+					},
+					{
+						"name": "Area of change",
+						"type": "String"
+					},
+					{
+						"name": "Service themes",
+						"type": "String"
+					},
+					{
+						"name": "Date of data collection",
+						"type": "String"
+					},
+					{
+						"name": "id",
+						"type": "String"
+					},
+					{
+						"name": "Course_name",
+						"type": "String"
+					},
+					{
+						"name": "Username",
+						"type": "String"
+					},
+					{
+						"name": "Email",
+						"type": "String"
+					},
+					{
+						"name": "Phone number",
+						"type": "String"
+					},
+					{
+						"name": "Title",
+						"type": "String"
+					},
+					{
+						"name": "First name",
+						"type": "String"
+					},
+					{
+						"name": "Middle name",
+						"type": "String"
+					},
+					{
+						"name": "Last name",
+						"type": "String"
+					},
+					{
+						"name": "idnumber",
+						"type": "String"
+					},
+					{
+						"name": "Gender",
+						"type": "String"
+					},
+					{
+						"name": "Year of birth",
+						"type": "String"
+					},
+					{
+						"name": "Organization/ Company name",
+						"type": "String"
+					},
+					{
+						"name": "Type of entity",
+						"type": "String"
+					},
+					{
+						"name": "Sub-type of entity",
+						"type": "String"
+					},
+					{
+						"name": "Professional status",
+						"type": "String"
+					},
+					{
+						"name": "Functional_title",
+						"type": "String"
+					},
+					{
+						"name": "Howlong",
+						"type": "String"
+					},
+					{
+						"name": "Priorexperience",
+						"type": "String"
+					},
+					{
+						"name": "Address",
+						"type": "String"
+					},
+					{
+						"name": "Cityname",
+						"type": "String"
+					},
+					{
+						"name": "Country",
+						"type": "String"
+					},
+					{
+						"name": "Country code",
+						"type": "String"
+					},
+					{
+						"name": "Pobox",
+						"type": "String"
+					},
+					{
+						"name": "Postalcode",
+						"type": "String"
+					},
+					{
+						"name": "Nationality",
+						"type": "String"
+					},
+					{
+						"name": "Skype",
+						"type": "String"
+					},
+					{
+						"name": "Aim",
+						"type": "String"
+					},
+					{
+						"name": "Yahoo",
+						"type": "String"
+					},
+					{
+						"name": "Msn",
+						"type": "String"
+					},
+					{
+						"name": "Profile_field_Supervisor",
+						"type": "String"
+					},
+					{
+						"name": "Service theme",
+						"type": "String"
+					},
+					{
+						"name": "Cityregion",
+						"type": "String"
+					},
+					{
+						"name": "Job title",
+						"type": "String"
+					},
+					{
+						"name": "Size",
+						"type": "String"
+					},
+					{
+						"name": "Certification_date",
+						"type": "String"
+					},
+					{
+						"name": "Certified",
+						"type": "String"
+					},
+					{
+						"name": "Cohort",
+						"type": "String"
+					},
+					{
+						"name": "Uniqueid",
+						"type": "String"
+					},
+					{
+						"name": "User_id",
+						"type": "String"
+					},
+					{
+						"name": "Enrol_time",
+						"type": "String"
+					},
+					{
+						"name": "FILE_NAME",
+						"type": "String"
+					},
+					{
+						"name": "LOAD_TIMESTAMP",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/TGT_SALES_KPI')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -311,108 +568,6 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/Master_PartnerFunder')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "source",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "Master"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": "ProjectFunderPartners.csv",
-						"folderPath": "masters",
-						"fileSystem": "itcsource"
-					},
-					"columnDelimiter": "|",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": [
-					{
-						"name": "ProjectID",
-						"type": "String"
-					},
-					{
-						"name": "AccountId",
-						"type": "String"
-					},
-					{
-						"name": "AccountName",
-						"type": "String"
-					},
-					{
-						"name": "Acronym",
-						"type": "String"
-					},
-					{
-						"name": "AccountCountry",
-						"type": "String"
-					},
-					{
-						"name": "Relation",
-						"type": "String"
-					}
-				]
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Master_PrjList')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "source",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "Master"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": "ProjectsList.csv",
-						"folderPath": "masters",
-						"fileSystem": "itcsource"
-					},
-					"columnDelimiter": "|",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": [
-					{
-						"name": "ProjectID",
-						"type": "String"
-					},
-					{
-						"name": "Project Title",
-						"type": "String"
-					},
-					{
-						"name": "Section",
-						"type": "String"
-					},
-					{
-						"name": "Stage",
-						"type": "String"
-					}
-				]
-			},
-			"dependsOn": []
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/merging files')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -644,9 +799,7 @@
 					"script": "source(output(\n\t\tProjectID as string,\n\t\tAccountId as string,\n\t\tAccountName as string,\n\t\tAcronym as string,\n\t\tAccountCountry as string,\n\t\tRelation as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false) ~> ProjectPartnerFunders\nsource(output(\n\t\tPROJECT_SR_KEY as integer,\n\t\tPROJECT_ID as string,\n\t\tPROJECT_TITLE as string,\n\t\tBATCH_ID as integer,\n\t\tSOURCE as string,\n\t\tCREATED_BY as string,\n\t\tUPDATED_BY as string,\n\t\tDATE_CREATED as timestamp,\n\t\tDATE_UPDATED as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> DIMPROJECT\nsource(output(\n\t\tFUNDER_SR_KEY as integer,\n\t\tACCOUNT_ID as string,\n\t\tACCOUNT_NAME as string,\n\t\tACRONYM as string,\n\t\tACCOUNT_COUNTRY as string,\n\t\tBATCH_ID as integer,\n\t\tSOURCE as string,\n\t\tCREATED_BY as string,\n\t\tUPDATED_BY as string,\n\t\tDATE_CREATED as timestamp,\n\t\tDATE_UPDATED as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> DIMFUNDER\nsource(output(\n\t\tCOUNTRY_SR_KEY as integer,\n\t\tCOUNTRY_CODE as string,\n\t\tCOUNTRY_NAME_EN as string,\n\t\tCOUNTRY_NAME_ES as string,\n\t\tCOUNTRY_NAME_FR as string,\n\t\tISO2_CODE as string,\n\t\tISO3_CODE as string,\n\t\tLEAST_DEVELPED_COUNTRY as string,\n\t\tLAND_LCKD_DEVELOPING_COUNTRY as string,\n\t\tSMALL_ISLAND_DEVELOPING_STATES as string,\n\t\tDEVELOPED_DEVELOPING_COUNTRY as string,\n\t\tBATCH_ID as integer,\n\t\tSOURCE as string,\n\t\tCREATED_BY as string,\n\t\tUPDATED_BY as string,\n\t\tDATE_CREATED as timestamp,\n\t\tDATE_UPDATED as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> DIMCOUNTRY\nsource(output(\n\t\tRELATION_SR_KEY as integer,\n\t\tRELATION_DESC as string,\n\t\tBATCH_ID as integer,\n\t\tSOURCE as string,\n\t\tCREATED_BY as string,\n\t\tUPDATED_BY as string,\n\t\tDATE_CREATED as timestamp,\n\t\tDATE_UPDATED as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> DIMRELATION\nDIMPROJECT select(mapColumn(\n\t\tPROJECT_SR_KEY,\n\t\tPROJECT_ID\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SelectProjectID\nDIMFUNDER select(mapColumn(\n\t\tFUNDER_SR_KEY,\n\t\tACCOUNT_NAME\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SelectAccountName\nDIMCOUNTRY select(mapColumn(\n\t\tCOUNTRY_SR_KEY,\n\t\tCOUNTRY_CODE,\n\t\tCOUNTRY_NAME_EN\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SelectCountry\nDIMRELATION select(mapColumn(\n\t\tRELATION_SR_KEY,\n\t\tRELATION_DESC\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SelectRelation\nProjectPartnerFunders, SelectProjectID lookup(upper(trim(ProjectID)) == upper(trim(PROJECT_ID)),\n\tmultiple: false,\n\tpickup: 'any',\n\tbroadcast: 'auto')~> LookupProjectID\nLookupProjectID, SelectAccountName lookup(upper(trim(AccountName)) == upper(trim(ACCOUNT_NAME)),\n\tmultiple: false,\n\tpickup: 'any',\n\tbroadcast: 'auto')~> LookupAccounName\nLookupAccounName, SelectCountry lookup(upper(trim(AccountCountry)) == upper(trim(COUNTRY_NAME_EN)),\n\tmultiple: false,\n\tpickup: 'any',\n\tbroadcast: 'auto')~> LookupCountry\nLookupCountry, SelectRelation lookup(upper(trim(Relation)) == upper(trim(RELATION_DESC)),\n\tmultiple: false,\n\tpickup: 'any',\n\tbroadcast: 'auto')~> LookupRelation\nLookupRelation derive({BATCH_ID } = 1,\n\t\tSOURCE = 'ProjectFunderPartners.csv',\n\t\tCREATED_BY = 'ProjectFunderPartners.csv',\n\t\tUPDATED_BY = 'ProjectFunderPartners.csv',\n\t\tDATE_CREATED = currentDate(),\n\t\tDATE_UPDATED = currentDate()) ~> RunInfo\nRunInfo sink(input(\n\t\tFUNDER_SR_KEY as integer,\n\t\tCOUNTRY_SR_KEY as integer,\n\t\tRELATION_SR_KEY as integer,\n\t\tPROJECT_SR_KEY as integer,\n\t\tBATCH_ID as integer,\n\t\tSOURCE as string,\n\t\tCREATED_BY as string,\n\t\tUPDATED_BY as string,\n\t\tDATE_CREATED as timestamp,\n\t\tDATE_UPDATED as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tmapColumn(\n\t\tFUNDER_SR_KEY,\n\t\tCOUNTRY_SR_KEY,\n\t\tRELATION_SR_KEY,\n\t\tPROJECT_SR_KEY,\n\t\tBATCH_ID = {BATCH_ID },\n\t\tSOURCE,\n\t\tCREATED_BY,\n\t\tUPDATED_BY,\n\t\tDATE_CREATED,\n\t\tDATE_UPDATED\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> FactProjectFunderPartner"
 				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/Master_PartnerFunder')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/DF_FACT_PROJECT_STAGE')]",
@@ -717,12 +870,10 @@
 							"name": "RunInfo"
 						}
 					],
-					"script": "source(output(\n\t\tProjectID as string,\n\t\t{Project Title} as string,\n\t\tSection as string,\n\t\tStage as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false) ~> projectlist\nsource(output(\n\t\tPROJECT_SR_KEY as integer,\n\t\tPROJECT_ID as string,\n\t\tPROJECT_TITLE as string,\n\t\tBATCH_ID as integer,\n\t\tSOURCE as string,\n\t\tCREATED_BY as string,\n\t\tUPDATED_BY as string,\n\t\tDATE_CREATED as timestamp,\n\t\tDATE_UPDATED as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> DIMPROJECT\nsource(output(\n\t\tPROJECT_STAGE_SR_KEY as integer,\n\t\tPROJECT_STAGE_CODE as string,\n\t\tPROJECT_STAGE_DESC as string,\n\t\tBATCH_ID as integer,\n\t\tSOURCE as string,\n\t\tCREATED_BY as string,\n\t\tUPDATED_BY as string,\n\t\tDATE_CREATED as timestamp,\n\t\tDATE_UPDATED as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> DIMPROJECTSTAGE\nsource(output(\n\t\tITC_SECTION_SR_KEY as integer,\n\t\tITC_SECTION_CODE as string,\n\t\tITC_SECTION_DESC as string,\n\t\tITC_SECTION_DESC_LONG as string,\n\t\tBATCH_ID as integer,\n\t\tSOURCE as string,\n\t\tCREATED_BY as string,\n\t\tUPDATED_BY as string,\n\t\tDATE_CREATED as timestamp,\n\t\tDATE_UPDATED as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> DIMITCSECTION\nDIMPROJECTSTAGE select(mapColumn(\n\t\tPROJECT_STAGE_SR_KEY,\n\t\tPROJECT_STAGE_CODE,\n\t\tPROJECT_STAGE_DESC\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SelectStage\nDIMPROJECT select(mapColumn(\n\t\tPROJECT_SR_KEY,\n\t\tPROJECT_ID,\n\t\tPROJECT_TITLE,\n\t\tCREATED_BY\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SelectProject\nprojectlist, SelectProject lookup(upper(trim({Project Title})) == upper(trim(PROJECT_TITLE)),\n\tmultiple: false,\n\tpickup: 'any',\n\tbroadcast: 'auto')~> LookupProject\nLookupProject, SelectStage lookup(upper(trim(Stage)) == upper(trim(PROJECT_STAGE_DESC)),\n\tmultiple: false,\n\tpickup: 'any',\n\tbroadcast: 'auto')~> LookupStage\nDIMITCSECTION select(mapColumn(\n\t\tITC_SECTION_SR_KEY,\n\t\tITC_SECTION_CODE,\n\t\tITC_SECTION_DESC\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SelectSection\nLookupStage, SelectSection lookup(upper(trim(Section)) == upper(trim(ITC_SECTION_DESC)),\n\tmultiple: false,\n\tpickup: 'any',\n\tbroadcast: 'auto')~> LookupSection\nLookupSection derive(BATCH_ID = 1,\n\t\tSOURCE = CREATED_BY,\n\t\tCREATED_BY = CREATED_BY,\n\t\tUPDATED_BY = CREATED_BY,\n\t\tDATE_CREATED = currentDate(),\n\t\tDATE_UPDATED = currentDate()) ~> RunInfo\nRunInfo sink(input(\n\t\tITC_SECTION_SR_KEY as integer,\n\t\tPROJECT_STAGE_SR_KEY as integer,\n\t\tPROJECT_SR_KEY as integer,\n\t\tBATCH_ID as integer,\n\t\tSOURCE as string,\n\t\tCREATED_BY as string,\n\t\tUPDATED_BY as string,\n\t\tDATE_CREATED as timestamp,\n\t\tDATE_UPDATED as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tmapColumn(\n\t\tITC_SECTION_SR_KEY,\n\t\tPROJECT_STAGE_SR_KEY,\n\t\tPROJECT_SR_KEY,\n\t\tBATCH_ID,\n\t\tSOURCE,\n\t\tCREATED_BY,\n\t\tUPDATED_BY,\n\t\tDATE_CREATED,\n\t\tDATE_UPDATED\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> FactProjectStage"
+					"script": "source(output(\n\t\tProjectID as string,\n\t\t{Project Title} as string,\n\t\tSection as string,\n\t\tStage as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false) ~> projectlist\nsource(output(\n\t\tPROJECT_SR_KEY as integer,\n\t\tPROJECT_ID as string,\n\t\tPROJECT_TITLE as string,\n\t\tBATCH_ID as integer,\n\t\tSOURCE as string,\n\t\tCREATED_BY as string,\n\t\tUPDATED_BY as string,\n\t\tDATE_CREATED as timestamp,\n\t\tDATE_UPDATED as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> DIMPROJECT\nsource(output(\n\t\tPROJECT_STAGE_SR_KEY as integer,\n\t\tPROJECT_STAGE_CODE as string,\n\t\tPROJECT_STAGE_DESC as string,\n\t\tBATCH_ID as integer,\n\t\tSOURCE as string,\n\t\tCREATED_BY as string,\n\t\tUPDATED_BY as string,\n\t\tDATE_CREATED as timestamp,\n\t\tDATE_UPDATED as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> DIMPROJECTSTAGE\nsource(output(\n\t\tITC_SECTION_SR_KEY as integer,\n\t\tITC_SECTION_CODE as string,\n\t\tITC_SECTION_DESC as string,\n\t\tITC_SECTION_DESC_LONG as string,\n\t\tBATCH_ID as integer,\n\t\tSOURCE as string,\n\t\tCREATED_BY as string,\n\t\tUPDATED_BY as string,\n\t\tDATE_CREATED as timestamp,\n\t\tDATE_UPDATED as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> DIMITCSECTION\nDIMPROJECTSTAGE select(mapColumn(\n\t\tPROJECT_STAGE_SR_KEY,\n\t\tPROJECT_STAGE_CODE,\n\t\tPROJECT_STAGE_DESC\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SelectStage\nDIMPROJECT select(mapColumn(\n\t\tPROJECT_SR_KEY,\n\t\tPROJECT_ID,\n\t\tPROJECT_TITLE,\n\t\tCREATED_BY\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SelectProject\nprojectlist, SelectProject lookup(upper(trim({Project Title})) == upper(trim(PROJECT_TITLE)),\n\tmultiple: false,\n\tpickup: 'any',\n\tbroadcast: 'auto')~> LookupProject\nLookupProject, SelectStage lookup(upper(trim(Stage)) == upper(trim(PROJECT_STAGE_DESC)),\n\tmultiple: false,\n\tpickup: 'any',\n\tbroadcast: 'auto')~> LookupStage\nDIMITCSECTION select(mapColumn(\n\t\tITC_SECTION_SR_KEY,\n\t\tITC_SECTION_CODE,\n\t\tITC_SECTION_DESC\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SelectSection\nLookupStage, SelectSection lookup(upper(trim(Section)) == upper(trim(ITC_SECTION_DESC)),\n\tmultiple: false,\n\tpickup: 'any',\n\tbroadcast: 'auto')~> LookupSection\nLookupSection derive(BATCH_ID = 1,\n\t\tSOURCE = 'ProjectsList.csv',\n\t\tCREATED_BY = 'ProjectsList.csv',\n\t\tUPDATED_BY = 'ProjectsList.csv',\n\t\tDATE_CREATED = currentDate(),\n\t\tDATE_UPDATED = currentDate()) ~> RunInfo\nRunInfo sink(input(\n\t\tITC_SECTION_SR_KEY as integer,\n\t\tPROJECT_STAGE_SR_KEY as integer,\n\t\tPROJECT_SR_KEY as integer,\n\t\tBATCH_ID as integer,\n\t\tSOURCE as string,\n\t\tCREATED_BY as string,\n\t\tUPDATED_BY as string,\n\t\tDATE_CREATED as timestamp,\n\t\tDATE_UPDATED as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tmapColumn(\n\t\tITC_SECTION_SR_KEY,\n\t\tPROJECT_STAGE_SR_KEY,\n\t\tPROJECT_SR_KEY,\n\t\tBATCH_ID,\n\t\tSOURCE,\n\t\tCREATED_BY,\n\t\tUPDATED_BY,\n\t\tDATE_CREATED,\n\t\tDATE_UPDATED\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> FactProjectStage"
 				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/Master_PrjList')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/DF_SALES_DIM_ENTITY')]",
@@ -987,7 +1138,9 @@
 					"script": "parameters{\n\tfilename as string\n}\nsource(allowSchemaDrift: true,\n\tvalidateSchema: false) ~> source1\nsource1 derive(filename = 'SALES_KPI/'+replace($filename, '.csv', '_'+toString(currentTimestamp(),'YYYYMMdd_HHmmss')+'.csv')) ~> DerivedColumn1\nDerivedColumn1 sink(input(\n\t\t{Project ID} as string,\n\t\tContextCode as string,\n\t\tEventCode as string,\n\t\tA04 as string,\n\t\tDate as string,\n\t\tCountry as string,\n\t\tA12 as string,\n\t\tSalesUSD as string,\n\t\tFILE_NAME as string,\n\t\tLOAD_TIMESTAMP as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\trowUrlColumn:'filename') ~> sink1"
 				}
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/Stage_SALES_KPI')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/DF_SME_DIM_COURSE')]",
@@ -1596,7 +1749,9 @@
 					"script": "parameters{\n\tfilename as string\n}\nsource(output(\n\t\tProjectID as string,\n\t\tContext as string,\n\t\t{Type of tool} as string,\n\t\t{Area of change} as string,\n\t\t{Service themes} as string,\n\t\t{Date of data collection} as string,\n\t\tid as string,\n\t\tCourse_name as string,\n\t\tUsername as string,\n\t\tEmail as string,\n\t\t{Phone number} as string,\n\t\tTitle as string,\n\t\t{First name} as string,\n\t\t{Middle name} as string,\n\t\t{Last name} as string,\n\t\tidnumber as string,\n\t\tGender as string,\n\t\t{Year of birth} as string,\n\t\t{Organization/ Company name} as string,\n\t\t{Type of entity} as string,\n\t\t{Sub-type of entity} as string,\n\t\t{Professional status} as string,\n\t\tFunctional_title as string,\n\t\tHowlong as string,\n\t\tPriorexperience as string,\n\t\tAddress as string,\n\t\tCityname as string,\n\t\tCountry as string,\n\t\t{Country code} as string,\n\t\tPobox as string,\n\t\tPostalcode as string,\n\t\tNationality as string,\n\t\tSkype as string,\n\t\tAim as string,\n\t\tYahoo as string,\n\t\tMsn as string,\n\t\tProfile_field_Supervisor as string,\n\t\t{Service theme} as string,\n\t\tCityregion as string,\n\t\t{Job title} as string,\n\t\tSize as string,\n\t\tCertification_date as string,\n\t\tCertified as string,\n\t\tCohort as string,\n\t\tUniqueid as string,\n\t\tUser_id as string,\n\t\tEnrol_time as string,\n\t\tFILE_NAME as string,\n\t\tLOAD_TIMESTAMP as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false) ~> source1\nsource1 derive(Priorexperience = replace(Priorexperience,'N/A',''),\n\t\tCertification_date = iif(isNull(toDate(Certification_date,'yyyy-mm-dd')),'',Certification_date),\n\t\tfilename = 'SME/'+replace($filename, '.csv', '_'+toString(currentTimestamp(),'YYYYMMdd_HHmmss')+'.csv')) ~> DerivedColumn1\nDerivedColumn1 sink(input(\n\t\tProjectID as string,\n\t\tContext as string,\n\t\t{Type of tool} as string,\n\t\t{Area of change} as string,\n\t\t{Service themes} as string,\n\t\t{Date of data collection} as string,\n\t\tid as string,\n\t\tCourse_name as string,\n\t\tUsername as string,\n\t\tEmail as string,\n\t\t{Phone number} as string,\n\t\tTitle as string,\n\t\t{First name} as string,\n\t\t{Middle name} as string,\n\t\t{Last name} as string,\n\t\tidnumber as string,\n\t\tGender as string,\n\t\t{Year of birth} as string,\n\t\t{Organization/ Company name} as string,\n\t\t{Type of entity} as string,\n\t\t{Sub-type of entity} as string,\n\t\t{Professional status} as string,\n\t\tFunctional_title as string,\n\t\tHowlong as string,\n\t\tPriorexperience as string,\n\t\tAddress as string,\n\t\tCityname as string,\n\t\tCountry as string,\n\t\t{Country code} as string,\n\t\tPobox as string,\n\t\tPostalcode as string,\n\t\tNationality as string,\n\t\tSkype as string,\n\t\tAim as string,\n\t\tYahoo as string,\n\t\tMsn as string,\n\t\tProfile_field_Supervisor as string,\n\t\t{Service theme} as string,\n\t\tCityregion as string,\n\t\t{Job title} as string,\n\t\tSize as string,\n\t\tCertification_date as string,\n\t\tCertified as string,\n\t\tCohort as string,\n\t\tUniqueid as string,\n\t\tUser_id as string,\n\t\tEnrol_time as string,\n\t\tFILE_NAME as string,\n\t\tLOAD_TIMESTAMP as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\trowUrlColumn:'filename') ~> sink1"
 				}
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/Stage_SME')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/PIP_FACT_PROJECT_COUNTRY')]",
