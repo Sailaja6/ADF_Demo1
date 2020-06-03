@@ -5,6 +5,9 @@
 			"referenceName": "source",
 			"type": "LinkedServiceReference"
 		},
+		"folder": {
+			"name": "Master"
+		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
