@@ -33,23 +33,11 @@
 				"type": "String"
 			},
 			{
-				"name": "AccountId",
+				"name": "Country",
 				"type": "String"
 			},
 			{
-				"name": "AccountName",
-				"type": "String"
-			},
-			{
-				"name": "Acronym",
-				"type": "String"
-			},
-			{
-				"name": "AccountCountry",
-				"type": "String"
-			},
-			{
-				"name": "Relation",
+				"name": "CountryCode",
 				"type": "String"
 			}
 		]
