@@ -6778,6 +6778,286 @@
 				"[concat(variables('factoryId'), '/datasets/Stage_SME')]",
 				"[concat(variables('factoryId'), '/datasets/DWH_SME')]"
 			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SMEtable')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Master",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "ProjectID",
+						"type": "varchar"
+					},
+					{
+						"name": "Context",
+						"type": "varchar"
+					},
+					{
+						"name": "Type of tool",
+						"type": "varchar"
+					},
+					{
+						"name": "Area of change",
+						"type": "varchar"
+					},
+					{
+						"name": "Service themes",
+						"type": "varchar"
+					},
+					{
+						"name": "Date of data collection",
+						"type": "varchar"
+					},
+					{
+						"name": "id",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Course_name",
+						"type": "varchar"
+					},
+					{
+						"name": "Username",
+						"type": "varchar"
+					},
+					{
+						"name": "Email",
+						"type": "varchar"
+					},
+					{
+						"name": "Phone number",
+						"type": "varchar"
+					},
+					{
+						"name": "Title",
+						"type": "varchar"
+					},
+					{
+						"name": "First name",
+						"type": "varchar"
+					},
+					{
+						"name": "Middle name",
+						"type": "varchar"
+					},
+					{
+						"name": "Last name",
+						"type": "varchar"
+					},
+					{
+						"name": "idnumber",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Gender",
+						"type": "varchar"
+					},
+					{
+						"name": "Year of birth",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Organization/ Company name",
+						"type": "varchar"
+					},
+					{
+						"name": "Type of entity",
+						"type": "varchar"
+					},
+					{
+						"name": "Sub-type of entity",
+						"type": "varchar"
+					},
+					{
+						"name": "Professional status",
+						"type": "varchar"
+					},
+					{
+						"name": "Functional_title",
+						"type": "varchar"
+					},
+					{
+						"name": "Howlong",
+						"type": "varchar"
+					},
+					{
+						"name": "Priorexperience",
+						"type": "varchar"
+					},
+					{
+						"name": "Address",
+						"type": "varchar"
+					},
+					{
+						"name": "Cityname",
+						"type": "varchar"
+					},
+					{
+						"name": "Country",
+						"type": "varchar"
+					},
+					{
+						"name": "Country code",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Pobox",
+						"type": "varchar"
+					},
+					{
+						"name": "Postalcode",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Nationality",
+						"type": "varchar"
+					},
+					{
+						"name": "Skype",
+						"type": "varchar"
+					},
+					{
+						"name": "Aim",
+						"type": "varchar"
+					},
+					{
+						"name": "Yahoo",
+						"type": "varchar"
+					},
+					{
+						"name": "Msn",
+						"type": "varchar"
+					},
+					{
+						"name": "Profile_field_Supervisor",
+						"type": "varchar"
+					},
+					{
+						"name": "Service theme",
+						"type": "varchar"
+					},
+					{
+						"name": "Cityregion",
+						"type": "varchar"
+					},
+					{
+						"name": "Job title",
+						"type": "varchar"
+					},
+					{
+						"name": "Size",
+						"type": "varchar"
+					},
+					{
+						"name": "Certification_date",
+						"type": "varchar"
+					},
+					{
+						"name": "Certified",
+						"type": "varchar"
+					},
+					{
+						"name": "Cohort",
+						"type": "varchar"
+					},
+					{
+						"name": "Uniqueid",
+						"type": "varchar"
+					},
+					{
+						"name": "User_id",
+						"type": "varchar"
+					},
+					{
+						"name": "Enrol_time",
+						"type": "varchar"
+					},
+					{
+						"name": "FILE_NAME",
+						"type": "varchar"
+					},
+					{
+						"name": "LOAD_TIMESTAMP",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "MART_OWNER",
+					"table": "SME"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Master')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/cpySME')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy data1",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "AzureSqlSink"
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "TGT_SME",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "SMEtable",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/TGT_SME')]",
+				"[concat(variables('factoryId'), '/datasets/SMEtable')]"
+			]
 		}
 	]
 }
