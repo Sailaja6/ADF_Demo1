@@ -2,7 +2,7 @@
 	"name": "SMEtable",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "Master",
+			"referenceName": "AzureSqlDatabase2",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
