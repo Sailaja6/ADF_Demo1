@@ -1,0 +1,1770 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "ITCADF"
+		},
+		"AzureSqlDatabase1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase1'"
+		},
+		"AzureSqlDatabase2_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase2'"
+		},
+		"Master_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'Master'"
+		},
+		"source_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'source'"
+		},
+		"source_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://itcsource1.dfs.core.windows.net"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureSqlDatabase1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"connectionString": "[parameters('AzureSqlDatabase1_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureSqlDatabase2')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"connectionString": "[parameters('AzureSqlDatabase2_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Master')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"connectionString": "[parameters('Master_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/source')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('source_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('source_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/testing_pipeline')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Wait1",
+						"type": "Wait",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"waitTimeInSeconds": 10
+						}
+					}
+				],
+				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DWH_SALES_KPI')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "source",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "DWH"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "SALES_KPI",
+						"fileSystem": "itcdwhdatalake"
+					},
+					"columnDelimiter": "|",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "Project ID",
+						"type": "String"
+					},
+					{
+						"name": "ContextCode",
+						"type": "String"
+					},
+					{
+						"name": "EventCode",
+						"type": "String"
+					},
+					{
+						"name": "A04",
+						"type": "String"
+					},
+					{
+						"name": "Date",
+						"type": "String"
+					},
+					{
+						"name": "Country",
+						"type": "String"
+					},
+					{
+						"name": "A12",
+						"type": "String"
+					},
+					{
+						"name": "SalesUSD",
+						"type": "String"
+					},
+					{
+						"name": "FILE_NAME",
+						"type": "String"
+					},
+					{
+						"name": "LOAD_TIMESTAMP",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/source')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DWH_SME')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "source",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "DWH"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "SME",
+						"fileSystem": "itcdwhdatalake"
+					},
+					"columnDelimiter": "|",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "ProjectID",
+						"type": "String"
+					},
+					{
+						"name": "Context",
+						"type": "String"
+					},
+					{
+						"name": "Type of tool",
+						"type": "String"
+					},
+					{
+						"name": "Area of change",
+						"type": "String"
+					},
+					{
+						"name": "Service themes",
+						"type": "String"
+					},
+					{
+						"name": "Date of data collection",
+						"type": "String"
+					},
+					{
+						"name": "id",
+						"type": "String"
+					},
+					{
+						"name": "Course_name",
+						"type": "String"
+					},
+					{
+						"name": "Username",
+						"type": "String"
+					},
+					{
+						"name": "Email",
+						"type": "String"
+					},
+					{
+						"name": "Phone number",
+						"type": "String"
+					},
+					{
+						"name": "Title",
+						"type": "String"
+					},
+					{
+						"name": "First name",
+						"type": "String"
+					},
+					{
+						"name": "Middle name",
+						"type": "String"
+					},
+					{
+						"name": "Last name",
+						"type": "String"
+					},
+					{
+						"name": "idnumber",
+						"type": "String"
+					},
+					{
+						"name": "Gender",
+						"type": "String"
+					},
+					{
+						"name": "Year of birth",
+						"type": "String"
+					},
+					{
+						"name": "Organization/ Company name",
+						"type": "String"
+					},
+					{
+						"name": "Type of entity",
+						"type": "String"
+					},
+					{
+						"name": "Sub-type of entity",
+						"type": "String"
+					},
+					{
+						"name": "Professional status",
+						"type": "String"
+					},
+					{
+						"name": "Functional_title",
+						"type": "String"
+					},
+					{
+						"name": "Howlong",
+						"type": "String"
+					},
+					{
+						"name": "Priorexperience",
+						"type": "String"
+					},
+					{
+						"name": "Address",
+						"type": "String"
+					},
+					{
+						"name": "Cityname",
+						"type": "String"
+					},
+					{
+						"name": "Country",
+						"type": "String"
+					},
+					{
+						"name": "Country code",
+						"type": "String"
+					},
+					{
+						"name": "Pobox",
+						"type": "String"
+					},
+					{
+						"name": "Postalcode",
+						"type": "String"
+					},
+					{
+						"name": "Nationality",
+						"type": "String"
+					},
+					{
+						"name": "Skype",
+						"type": "String"
+					},
+					{
+						"name": "Aim",
+						"type": "String"
+					},
+					{
+						"name": "Yahoo",
+						"type": "String"
+					},
+					{
+						"name": "Msn",
+						"type": "String"
+					},
+					{
+						"name": "Profile_field_Supervisor",
+						"type": "String"
+					},
+					{
+						"name": "Service theme",
+						"type": "String"
+					},
+					{
+						"name": "Cityregion",
+						"type": "String"
+					},
+					{
+						"name": "Job title",
+						"type": "String"
+					},
+					{
+						"name": "Size",
+						"type": "String"
+					},
+					{
+						"name": "Certification_date",
+						"type": "String"
+					},
+					{
+						"name": "Certified",
+						"type": "String"
+					},
+					{
+						"name": "Cohort",
+						"type": "String"
+					},
+					{
+						"name": "Uniqueid",
+						"type": "String"
+					},
+					{
+						"name": "User_id",
+						"type": "String"
+					},
+					{
+						"name": "Enrol_time",
+						"type": "String"
+					},
+					{
+						"name": "FILE_NAME",
+						"type": "String"
+					},
+					{
+						"name": "LOAD_TIMESTAMP",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/source')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/FACT_ENTITY_BUSINESS_TRANSACTIONS')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase2",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Facts"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "PROJECT_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "CONTEXT_SUB_TYPE_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "EVENT_TYPE_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "ENTITY_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "TRANSACTION_DATE_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "COUNTRY_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "SALES_IN_USD",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "BATCH_ID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "SOURCE",
+						"type": "varchar"
+					},
+					{
+						"name": "CREATED_BY",
+						"type": "varchar"
+					},
+					{
+						"name": "UPDATED_BY",
+						"type": "varchar"
+					},
+					{
+						"name": "DATE_CREATED",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "DATE_UPDATED",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					}
+				],
+				"typeProperties": {
+					"schema": "MART_OWNER",
+					"table": "FACT_ENTITY_BUSINESS_TRANSACTIONS"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase2')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/FACT_PROJECT_COUNTRY')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase2",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Facts"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "PROJECT_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "COUNTRY_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "BATCH_ID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "SOURCE",
+						"type": "varchar"
+					},
+					{
+						"name": "CREATED_BY",
+						"type": "varchar"
+					},
+					{
+						"name": "UPDATED_BY",
+						"type": "varchar"
+					},
+					{
+						"name": "DATE_CREATED",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "DATE_UPDATED",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					}
+				],
+				"typeProperties": {
+					"schema": "MART_OWNER",
+					"table": "FACT_PROJECT_COUNTRY"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase2')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/FACT_PROJECT_EVENTS_INDIVIDUAL')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase2",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Facts"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "PROJECT_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "CONTEXT_SUB_TYPE_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "EVENT_TYPE_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "TRAINING_TYPE_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "PLATFORM_TYPE_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "PARTICIPANT_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "DATE_COLLECTION_DATE_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "SUBMISSON_DATE_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "GENDER_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "DATE_OF_BIRTH_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "DATE_OF_BIRTH2_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "PARTICIPANT_HOME_COUNTRY_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "ENTITY_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "PROFESSIONAL_STATUS_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "ENTITY_TYPE_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "ENTITY_SUB_TYPE_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "ENTITY_COUNTRY_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "SOURCE_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "ENTITY_SIZE_GROUP_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "COURSE_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "AREA_OF_CHANGE_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "SERVICE_THEME1_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "SERVICE_THEME2_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "HS_CODE_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "INT_STD_INDUSTRY_CODES_ISIC_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "TOP_MANAGER_GENDER_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "TOP_MANAGER_AGE_GROUP_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "AGE_GROUP_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "CERTIFICATION_DATE_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "CERTIFIED_FLAG",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "ENROLL_DATE_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "YOUTH_MANAGED_FLAG",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "WOMAN_MANAGED_FLAG",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "BATCH_ID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "SOURCE",
+						"type": "varchar"
+					},
+					{
+						"name": "CREATED_BY",
+						"type": "varchar"
+					},
+					{
+						"name": "UPDATED_BY",
+						"type": "varchar"
+					},
+					{
+						"name": "DATE_CREATED",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "DATE_UPDATED",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					}
+				],
+				"typeProperties": {
+					"schema": "MART_OWNER",
+					"table": "FACT_PROJECT_EVENTS_INDIVIDUAL"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase2')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/FACT_PROJECT_FUNDER_PARTNER')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase2",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Facts"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "FUNDER_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "COUNTRY_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "RELATION_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "PROJECT_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "BATCH_ID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "SOURCE",
+						"type": "varchar"
+					},
+					{
+						"name": "CREATED_BY",
+						"type": "varchar"
+					},
+					{
+						"name": "UPDATED_BY",
+						"type": "varchar"
+					},
+					{
+						"name": "DATE_CREATED",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "DATE_UPDATED",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					}
+				],
+				"typeProperties": {
+					"schema": "MART_OWNER",
+					"table": "FACT_PROJECT_FUNDER_PARTNER"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase2')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/FACT_PROJECT_STAGE')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase2",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Facts"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "ITC_SECTION_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "PROJECT_STAGE_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "PROJECT_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "BATCH_ID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "SOURCE",
+						"type": "varchar"
+					},
+					{
+						"name": "CREATED_BY",
+						"type": "varchar"
+					},
+					{
+						"name": "UPDATED_BY",
+						"type": "varchar"
+					},
+					{
+						"name": "DATE_CREATED",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "DATE_UPDATED",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					}
+				],
+				"typeProperties": {
+					"schema": "MART_OWNER",
+					"table": "FACT_PROJECT_STAGE"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase2')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/MART_DIM_COURSE')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase2",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "DIM"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "COURSE_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "COURSE_NAME",
+						"type": "varchar"
+					},
+					{
+						"name": "BATCH_ID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "SOURCE",
+						"type": "varchar"
+					},
+					{
+						"name": "CREATED_BY",
+						"type": "varchar"
+					},
+					{
+						"name": "UPDATED_BY",
+						"type": "varchar"
+					},
+					{
+						"name": "DATE_CREATED",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "DATE_UPDATED",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					}
+				],
+				"typeProperties": {
+					"schema": "MART_OWNER",
+					"table": "DIM_COURSE"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase2')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/MART_DIM_ENTITY')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase2",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "DIM"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "ENTITY_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "ENTITY_ID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "VERSION_NO",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "ENTITY_NAME",
+						"type": "varchar"
+					},
+					{
+						"name": "ENTITY_EMAIL_DOMAIN_NAME",
+						"type": "varchar"
+					},
+					{
+						"name": "ADDRESS",
+						"type": "varchar"
+					},
+					{
+						"name": "CITY",
+						"type": "varchar"
+					},
+					{
+						"name": "REGION",
+						"type": "varchar"
+					},
+					{
+						"name": "PHONE_NUMBER",
+						"type": "varchar"
+					},
+					{
+						"name": "WEBSITE",
+						"type": "varchar"
+					},
+					{
+						"name": "TWITTER",
+						"type": "varchar"
+					},
+					{
+						"name": "LINKEDIN",
+						"type": "varchar"
+					},
+					{
+						"name": "BSO_OWNERSHIP",
+						"type": "varchar"
+					},
+					{
+						"name": "POST_CODE",
+						"type": "varchar"
+					},
+					{
+						"name": "POBOX",
+						"type": "varchar"
+					},
+					{
+						"name": "CITY_REGION",
+						"type": "varchar"
+					},
+					{
+						"name": "CATEGORY",
+						"type": "varchar"
+					},
+					{
+						"name": "CONFIDENTIAL",
+						"type": "varchar"
+					},
+					{
+						"name": "SOCIAL_MEDIA",
+						"type": "varchar"
+					},
+					{
+						"name": "OTHER_EMAILS",
+						"type": "varchar"
+					},
+					{
+						"name": "OTHER_PHONE_NUMBERS",
+						"type": "varchar"
+					},
+					{
+						"name": "OTHER_INFORMATION",
+						"type": "varchar"
+					},
+					{
+						"name": "MAILING_ADDRESS_STREET1",
+						"type": "varchar"
+					},
+					{
+						"name": "MAILING_ADDRESS_STREET2",
+						"type": "varchar"
+					},
+					{
+						"name": "MAILING_ADDRESS_CITY",
+						"type": "varchar"
+					},
+					{
+						"name": "MAILING_STATE_PROVICE",
+						"type": "varchar"
+					},
+					{
+						"name": "MAILING_POST_CODE",
+						"type": "varchar"
+					},
+					{
+						"name": "MAILING_COUNTRY",
+						"type": "varchar"
+					},
+					{
+						"name": "MAILING_FORMAT_UN",
+						"type": "varchar"
+					},
+					{
+						"name": "FIRM_ID",
+						"type": "varchar"
+					},
+					{
+						"name": "BATCH_ID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "SOURCE",
+						"type": "varchar"
+					},
+					{
+						"name": "CREATED_BY",
+						"type": "varchar"
+					},
+					{
+						"name": "UPDATED_BY",
+						"type": "varchar"
+					},
+					{
+						"name": "DATE_CREATED",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "DATE_UPDATED",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					}
+				],
+				"typeProperties": {
+					"schema": "MART_OWNER",
+					"table": "DIM_ENTITY"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase2')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/MART_DIM_PARTICIPANT')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase2",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "DIM"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "PARTICIPANT_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "PARTICIPANT_ID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "VERSION_NO",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "EMAIL",
+						"type": "varchar"
+					},
+					{
+						"name": "LAST_NAME",
+						"type": "varchar"
+					},
+					{
+						"name": "MIDDLE_NAME",
+						"type": "varchar"
+					},
+					{
+						"name": "FIRST_NAME",
+						"type": "varchar"
+					},
+					{
+						"name": "GENDER",
+						"type": "varchar"
+					},
+					{
+						"name": "YEAR_OF_BIRTH",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "NATIONALITY",
+						"type": "varchar"
+					},
+					{
+						"name": "JOB_TITLE",
+						"type": "varchar"
+					},
+					{
+						"name": "ADDRESS",
+						"type": "varchar"
+					},
+					{
+						"name": "ID",
+						"type": "varchar"
+					},
+					{
+						"name": "USERNAME",
+						"type": "varchar"
+					},
+					{
+						"name": "HOWLONG",
+						"type": "varchar"
+					},
+					{
+						"name": "PRIOR_EXPERIENCE",
+						"type": "varchar"
+					},
+					{
+						"name": "SALUTATION",
+						"type": "varchar"
+					},
+					{
+						"name": "CITY_NAME",
+						"type": "varchar"
+					},
+					{
+						"name": "POBOX",
+						"type": "varchar"
+					},
+					{
+						"name": "POST_CODE",
+						"type": "varchar"
+					},
+					{
+						"name": "SKYPE",
+						"type": "varchar"
+					},
+					{
+						"name": "AIM",
+						"type": "varchar"
+					},
+					{
+						"name": "Yahoo",
+						"type": "varchar"
+					},
+					{
+						"name": "MSN",
+						"type": "varchar"
+					},
+					{
+						"name": "CITY_REGION",
+						"type": "varchar"
+					},
+					{
+						"name": "OTHER_INFORMATION",
+						"type": "varchar"
+					},
+					{
+						"name": "OTHER_PHONE_NUMBERS",
+						"type": "varchar"
+					},
+					{
+						"name": "OTHER_EMAILS",
+						"type": "varchar"
+					},
+					{
+						"name": "SOCIAL_MEDIA",
+						"type": "varchar"
+					},
+					{
+						"name": "PREFERRED_LANGUAGE",
+						"type": "varchar"
+					},
+					{
+						"name": "CONFIDENTIAL",
+						"type": "varchar"
+					},
+					{
+						"name": "PHONE_NUMBER",
+						"type": "varchar"
+					},
+					{
+						"name": "BATCH_ID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "SOURCE",
+						"type": "varchar"
+					},
+					{
+						"name": "CREATED_BY",
+						"type": "varchar"
+					},
+					{
+						"name": "UPDATED_BY",
+						"type": "varchar"
+					},
+					{
+						"name": "DATE_CREATED",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "DATE_UPDATED",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					}
+				],
+				"typeProperties": {
+					"schema": "MART_OWNER",
+					"table": "DIM_PARTICIPANT"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase2')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Master_DIM_AGE_GROUP')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Master",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Master"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "AGE_GROUP_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "AGE_GROUP_CODE",
+						"type": "varchar"
+					},
+					{
+						"name": "AGE_GROUP_DESC",
+						"type": "varchar"
+					},
+					{
+						"name": "LOWER_AGE_LIMIT",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "HIGHER_AGE_LIMIT",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "BATCH_ID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "SOURCE",
+						"type": "varchar"
+					},
+					{
+						"name": "CREATED_BY",
+						"type": "varchar"
+					},
+					{
+						"name": "UPDATED_BY",
+						"type": "varchar"
+					},
+					{
+						"name": "DATE_CREATED",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "DATE_UPDATED",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					}
+				],
+				"typeProperties": {
+					"schema": "MART_OWNER",
+					"table": "DIM_AGE_GROUP"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Master')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Master_DIM_AREA_OF_CHANGE')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Master",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Master"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "AREA_OF_CHANGE_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "AREA_OF_CHANGE_CODE",
+						"type": "varchar"
+					},
+					{
+						"name": "AREA_OF_CHANGE_DESC",
+						"type": "varchar"
+					},
+					{
+						"name": "BATCH_ID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "SOURCE",
+						"type": "varchar"
+					},
+					{
+						"name": "CREATED_BY",
+						"type": "varchar"
+					},
+					{
+						"name": "UPDATED_BY",
+						"type": "varchar"
+					},
+					{
+						"name": "DATE_CREATED",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "DATE_UPDATED",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					}
+				],
+				"typeProperties": {
+					"schema": "MART_OWNER",
+					"table": "DIM_AREA_OF_CHANGE"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Master')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Master_DIM_CONTEXT_SUB_TYPE')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Master",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Master"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "CONTEXT_SUB_TYPE_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "CONTEXT_TYPE_CODE",
+						"type": "varchar"
+					},
+					{
+						"name": "CONTEXT_TYPE_DESC",
+						"type": "varchar"
+					},
+					{
+						"name": "CONTEXT_SUB_TYPE_CODE",
+						"type": "varchar"
+					},
+					{
+						"name": "CONTEXT_SUB_TYPE_DESC",
+						"type": "varchar"
+					},
+					{
+						"name": "BATCH_ID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "SOURCE",
+						"type": "varchar"
+					},
+					{
+						"name": "CREATED_BY",
+						"type": "varchar"
+					},
+					{
+						"name": "UPDATED_BY",
+						"type": "varchar"
+					},
+					{
+						"name": "DATE_CREATED",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "DATE_UPDATED",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					}
+				],
+				"typeProperties": {
+					"schema": "MART_OWNER",
+					"table": "DIM_CONTEXT_SUB_TYPE"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Master')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Master_DIM_COUNTRY')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Master",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Master"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "COUNTRY_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "COUNTRY_CODE",
+						"type": "varchar"
+					},
+					{
+						"name": "COUNTRY_NAME_EN",
+						"type": "varchar"
+					},
+					{
+						"name": "COUNTRY_NAME_ES",
+						"type": "nvarchar"
+					},
+					{
+						"name": "COUNTRY_NAME_FR",
+						"type": "nvarchar"
+					},
+					{
+						"name": "ISO2_CODE",
+						"type": "varchar"
+					},
+					{
+						"name": "ISO3_CODE",
+						"type": "varchar"
+					},
+					{
+						"name": "LEAST_DEVELPED_COUNTRY",
+						"type": "varchar"
+					},
+					{
+						"name": "LAND_LCKD_DEVELOPING_COUNTRY",
+						"type": "varchar"
+					},
+					{
+						"name": "SMALL_ISLAND_DEVELOPING_STATES",
+						"type": "varchar"
+					},
+					{
+						"name": "DEVELOPED_DEVELOPING_COUNTRY",
+						"type": "varchar"
+					},
+					{
+						"name": "BATCH_ID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "SOURCE",
+						"type": "varchar"
+					},
+					{
+						"name": "CREATED_BY",
+						"type": "varchar"
+					},
+					{
+						"name": "UPDATED_BY",
+						"type": "varchar"
+					},
+					{
+						"name": "DATE_CREATED",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "DATE_UPDATED",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					}
+				],
+				"typeProperties": {
+					"schema": "MART_OWNER",
+					"table": "DIM_COUNTRY"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Master')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Master_DIM_DATE')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Master",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Master"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "DATE_SR_KEY",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "DATE_TIME",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "DAY_OF_MONTH",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "CALENDER_MONTH_NAME",
+						"type": "varchar"
+					},
+					{
+						"name": "CALENDER_MONTH_ID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "CALENDER_YEAR",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "CALENDER_QUARTER_ID",
+						"type": "varchar"
+					},
+					{
+						"name": "CALENDER_QUARTER_NAME",
+						"type": "varchar"
+					},
+					{
+						"name": "CALENDER_HALF_YEAR_ID",
+						"type": "varchar"
+					},
+					{
+						"name": "CALENDER_HALF_YEAR_NAME",
+						"type": "varchar"
+					},
+					{
+						"name": "FISCAL_MONTH_ID",
+						"type": "varchar"
+					},
+					{
+						"name": "FISCAL_MONTH_NAME",
+						"type": "varchar"
+					},
+					{
+						"name": "FISCAL_QUARTER_ID",
+						"type": "varchar"
+					},
+					{
+						"name": "FISCAL_QUARTER_NAME",
+						"type": "varchar"
+					},
+					{
+						"name": "FISCAL_HALF_YEAR_ID",
+						"type": "varchar"
+					},
+					{
+						"name": "FISCAL_HALF_YEAR_NAME",
+						"type": "varchar"
+					},
+					{
+						"name": "FISCAL_YEAR",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "MART_OWNER",
+					"table": "DIM_DATE"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Master')]"
+			]
+		}
+	]
+}
