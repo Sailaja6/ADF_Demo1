@@ -1,5 +1,5 @@
 {
-	"name": "dataflow1",
+	"name": "df_testmerging",
 	"properties": {
 		"type": "MappingDataFlow",
 		"typeProperties": {
@@ -14,6 +14,10 @@
 			],
 			"sinks": [
 				{
+					"dataset": {
+						"referenceName": "test_trgt",
+						"type": "DatasetReference"
+					},
 					"name": "target"
 				}
 			],
@@ -22,7 +26,7 @@
 					"name": "DerivedColumn1"
 				}
 			],
-			"script": "source(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\twildcardPaths:['test/*.csv']) ~> mergeng \nmergeng  derive(FILE_NAME = 1,\n\t\tLOAD_TIMESTAMP = 1) ~> DerivedColumn1\nDerivedColumn1 sink(skipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> target"
+			"script": "source(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\twildcardPaths:['test/*.csv']) ~> mergeng \nmergeng  derive(FILE_NAME = 1,\n\t\tLOAD_TIMESTAMP = 1) ~> DerivedColumn1\nDerivedColumn1 sink(input(\n\t\tEmp_ID as string,\n\t\tFirst_name as string,\n\t\tlast_name as string,\n\t\tGender as string,\n\t\tDeprt as string,\n\t\tFile_name as string,\n\t\tLoad_time as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tpartitionFileNames:['emp_final.csv'],\n\tpartitionBy('hash', 1),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> target"
 		}
 	}
 }
